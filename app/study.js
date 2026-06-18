@@ -117,6 +117,7 @@
 
   function buildSubjectSelect() {
     var sel = $("subject");
+    var label = $("subjectLabel");
     sel.replaceChildren();
     for (var i = 0; i < state.view.subjects.length; i++) {
       var s = state.view.subjects[i];
@@ -125,7 +126,14 @@
       opt.textContent = (s.meta && s.meta.title) || s.slug;
       sel.appendChild(opt);
     }
-    sel.disabled = state.view.subjects.length < 2;
+    // With a single subject the dropdown has nothing to pick — show a plain
+    // label instead, and only reveal the real <select> once there are 2+.
+    var single = state.view.subjects.length < 2;
+    sel.hidden = single;
+    if (label) {
+      label.hidden = !single;
+      label.textContent = (single && sel.options.length) ? sel.options[0].textContent : "";
+    }
   }
 
   function buildTopicSelect() {
