@@ -1,0 +1,17 @@
+{
+  "background_color": "#0f1419",
+  "display": "standalone",
+  "icons": [
+    {
+      "purpose": "any maskable",
+      "sizes": "any",
+      "src": "./app/icon.svg",
+      "type": "image/svg+xml"
+    }
+  ],
+  "name": "secstudy — Security Study Platform",
+  "scope": "./",
+  "short_name": "secstudy",
+  "start_url": "./",
+  "theme_color": "#0f1419"
+}

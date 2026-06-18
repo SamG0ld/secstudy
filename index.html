@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="theme-color" content="#0f1419">
+  <meta name="color-scheme" content="dark">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./app/icon.svg">
+  <link rel="apple-touch-icon" href="./app/icon.svg">
+  <link rel="stylesheet" href="./app/ui.css">
+  <title>secstudy</title>
+</head>
+<body>
+  <header>
+    <div class="row">
+      <select id="subject" aria-label="Subject"></select>
+      <select id="topic" aria-label="Topic"></select>
+    </div>
+    <div class="row">
+      <input id="search" type="search" placeholder="Search all cards…" aria-label="Search all cards" autocomplete="off">
+    </div>
+    <div class="row controls">
+      <button class="btn" id="mix" type="button">Mix</button>
+      <button class="btn" id="shuffle" type="button">Shuffle</button>
+      <label class="chk"><input type="checkbox" id="hideKnown"> hide known</label>
+      <button class="btn" id="resetKnown" type="button">Reset</button>
+    </div>
+    <div class="meta">
+      <span id="pos">0 / 0</span>
+      <span><span class="tag" id="tag"></span> · <span class="known-count" id="knownCount">0 known</span></span>
+    </div>
+    <div id="searchResults" class="search-results" hidden></div>
+  </header>
+
+  <div id="installHint" class="install-hint" hidden>
+    <span id="installMsg"></span>
+    <span class="install-actions">
+      <button class="btn small acc" id="installBtn" type="button" hidden>Install</button>
+      <button class="btn small" id="installDismiss" type="button">Dismiss</button>
+    </span>
+  </div>
+
+  <main>
+    <div class="card" id="card">
+      <div class="cardbody" id="cardbody">
+        <div class="q" id="front"></div>
+        <div class="a" id="back"></div>
+      </div>
+      <div class="prov" id="prov" hidden>
+        <a class="src" id="srcLink" target="_blank" rel="noopener noreferrer" hidden>source</a>
+        <span class="verified" id="verified" hidden></span>
+        <button class="btn small" id="detailsBtn" type="button" aria-expanded="false">Details</button>
+      </div>
+      <div class="hint" id="hint">tap card or Space to reveal · ←/→ navigate · K known</div>
+    </div>
+  </main>
+
+  <footer>
+    <button class="btn" id="prev" type="button">← Prev</button>
+    <button class="btn acc" id="flip" type="button">Reveal</button>
+    <button class="btn" id="know" type="button">Known</button>
+    <button class="btn" id="next" type="button">Next →</button>
+  </footer>
+
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" hidden aria-label="Card details">
+    <button class="btn small drawer-close" id="drawerClose" type="button">✕ Close</button>
+    <h2>Details</h2>
+    <div id="drawerBody"></div>
+  </aside>
+
+  <script src="./app/loader.js"></script>
+  <script src="./app/cards.js"></script>
+  <script src="./app/study.js"></script>
+  <script src="./app/pwa.js"></script>
+  <script src="./manifest.js"></script>
+</body>
+</html>

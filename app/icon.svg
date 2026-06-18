@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="secstudy">
+  <rect width="512" height="512" rx="96" fill="#0f1419"/>
+  <path d="M256 64l160 64v112c0 100-68 180-160 208-92-28-160-108-160-208V128z"
+        fill="#1a2129" stroke="#36c08e" stroke-width="16"/>
+  <path d="M188 256l44 44 92-92" fill="none" stroke="#36c08e"
+        stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

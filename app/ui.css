@@ -1,0 +1,229 @@
+/* secstudy — mobile-first, dark, zero-dependency UI. System font stack only. */
+:root {
+  --bg: #0f1419;
+  --panel: #1a2129;
+  --panel2: #222b35;
+  --ink: #e8edf2;
+  --muted: #8b97a3;
+  --acc: #36c08e;
+  --acc2: #2a9fd6;
+  --line: #2a323c;
+  --warn: #e0a23c;
+  --stale: #d9685f;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* ---- header ---- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 12px calc(8px);
+  padding-top: calc(10px + env(safe-area-inset-top));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.row.controls { flex-wrap: wrap; }
+
+select, input[type="search"] {
+  flex: 1;
+  min-width: 130px;
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 15px;
+}
+select:disabled { opacity: .55; }
+
+.btn {
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+.btn:active { transform: scale(.97); }
+.btn.acc { background: var(--acc); color: #06241a; font-weight: 700; border-color: transparent; }
+.btn.small { padding: 6px 10px; font-size: 13px; }
+
+.chk { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; }
+
+.meta { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; }
+.tag { color: var(--acc2); font-weight: 600; }
+.known-count { color: var(--acc); }
+
+/* ---- search results ---- */
+.search-results {
+  max-height: 45dvh;
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.search-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  padding: 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.search-item:active { background: var(--panel2); }
+.search-more { padding: 8px 12px; color: var(--muted); font-size: 12px; }
+
+/* ---- install hint ---- */
+.install-hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: var(--panel2);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--ink);
+}
+.install-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+/* ---- main / card ---- */
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  overflow: hidden;
+}
+.card {
+  width: 100%;
+  max-width: 680px;
+  max-height: 100%;   /* bounded by <main> (flex:1, overflow:hidden); body scrolls in .cardbody */
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 2px solid transparent;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  cursor: pointer;
+}
+.card.known { border-color: var(--acc); }
+.cardbody { overflow-y: auto; flex: 1; }
+.q { font-size: 21px; font-weight: 650; line-height: 1.35; }
+.a {
+  display: none;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 2px solid var(--line);
+  color: #cfe9df;
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+.a.show { display: block; animation: fade .22s ease; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+.prov {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+.src { color: var(--acc2); text-decoration: none; }
+.src:hover { text-decoration: underline; }
+.verified { color: var(--muted); }
+.verified.fresh { color: var(--acc); }
+.verified.aging { color: var(--warn); }
+.verified.stale { color: var(--stale); }
+.verified.unverified { color: var(--warn); font-weight: 600; }
+.prov .btn.small { margin-left: auto; }
+.hint { color: var(--muted); font-size: 12px; margin-top: 14px; }
+
+/* ---- footer ---- */
+footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  gap: 8px;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  padding: 12px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+}
+footer .btn { flex: 1; }
+
+/* ---- drawer ---- */
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 9;
+}
+.drawer {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: min(420px, 88vw);
+  background: var(--panel2);
+  border-left: 1px solid var(--line);
+  padding: 18px;
+  padding-top: calc(18px + env(safe-area-inset-top));
+  overflow-y: auto;
+  animation: slidein .2s ease;
+}
+@keyframes slidein { from { transform: translateX(100%); } to { transform: translateX(0); } }
+.drawer h2 { font-size: 16px; margin: 12px 0; }
+.drawer-close { position: absolute; top: 14px; right: 14px; }
+.drawer-deck { color: var(--acc2); font-weight: 600; }
+.drawer-blurb { color: var(--muted); font-size: 14px; margin-top: 10px; line-height: 1.45; }
+.drawer-h { margin-top: 18px; font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 12px; letter-spacing: .04em; }
+.drawer-link { display: block; color: var(--acc2); text-decoration: none; margin-top: 8px; word-break: break-word; }
+.drawer-link:hover { text-decoration: underline; }
+.drawer-verified { margin-top: 18px; color: var(--muted); font-size: 13px; }
+.drawer-tags { margin-top: 8px; color: var(--muted); font-size: 13px; }
+
+/* ---- desktop: drawer becomes a persistent rail feel (wider canvas) ---- */
+@media (min-width: 900px) {
+  .q { font-size: 23px; }
+  .a { font-size: 19px; }
+}
