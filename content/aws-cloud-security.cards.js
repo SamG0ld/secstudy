@@ -267,11 +267,29 @@ STUDY.register(
       "verified": "2026-06-17"
     },
     {
-      "a": "IAM is global (replicated across all regions), not region-scoped. Root is a distinct super-identity that SCPs mostly can't restrict — put MFA on it and never use it for daily work.",
+      "a": "IAM is global, with a catch. Authn/authz runs from a per-Region IAM data-plane replica, so existing credentials keep working even if a Region fails — but the IAM CONTROL plane (create/change users, roles, policies) lives ONLY in us-east-1, so you can't make IAM changes during a us-east-1 outage (AWS guidance: don't put it in a recovery path). Root is a distinct super-identity SCPs mostly can't restrict — enable MFA and never use it for daily work; console/root sign-in has historically been disrupted by us-east-1 outages too.",
       "deck": "AWS::IAM",
       "id": "iam-is-iam-regional-or-global-and-how-should-the-root",
       "q": "Is IAM regional or global, and how should the root account be treated?",
-      "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+      "source": "https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/global-services.html",
+      "tags": [
+        "aws",
+        "iam"
+      ],
+      "verified": "2026-06-17"
+    },
+    {
+      "a": "us-east-1 hosts the CONTROL plane for AWS's global services, so a us-east-1 impairment breaks managing them (their data planes mostly keep serving). Examples: the IAM control plane (create/change IAM); the CloudFront, Route 53, and global WAF control planes; ACM certs for CloudFront must be requested in us-east-1; CloudTrail logs global-service events as us-east-1; CloudWatch billing metrics live there; the S3 legacy global endpoint resolves via us-east-1. Design accordingly: request CloudFront/ACM certs in us-east-1, and never put a us-east-1 global-service control plane in your DR/recovery path.",
+      "deck": "AWS::IAM",
+      "id": "iam-what-makes-us-east-1-special",
+      "q": "What makes us-east-1 (N. Virginia) special, and why does it matter for resilience?",
+      "refs": [
+        {
+          "label": "Community list: AWS us-east-1 dependencies (gist)",
+          "url": "https://gist.github.com/mbarneyjr/a4eb1a756121445a05b6fcca87c91e3d"
+        }
+      ],
+      "source": "https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/global-services.html",
       "tags": [
         "aws",
         "iam"
