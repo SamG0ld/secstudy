@@ -861,16 +861,16 @@ STUDY.register(
       "verified": "2026-06-17"
     },
     {
-      "a": "Low-latency random block access (use EBS), shared POSIX filesystem semantics (use EFS/FSx), and transactional relational data (use a database). S3 is object storage, not a filesystem or a block device.",
+      "a": "Still wrong for low-latency random BLOCK access (use EBS) and transactional relational data (use a database) — S3's object API is neither a block device nor a database. The old 'no POSIX filesystem' reason is now outdated: Amazon S3 Files (GA April 2026, built on Amazon EFS under the hood) mounts an S3 bucket as a native file system with full POSIX semantics (~1ms for active data), so you get file access without copying data out of S3. Standalone EFS/FSx still fit file workloads that aren't S3-backed.",
       "deck": "AWS::S3",
       "id": "s3-when-is-s3-the-wrong-storage-choice",
       "q": "When is S3 the WRONG storage choice?",
-      "source": "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/storage-services.html",
+      "source": "https://aws.amazon.com/about-aws/whats-new/2026/04/amazon-s3-files",
       "tags": [
         "aws",
         "s3"
       ],
-      "verified": "2026-06-17"
+      "verified": "2026-06-18"
     },
     {
       "a": "CloudTrail S3 data events (API-level audit), GuardDuty S3 protection (anomalous-access detection), and Macie (sensitive-data discovery, e.g. PHI). Tie access control to detection, not just prevention.",
