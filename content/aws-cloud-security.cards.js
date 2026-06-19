@@ -3391,6 +3391,474 @@ STUDY.register(
         "architecture"
       ],
       "verified": "2026-06-18"
+    },
+    {
+      "a": "A fully managed (serverless) AWS service that provides secure, enterprise-grade access to high-performing foundation models from leading AI companies (including Amazon and Anthropic) through a single API, so you can build and scale generative-AI applications without provisioning or managing model infrastructure.",
+      "deck": "AWS::AI",
+      "id": "bedrock-what-is-serverless-foundation-models",
+      "level": "foundational",
+      "q": "What is Amazon Bedrock?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "foundation-models",
+        "genai"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "A fully managed machine-learning service to build, train, and deploy ML and foundation models into a production-ready hosted environment with managed infrastructure, tooling, and workflows. As of Dec 2024 the model-building product is named Amazon SageMaker AI; the legacy 'sagemaker' API namespaces are unchanged.",
+      "deck": "AWS::AI",
+      "id": "sagemaker-what-is-managed-ml-service",
+      "level": "foundational",
+      "q": "What is Amazon SageMaker (SageMaker AI)?",
+      "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html",
+      "tags": [
+        "aws",
+        "sagemaker",
+        "machine-learning"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Use Bedrock when you want to consume pre-built foundation models via API to build generative-AI apps with no model infrastructure to manage. Use SageMaker AI when you need to build, train, fine-tune, and host your own ML/foundation models with control over the training and deployment infrastructure.",
+      "deck": "AWS::AI",
+      "id": "bedrock-vs-sagemaker-when-to-use-each",
+      "level": "foundational",
+      "q": "Bedrock vs SageMaker AI: when do you reach for each?",
+      "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "sagemaker",
+        "comparison"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "By default, no. Each provider's model runs in an isolated Amazon Bedrock 'Model Deployment Account' that the provider has no access to, so they can't see Bedrock logs or your prompts/completions. The exception is models you explicitly opt into via data_retention_mode 'provider_data_share' (e.g. Claude Fable 5, Mythos 5), where prompts/completions ARE shared with the provider and retained ~30 days.",
+      "deck": "AWS::AI",
+      "id": "bedrock-model-provider-isolation",
+      "level": "intermediate",
+      "q": "Can the third-party model providers (e.g. Anthropic) see your Amazon Bedrock prompts and completions?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "data-privacy",
+        "model-providers",
+        "isolation"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "It is NOT zero-by-default. Retention is set by a data_retention_mode at account or project scope (new accounts/projects inherit the model's default). Under 'default' mode AWS may retain data for abuse-detection/safety purposes (the model provider does not receive it), and 'store=false' does not guarantee zero retention. For guaranteed zero retention set mode 'none' — and enforce it org-wide with an SCP on the bedrock:DataRetentionMode condition key. 'provider_data_share' both retains and shares data with the provider.",
+      "deck": "AWS::AI",
+      "id": "bedrock-data-retention-modes-zdr",
+      "level": "advanced",
+      "q": "Does Amazon Bedrock retain your prompts/completions by default, and how do you guarantee zero data retention?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "data-retention",
+        "zdr",
+        "scp",
+        "compliance"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Create a VPC interface endpoint powered by AWS PrivateLink for Bedrock. This establishes a private connection between your VPC and Bedrock so API traffic stays on the AWS network instead of traversing the public internet; you can monitor it with VPC Flow Logs.",
+      "deck": "AWS::AI",
+      "id": "bedrock-private-traffic-vpc-privatelink-endpoint",
+      "level": "intermediate",
+      "q": "How do you keep Amazon Bedrock traffic off the public internet?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/usingVPC.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "privatelink",
+        "vpc",
+        "network-isolation"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "In transit, all traffic uses TLS (1.2 minimum). At rest, Bedrock encrypts data and you use AWS KMS to manage the keys; you can supply customer-managed KMS keys for resources like model-customization jobs and custom models, agents, knowledge-base ingestion, and model-evaluation jobs (otherwise AWS-managed keys are used).",
+      "deck": "AWS::AI",
+      "id": "bedrock-encryption-kms-at-rest-in-transit",
+      "level": "intermediate",
+      "q": "How is data encrypted in Amazon Bedrock, and where does KMS apply?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-encryption.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "encryption",
+        "kms",
+        "tls"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Configurable safeguards applied to user inputs and/or model responses: content filters (hate, insults, sexual, violence, misconduct, prompt-attack), denied topics, word filters, sensitive-information filters (block or mask PII via entities or custom regex), contextual grounding checks (catch hallucinations in RAG), and automated reasoning checks. They can run during inference or independently via the ApplyGuardrail API.",
+      "deck": "AWS::AI",
+      "id": "bedrock-guardrails-what-they-do",
+      "level": "intermediate",
+      "q": "What are Amazon Bedrock Guardrails and what can they enforce?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "guardrails",
+        "pii",
+        "safety"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Grant only bedrock:InvokeModel (and InvokeModelWithResponseStream) and restrict the Resource to specific model ARNs rather than '*' — e.g. arn:aws:bedrock:region::foundation-model/<model-id>, or an inference-profile / provisioned-model ARN. Add condition keys or SCPs (e.g. require TLS, or pin the data-retention mode) to constrain further.",
+      "deck": "AWS::AI",
+      "id": "bedrock-iam-invokemodel-least-privilege-scoping",
+      "level": "intermediate",
+      "q": "How do you scope IAM least-privilege for invoking Bedrock models?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/security_iam_id-based-policy-examples.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "iam",
+        "least-privilege",
+        "invokemodel"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Knowledge Bases implement Retrieval Augmented Generation: at query time they search your proprietary data and feed relevant context to the model. Your source data stays in your data sources (e.g. Amazon S3, SharePoint, Confluence); embeddings are indexed in a vector store such as Amazon OpenSearch Serverless, Aurora, or Neptune (managed for you, or self-managed in a store you own).",
+      "deck": "AWS::AI",
+      "id": "bedrock-knowledge-bases-rag-where-data-lives",
+      "level": "intermediate",
+      "q": "What are Bedrock Knowledge Bases (RAG), and where does the data live?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "knowledge-bases",
+        "rag",
+        "vector-store"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "An agent assumes an IAM service role whose trust policy lets bedrock.amazonaws.com assume it (scoped by SourceAccount/SourceArn to the agent). That role gets least-privilege permissions only for what the agent uses: bedrock:InvokeModel on specific FMs, Retrieve/RetrieveAndGenerate on its knowledge bases, and s3:GetObject for action-group schemas. Action groups invoke Lambda functions, and each function needs a resource-based policy allowing bedrock.amazonaws.com (conditioned on the agent ARN) to invoke it.",
+      "deck": "AWS::AI",
+      "id": "bedrock-agents-security-model-action-groups-roles",
+      "level": "advanced",
+      "q": "How does the security model of a Bedrock Agent work (action groups and IAM)?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-permissions.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "agents",
+        "iam",
+        "action-groups",
+        "lambda"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Run jobs in your own VPC (private subnets + security groups, no internet route) so containers aren't internet-reachable, and/or enable network isolation (EnableNetworkIsolation=true). With network isolation on, the container can make NO outbound calls to any service (including S3) and gets no AWS credentials; SageMaker still moves S3 data in/out separately via your execution role.",
+      "deck": "AWS::AI",
+      "id": "sagemaker-network-isolation-no-internet-jobs",
+      "level": "advanced",
+      "q": "How do you stop a SageMaker training/inference container from exfiltrating data over the network?",
+      "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/mkt-algo-model-internet-free.html",
+      "tags": [
+        "aws",
+        "sagemaker",
+        "network-isolation",
+        "vpc",
+        "exfiltration"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Two layers. CloudTrail is on by default and records the API calls (who/when/from where, e.g. InvokeModel, CreateAgent) but NOT the prompt/response content. Model invocation logging is opt-in (disabled by default) and captures the full request and response payloads — prompts and completions plus metadata — delivered to S3 and/or CloudWatch Logs. Use CloudTrail for control-plane audit and invocation logging for content-level review.",
+      "deck": "AWS::AI",
+      "id": "bedrock-audit-cloudtrail-vs-model-invocation-logging",
+      "level": "advanced",
+      "q": "How do you audit Bedrock model usage, and what's the difference between CloudTrail and model invocation logging?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "cloudtrail",
+        "logging",
+        "audit"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Layer defenses: a Guardrail with the prompt-attack content filter, denied topics, and a sensitive-information filter to block/mask PII in inputs and outputs; in RAG, use input tagging so only the user turn is screened, plus contextual grounding checks to reject ungrounded answers. Keep the app/agent IAM role least-privilege (so a hijacked agent can't reach data it shouldn't), scope action-group Lambdas tightly, and enable model invocation logging to detect abuse.",
+      "deck": "AWS::AI",
+      "id": "bedrock-prompt-injection-exfiltration-defense",
+      "level": "advanced",
+      "q": "What controls reduce prompt-injection and data-exfiltration risk in a Bedrock-backed app?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "prompt-injection",
+        "guardrails",
+        "exfiltration"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Sign an AWS BAA and process PHI only in HIPAA-eligible services (Amazon Bedrock and SageMaker AI are both eligible). Reach Bedrock through a PrivateLink VPC interface endpoint (no public internet) and encrypt with customer-managed KMS keys. Don't trust retention defaults: set data_retention_mode to 'none' (SCP-enforced) for guaranteed zero retention, and avoid provider_data_share-only models (e.g. Fable 5/Mythos 5) for PHI. Add Guardrails (PII filters, denied topics, grounding), enable model invocation logging + CloudTrail for audit, and scope IAM least-privilege to specific model ARNs.",
+      "deck": "AWS::AI",
+      "id": "bedrock-hipaa-phi-architecture-design",
+      "level": "expert",
+      "q": "How would you design a HIPAA-aligned GenAI architecture on Bedrock for PHI?",
+      "source": "https://aws.amazon.com/compliance/hipaa-eligible-services-reference/",
+      "tags": [
+        "aws",
+        "bedrock",
+        "hipaa",
+        "phi",
+        "architecture",
+        "kms"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Ingestion: PHI in S3 source data — encrypt with CMK, restrict the bucket policy, scope the KB ingestion role. Vector store: embeddings of PHI in OpenSearch/Aurora — encrypt at rest, lock down access, filter by document-level ACL at retrieval. Retrieval-to-model hop: force a PrivateLink endpoint + TLS. Inference: under 'default' mode AWS may retain data for abuse detection — set data_retention_mode 'none' (SCP-enforced) for guaranteed ZDR and don't use provider_data_share-only models for PHI. Output: PHI echoed/hallucinated to the wrong user — Guardrail PII masking + grounding checks. Cross-cutting: least-privilege IAM, CloudTrail + model invocation logging.",
+      "deck": "AWS::AI",
+      "id": "bedrock-rag-phi-threat-model-leak-points",
+      "level": "expert",
+      "q": "Threat-model a Bedrock RAG system handling PHI: where can data leak at each hop, and the control?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html",
+      "tags": [
+        "aws",
+        "bedrock",
+        "rag",
+        "phi",
+        "threat-model",
+        "data-leak"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "A managed AWS service that lets you create and control the cryptographic keys used to encrypt and sign your data. The keys are generated and used inside FIPS-validated HSMs and never leave KMS unencrypted; other AWS services integrate with it to encrypt your data.",
+      "deck": "Security::KMS",
+      "id": "kms-what-is-aws-kms",
+      "level": "foundational",
+      "q": "What is AWS KMS (Key Management Service)?",
+      "source": "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html",
+      "tags": [
+        "kms",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "The AWS service that controls who is authenticated (signed in) and authorized (has permissions) to use AWS resources. You use it to manage identities and the permissions that decide which resources they can access.",
+      "deck": "Security::IAM",
+      "id": "iam-what-is-aws-iam",
+      "level": "foundational",
+      "q": "What is AWS IAM (Identity and Access Management)?",
+      "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+      "tags": [
+        "iam",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "An entity that can make a request to AWS after being authenticated — an IAM user, an IAM role, an STS federated user, or an application. Permissions then determine what that principal is authorized to do.",
+      "deck": "Security::IAM",
+      "id": "iam-what-is-a-principal",
+      "level": "foundational",
+      "q": "What is a principal in AWS IAM?",
+      "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+      "tags": [
+        "iam",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "A virtual firewall that controls the inbound and outbound traffic allowed to reach and leave the resources it is associated with (such as an EC2 instance). It is stateful, so return traffic for an allowed connection is automatically permitted.",
+      "deck": "Security::Network",
+      "id": "network-what-is-a-security-group",
+      "level": "foundational",
+      "q": "What is a security group in AWS?",
+      "source": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html",
+      "tags": [
+        "network",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "A logically isolated virtual network you define in AWS where you launch your resources. You control the networking — IP address ranges, subnets, route tables, and gateways — much like a traditional on-premises network.",
+      "deck": "Security::Network",
+      "id": "network-what-is-a-vpc",
+      "level": "foundational",
+      "q": "What is an Amazon VPC (Virtual Private Cloud)?",
+      "source": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+      "tags": [
+        "network",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "An open-source platform for managing (orchestrating) containerized workloads and services, automating their deployment, scaling, load balancing, and self-healing across a cluster of machines.",
+      "deck": "Security::Containers",
+      "id": "containers-what-is-kubernetes",
+      "level": "foundational",
+      "q": "What is Kubernetes?",
+      "source": "https://kubernetes.io/docs/concepts/overview/",
+      "tags": [
+        "containers",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Role-Based Access Control: a method of regulating access to the Kubernetes API and resources based on a user's role. Roles/ClusterRoles define sets of permissions, and RoleBindings/ClusterRoleBindings grant those permissions to users, groups, or service accounts.",
+      "deck": "Security::Containers",
+      "id": "containers-what-is-kubernetes-rbac",
+      "level": "foundational",
+      "q": "What is Kubernetes RBAC?",
+      "source": "https://kubernetes.io/docs/reference/access-authn-authz/rbac/",
+      "tags": [
+        "containers",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Building security into the development pipeline rather than bolting it on at the end — integrating automated checks (secret scanning, SAST, SCA, DAST, IaC scanning) early in the lifecycle so issues are caught as fast as possible. Moving security earlier is called 'shifting left.'",
+      "deck": "Security::DevSecOps",
+      "id": "devsecops-what-is-shift-left-devsecops",
+      "level": "foundational",
+      "q": "What is DevSecOps / 'shift-left' security?",
+      "source": "https://owasp.org/www-project-devsecops-guideline/",
+      "tags": [
+        "devsecops",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "The organized process for detecting, responding to, and recovering from cybersecurity incidents to limit damage and restore normal operations. NIST SP 800-61 is the authoritative guidance, framing IR as part of broader cybersecurity risk management.",
+      "deck": "Security::IncidentResponse",
+      "id": "incidentresponse-what-is-incident-response",
+      "level": "foundational",
+      "q": "What is incident response (IR)?",
+      "source": "https://csrc.nist.gov/pubs/sp/800/61/r3/final",
+      "tags": [
+        "incidentresponse",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "HIPAA (Health Insurance Portability and Accountability Act) is the US law setting national standards for protecting health information. PHI (protected health information) is individually identifiable health information held or transmitted by a covered entity or business associate — health data tied to an identifier like name, dates, or contact details.",
+      "deck": "Security::HIPAA",
+      "id": "hipaa-what-is-hipaa-and-what-is-phi",
+      "level": "foundational",
+      "q": "What is HIPAA, and what is PHI?",
+      "source": "https://www.hhs.gov/hipaa/for-professionals/privacy/laws-regulations/index.html",
+      "tags": [
+        "hipaa",
+        "security"
+      ],
+      "unverified": true,
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "A covered entity is a health plan, health care clearinghouse, or health care provider that transmits health information electronically. A business associate is a vendor that handles PHI on a covered entity's behalf (e.g. a cloud provider) and is bound to safeguard it via a BAA (Business Associate Agreement).",
+      "deck": "Security::HIPAA",
+      "id": "hipaa-who-is-a-covered-entity-vs-a-business-associate",
+      "level": "foundational",
+      "q": "Under HIPAA, who is a 'covered entity' versus a 'business associate'?",
+      "source": "https://www.hhs.gov/hipaa/for-professionals/privacy/laws-regulations/index.html",
+      "tags": [
+        "hipaa",
+        "security"
+      ],
+      "unverified": true,
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Individually identifiable health information — data about a person's health, care, or payment for care that is linked to an identifier such as name, address, dates, or SSN. The HIPAA Privacy Rule lists 18 such identifiers; remove them all and the data is considered de-identified under the safe-harbor method.",
+      "deck": "Security::DataPHI",
+      "id": "dataphi-what-is-protected-health-information-phi",
+      "level": "foundational",
+      "q": "What is PHI (protected health information)?",
+      "source": "https://www.hhs.gov/hipaa/for-professionals/privacy/laws-regulations/index.html",
+      "tags": [
+        "dataphi",
+        "security"
+      ],
+      "unverified": true,
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Categorizing data by sensitivity (e.g. public, internal, confidential, regulated/PHI) so handling controls — encryption, access, retention, logging — match the risk. You can't apply the right protections, or scope a breach, for data you haven't classified and located.",
+      "deck": "Security::DataPHI",
+      "id": "dataphi-what-is-data-classification",
+      "level": "foundational",
+      "q": "What is data classification, and why does it matter?",
+      "source": "https://docs.aws.amazon.com/whitepapers/latest/data-classification/data-classification.html",
+      "tags": [
+        "dataphi",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Per the IMDRF definition the FDA has adopted: software intended for one or more medical purposes that performs those purposes WITHOUT being part of a hardware medical device. Examples include diagnostic or treatment-recommendation apps; software that drives or is embedded in a hardware device is not SaMD.",
+      "deck": "Security::FDA",
+      "id": "fda-what-is-software-as-a-medical-device-samd",
+      "level": "foundational",
+      "q": "What is Software as a Medical Device (SaMD)?",
+      "source": "https://www.fda.gov/medical-devices/digital-health-center-excellence/software-medical-device-samd",
+      "tags": [
+        "fda",
+        "security"
+      ],
+      "unverified": true,
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "A security flaw where untrusted input tricks an LLM-based system into following attacker instructions instead of its intended task — like SQL injection, but the 'query' is a natural-language prompt. Direct injection comes via the user's own input; indirect injection hides instructions in content the model reads (a webpage, doc, or ticket).",
+      "deck": "Security::AgenticAI",
+      "id": "agenticai-what-is-prompt-injection",
+      "level": "foundational",
+      "q": "What is prompt injection?",
+      "source": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+      "tags": [
+        "agenticai",
+        "security"
+      ],
+      "verified": "2026-06-19"
+    },
+    {
+      "a": "Simon Willison's term for the three capabilities that, combined in one agent, let an attacker steal data: access to private data, exposure to untrusted content, and the ability to communicate externally (exfiltrate). Remove any one of the three and the data-theft path is broken.",
+      "deck": "Security::AgenticAI",
+      "id": "agenticai-what-is-the-lethal-trifecta",
+      "level": "foundational",
+      "q": "What is the 'lethal trifecta' for AI agents?",
+      "source": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/",
+      "tags": [
+        "agenticai",
+        "security"
+      ],
+      "verified": "2026-06-19"
     }
   ],
   "module": "cards",
