@@ -18,6 +18,7 @@
       <span id="subjectLabel" class="subject-label" hidden></span>
       <select id="subject" aria-label="Subject"></select>
       <select id="topic" aria-label="Topic"></select>
+      <select id="level" aria-label="Difficulty level" hidden></select>
     </div>
     <div class="row">
       <input id="search" type="search" placeholder="Search all cards…" aria-label="Search all cards" autocomplete="off">
@@ -50,6 +51,7 @@
         <div class="a" id="back"></div>
       </div>
       <div class="prov" id="prov" hidden>
+        <span class="level-badge" id="levelBadge" hidden></span>
         <a class="src" id="srcLink" target="_blank" rel="noopener noreferrer" hidden>source</a>
         <span class="verified" id="verified" hidden></span>
         <button class="btn small" id="detailsBtn" type="button" aria-expanded="false">Details</button>

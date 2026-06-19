@@ -17,6 +17,7 @@
     revealed: false,
     known: new Set(),
     topic: "ALL",
+    level: "ALL",
     hideKnown: false,
   };
 
@@ -29,8 +30,9 @@
     try {
       var p = JSON.parse(localStorage.getItem(prefsKey(subject)) || "{}");
       state.topic = p.topic || "ALL";
+      state.level = p.level || "ALL";
       state.hideKnown = !!p.hideKnown;
-    } catch (e) { state.topic = "ALL"; state.hideKnown = false; }
+    } catch (e) { state.topic = "ALL"; state.level = "ALL"; state.hideKnown = false; }
   }
   function saveKnown() {
     var arr = [];
@@ -40,7 +42,7 @@
   function savePrefs() {
     try {
       localStorage.setItem(prefsKey(state.subject),
-        JSON.stringify({ topic: state.topic, hideKnown: state.hideKnown }));
+        JSON.stringify({ topic: state.topic, level: state.level, hideKnown: state.hideKnown }));
     } catch (e) {}
   }
 
@@ -62,6 +64,7 @@
       var d = state.topic.slice(3);
       list = list.filter(function (c) { return c.deck === d; });
     }
+    if (state.level !== "ALL") list = list.filter(function (c) { return c.level === state.level; });
     if (state.hideKnown) list = list.filter(function (c) { return !state.known.has(c.id); });
     return list;
   }
@@ -70,6 +73,7 @@
     var bySd = Object.create(null);
     for (var i = 0; i < state.cards.length; i++) {
       var c = state.cards[i];
+      if (state.level !== "ALL" && c.level !== state.level) continue;
       if (state.hideKnown && state.known.has(c.id)) continue;
       (bySd[c.deck] = bySd[c.deck] || []).push(c);
     }
@@ -150,6 +154,29 @@
     if (sel.value !== state.topic) { state.topic = "ALL"; sel.value = "ALL"; }  // saved topic gone
   }
 
+  var LEVELS = ["foundational", "intermediate", "advanced", "expert"];
+  function buildLevelSelect() {
+    var sel = $("level");
+    sel.replaceChildren();
+    var present = Object.create(null);
+    for (var i = 0; i < state.cards.length; i++) {
+      if (state.cards[i].level) present[state.cards[i].level] = true;
+    }
+    var all = document.createElement("option");
+    all.value = "ALL"; all.textContent = "All levels";
+    sel.appendChild(all);
+    for (var j = 0; j < LEVELS.length; j++) {
+      if (!present[LEVELS[j]]) continue;
+      var opt = document.createElement("option");
+      opt.value = LEVELS[j];
+      opt.textContent = LEVELS[j].charAt(0).toUpperCase() + LEVELS[j].slice(1);
+      sel.appendChild(opt);
+    }
+    sel.value = state.level;
+    if (sel.value !== state.level) { state.level = "ALL"; sel.value = "ALL"; }  // saved level gone
+    sel.hidden = (sel.options.length <= 1);  // hide until some card in this subject is leveled
+  }
+
   function selectSubject(slug, defer) {
     var s = null;
     for (var i = 0; i < state.view.subjects.length; i++) {
@@ -162,6 +189,7 @@
     loadPersisted(state.subject);
     $("subject").value = state.subject;
     buildTopicSelect();
+    buildLevelSelect();
     $("hideKnown").checked = state.hideKnown;
     if (!defer) load();   // jumpTo defers: it sets its own full-subject deck
   }
@@ -195,7 +223,8 @@
 
   function jumpTo(m) {
     if (m.subject !== state.subject) selectSubject(m.subject, true);  // defer load; we set deck below
-    state.topic = "ALL"; $("topic").value = "ALL"; savePrefs();       // keep dropdown coherent with deck
+    state.topic = "ALL"; $("topic").value = "ALL";                    // keep dropdowns coherent with deck
+    state.level = "ALL"; $("level").value = "ALL"; savePrefs();
     var deck = state.cards.slice();                                   // full-subject deck, source order
     var idx = 0;
     for (var i = 0; i < deck.length; i++) { if (deck[i].id === m.id) { idx = i; break; } }
@@ -230,6 +259,7 @@
       if (confirm("Reset known cards for this subject?")) { state.known.clear(); saveKnown(); load(); }
     });
     $("topic").addEventListener("change", function (e) { state.topic = e.target.value; savePrefs(); load(); });
+    $("level").addEventListener("change", function (e) { state.level = e.target.value; savePrefs(); load(); });
     $("subject").addEventListener("change", function (e) { selectSubject(e.target.value); });
     $("detailsBtn").addEventListener("click", function (e) { e.stopPropagation(); openDrawer(); });
     $("drawerClose").addEventListener("click", closeDrawer);

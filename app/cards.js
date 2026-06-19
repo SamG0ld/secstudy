@@ -42,6 +42,7 @@
     $("card").classList.toggle("known", !!isKnown);
     $("prov").hidden = false;
     renderProvenance(card);
+    renderLevelBadge(card);
   }
 
   function renderProvenance(card) {
@@ -65,6 +66,19 @@
       ver.className = "verified " + freshnessClass(card.verified);
     } else {
       ver.hidden = true;
+    }
+  }
+
+  function renderLevelBadge(card) {
+    var b = $("levelBadge");
+    if (card.level) {
+      b.hidden = false;
+      setText(b, card.level);
+      b.className = "level-badge lvl-" + card.level;
+    } else {
+      b.hidden = true;
+      setText(b, "");
+      b.className = "level-badge";
     }
   }
 
@@ -100,7 +114,7 @@
       var el = document.createElement("div");
       el.className = cls; el.textContent = text; body.appendChild(el);
     }
-    add("drawer-deck", card.deck);
+    add("drawer-deck", card.deck + (card.level ? "  ·  " + card.level : ""));
     if (subjectMeta && subjectMeta.blurb) add("drawer-blurb", subjectMeta.blurb);
 
     var links = [];

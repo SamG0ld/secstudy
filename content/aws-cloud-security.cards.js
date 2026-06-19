@@ -6,6 +6,7 @@ STUDY.register(
       "a": "Explicit deny beats everything; otherwise you need an explicit allow that isn't capped; with no matching allow it's an implicit (default) deny. Short version: explicit deny > explicit allow > implicit deny.",
       "deck": "AWS::IAM",
       "id": "iam-what-is-the-precedence-order-when-iam-evaluates",
+      "level": "intermediate",
       "q": "What is the precedence order when IAM evaluates whether a request is allowed?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic_policy-eval-denyallow.html",
       "tags": [
@@ -18,6 +19,7 @@ STUDY.register(
       "a": "Yes. Same-account access is the UNION of identity-based and resource-based policies — an allow in either one is enough, unless an explicit deny appears in either.",
       "deck": "AWS::IAM",
       "id": "iam-within-a-single-account-if-an-identity-based",
+      "level": "intermediate",
       "q": "Within a SINGLE account, if an identity-based policy allows an action but no resource-based policy mentions it, is the request allowed?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html",
       "tags": [
@@ -30,6 +32,7 @@ STUDY.register(
       "a": "Both ends must allow: the resource's own policy (or the role's trust policy) must allow the external principal, AND the caller's identity-based policy in its own account must allow the action. Either side missing = denied.",
       "deck": "AWS::IAM",
       "id": "iam-for-cross-account-access-what-must-be-true-for",
+      "level": "intermediate",
       "q": "For CROSS-account access, what must be true for the request to succeed?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic-cross-account.html",
       "tags": [
@@ -42,6 +45,7 @@ STUDY.register(
       "a": "Resource-based policies and role trust policies HAVE a Principal (they name who). Identity-based policies have NO Principal — the identity they're attached to is the principal.",
       "deck": "AWS::IAM",
       "id": "iam-which-iam-policy-types-have-a-principal-element",
+      "level": "foundational",
       "q": "Which IAM policy types have a Principal element and which don't?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html",
       "tags": [
@@ -54,6 +58,7 @@ STUDY.register(
       "a": "A trust policy (resource-based) defines WHO can assume the role via sts:AssumeRole. Permission policies define WHAT the assumed session can do.",
       "deck": "AWS::IAM",
       "id": "iam-a-role-has-two-kinds-of-policy-attached-what-are",
+      "level": "foundational",
       "q": "A role has two kinds of policy attached. What are they and what does each do?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html",
       "tags": [
@@ -66,6 +71,7 @@ STUDY.register(
       "a": "The role's trust policy must allow the principal, AND the caller must have sts:AssumeRole permission on its own side. People forget the caller-side permission.",
       "deck": "AWS::IAM",
       "id": "iam-to-assume-a-role-what-two-things-must-agree",
+      "level": "intermediate",
       "q": "To assume a role, what two things must agree?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_permissions-to-switch.html",
       "tags": [
@@ -78,6 +84,7 @@ STUDY.register(
       "a": "It's a managed policy that sets the MAXIMUM permissions an identity can have. Effective permissions = intersection of the identity's policies and the boundary. A boundary never grants — it only caps.",
       "deck": "AWS::IAM",
       "id": "iam-what-does-a-permission-boundary-do-and-what-is",
+      "level": "intermediate",
       "q": "What does a permission boundary do, and what is the resulting effective permission?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html",
       "tags": [
@@ -90,6 +97,7 @@ STUDY.register(
       "a": "Boundary = per-identity ceiling. SCP = per-account/OU ceiling on principals (Organizations). RCP = per-resource ceiling across the org (Organizations, launched 2024, aimed at external principals). All three only restrict, never grant.",
       "deck": "AWS::IAM",
       "id": "iam-permission-boundary-vs-scp-vs-rcp-what-does-each",
+      "level": "intermediate",
       "q": "Permission boundary vs SCP vs RCP — what does each cap?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html",
       "tags": [
@@ -102,6 +110,7 @@ STUDY.register(
       "a": "It overrides everything — including a resource-policy allow, an SCP allow, or an identity allow. It's the safest hard guardrail (e.g. deny by aws:RequestedRegion, or when aws:MultiFactorAuthPresent is false).",
       "deck": "AWS::IAM",
       "id": "iam-why-is-an-explicit-deny-so-important-in-iam",
+      "level": "advanced",
       "q": "Why is an explicit deny so important in IAM?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic_policy-eval-denyallow.html",
       "tags": [
@@ -114,6 +123,7 @@ STUDY.register(
       "a": "Attach an instance profile (a container for one IAM role). EC2 assumes the role and exposes rotating temporary credentials via IMDS; the SDK fetches them automatically. Enforce IMDSv2 so an SSRF can't exfiltrate them.",
       "deck": "AWS::IAM",
       "id": "iam-how-does-an-ec2-instance-get-aws-permissions",
+      "level": "intermediate",
       "q": "How does an EC2 instance get AWS permissions without storing access keys?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html",
       "tags": [
@@ -126,6 +136,7 @@ STUDY.register(
       "a": "IMDSv2 is session-oriented: a PUT gets a token, which must be sent as a header on subsequent GETs, with a default hop limit of 1. This blocks SSRF/proxy attacks from stealing the instance's temporary credentials — the Capital One 2019 breach vector.",
       "deck": "AWS::IAM",
       "id": "iam-what-does-imdsv2-add-over-imdsv1-and-why-does-it",
+      "level": "intermediate",
       "q": "What does IMDSv2 add over IMDSv1, and why does it matter for security?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html",
       "tags": [
@@ -138,6 +149,7 @@ STUDY.register(
       "a": "HttpTokens=required (IMDSv2 available isn't the same as enforced), plus a hop limit of 1. Without 'required', IMDSv1 still works and the protection is moot.",
       "deck": "AWS::IAM",
       "id": "iam-saying-we-use-imdsv2-isn-t-enough-what-must",
+      "level": "advanced",
       "q": "Saying 'we use IMDSv2' isn't enough — what must actually be configured?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html",
       "tags": [
@@ -150,6 +162,7 @@ STUDY.register(
       "a": "STS issues short-lived credentials: an AccessKeyId, a SecretAccessKey, a SessionToken, and an expiration. No long-term keys to rotate or leak.",
       "deck": "AWS::IAM",
       "id": "iam-what-does-aws-sts-issue-and-what-s-in-the-response",
+      "level": "foundational",
       "q": "What does AWS STS issue, and what's in the response?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html",
       "tags": [
@@ -162,6 +175,7 @@ STUDY.register(
       "a": "AssumeRole (cross- or same-account IAM principals), AssumeRoleWithSAML (enterprise SAML federation), AssumeRoleWithWebIdentity (OIDC — Cognito, Google, or EKS pods via IRSA).",
       "deck": "AWS::IAM",
       "id": "iam-name-the-three-assumerole-sts-apis-and-when-each",
+      "level": "intermediate",
       "q": "Name the three AssumeRole STS APIs and when each is used.",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html",
       "tags": [
@@ -174,6 +188,7 @@ STUDY.register(
       "a": "Default 1 hour; maximum up to 12 hours (per the role's max-session setting; you can request 15 min-12 h). Role chaining caps the session at 1 hour.",
       "deck": "AWS::IAM",
       "id": "iam-what-are-the-default-and-maximum-durations-for-an",
+      "level": "foundational",
       "q": "What are the default and maximum durations for an assumed-role session, and the role-chaining limit?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage-assume.html",
       "tags": [
@@ -186,6 +201,7 @@ STUDY.register(
       "a": "It exchanges an OIDC token (e.g. from an EKS service account via IRSA, or Google/Cognito) for short-lived role credentials. The workload gets scoped AWS access with nothing to store or rotate.",
       "deck": "AWS::IAM",
       "id": "iam-how-does-assumerolewithwebidentity-let-a-pod-or",
+      "level": "intermediate",
       "q": "How does AssumeRoleWithWebIdentity let a pod or app get AWS access without long-term keys?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html",
       "tags": [
@@ -198,6 +214,7 @@ STUDY.register(
       "a": "Require sts:ExternalId in the role's trust policy. It defeats the confused-deputy problem — stops the vendor from being tricked into using your role on someone else's behalf. Add least-privilege permissions and optionally source-IP conditions.",
       "deck": "AWS::IAM",
       "id": "iam-when-setting-up-a-third-party-saas-vendor-with",
+      "level": "advanced",
       "q": "When setting up a third-party SaaS vendor with cross-account access, what's the key control to add and why?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html",
       "tags": [
@@ -210,6 +227,7 @@ STUDY.register(
       "a": "A resource-based policy names the external principal directly — the caller uses its own credentials, no AssumeRole hop. A role means the external party assumes it for temp credentials — cleaner permission sets and session tagging. Note: KMS requires the key policy (resource-based); IAM alone is never sufficient for KMS.",
       "deck": "AWS::IAM",
       "id": "iam-for-cross-account-access-what-s-the-practical",
+      "level": "advanced",
       "q": "For cross-account access, what's the practical difference between using a resource-based policy vs having the party assume a role?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic-cross-account.html",
       "tags": [
@@ -222,6 +240,7 @@ STUDY.register(
       "a": "IAM Identity Center (formerly AWS SSO). It federates to Okta/Entra and hands out short-lived role credentials. Reserve IAM users/roles for workloads and break-glass.",
       "deck": "AWS::IAM",
       "id": "iam-for-human-workforce-access-across-an-aws",
+      "level": "intermediate",
       "q": "For human workforce access across an AWS Organization today, do you use IAM users or IAM Identity Center?",
       "source": "https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html",
       "tags": [
@@ -234,6 +253,7 @@ STUDY.register(
       "a": "Access Analyzer = external-exposure and unused-access findings plus policy validation. Access Advisor = last-accessed data for right-sizing permissions. Credential Report = account-wide CSV of credential/MFA status.",
       "deck": "AWS::IAM",
       "id": "iam-what-are-the-three-iam-audit-tools-and-what-does",
+      "level": "intermediate",
       "q": "What are the three IAM audit tools and what does each give you?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html",
       "tags": [
@@ -246,6 +266,7 @@ STUDY.register(
       "a": "Start bounded, then tighten with data: Access Advisor to strip unused services, Access Analyzer for external exposure and to generate policies from CloudTrail, permission boundaries for safe self-service, ABAC tags, and the credential report for stale keys/missing MFA.",
       "deck": "AWS::IAM",
       "id": "iam-how-do-you-drive-a-real-environment-toward-least",
+      "level": "advanced",
       "q": "How do you drive a real environment toward least privilege as a process?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html",
       "tags": [
@@ -258,6 +279,7 @@ STUDY.register(
       "a": "No on all three. A group is just a container for managing user permissions — it's not a principal, can't be nested, and can't assume a role.",
       "deck": "AWS::IAM",
       "id": "iam-is-an-iam-group-a-principal-can-it-be-nested-or",
+      "level": "foundational",
       "q": "Is an IAM group a principal? Can it be nested or assume a role?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html",
       "tags": [
@@ -270,6 +292,7 @@ STUDY.register(
       "a": "IAM is global, with a catch. Authn/authz runs from a per-Region IAM data-plane replica, so existing credentials keep working even if a Region fails — but the IAM CONTROL plane (create/change users, roles, policies) lives ONLY in us-east-1, so you can't make IAM changes during a us-east-1 outage (AWS guidance: don't put it in a recovery path). Root is a distinct super-identity SCPs mostly can't restrict — enable MFA and never use it for daily work; console/root sign-in has historically been disrupted by us-east-1 outages too.",
       "deck": "AWS::IAM",
       "id": "iam-is-iam-regional-or-global-and-how-should-the-root",
+      "level": "advanced",
       "q": "Is IAM regional or global, and how should the root account be treated?",
       "source": "https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/global-services.html",
       "tags": [
@@ -282,6 +305,7 @@ STUDY.register(
       "a": "us-east-1 hosts the CONTROL plane for AWS's global services, so a us-east-1 impairment breaks managing them (their data planes mostly keep serving). Examples: the IAM control plane (create/change IAM); the CloudFront, Route 53, and global WAF control planes; ACM certs for CloudFront must be requested in us-east-1; CloudTrail logs global-service events as us-east-1; CloudWatch billing metrics live there; the S3 legacy global endpoint resolves via us-east-1. Design accordingly: request CloudFront/ACM certs in us-east-1, and never put a us-east-1 global-service control plane in your DR/recovery path.",
       "deck": "AWS::IAM",
       "id": "iam-what-makes-us-east-1-special",
+      "level": "advanced",
       "q": "What makes us-east-1 (N. Virginia) special, and why does it matter for resilience?",
       "refs": [
         {
@@ -300,6 +324,7 @@ STUDY.register(
       "a": "Prefer customer-managed (reusable, versioned). Inline is embedded 1:1 and deleted with the identity. A managed policy document is capped at 6,144 characters, up to 10 attached per identity (default); SCPs cap at 10,240 characters (RCPs cap at 5,120).",
       "deck": "AWS::IAM",
       "id": "iam-managed-vs-inline-policies-which-is-preferred-and",
+      "level": "intermediate",
       "q": "Managed vs inline policies — which is preferred and what are the key size limits?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html",
       "tags": [
@@ -312,6 +337,7 @@ STUDY.register(
       "a": "Security group: stateful, instance/ENI level, allow-only, return traffic auto-permitted, can reference other SGs. NACL: stateless, subnet level, ordered allow+deny rules, and you must explicitly allow return traffic on ephemeral ports. Use SGs as the primary control, NACLs as a coarse subnet guardrail.",
       "deck": "AWS::Networking",
       "id": "networking-security-group-vs-network-acl-give-the-core",
+      "level": "intermediate",
       "q": "Security group vs network ACL — give the core distinction.",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html",
       "tags": [
@@ -324,6 +350,7 @@ STUDY.register(
       "a": "Because NACLs are stateless, return traffic isn't automatic — you must add an explicit rule allowing the ephemeral port range (commonly 1024-65535) outbound for responses. Forgetting this is the classic trap.",
       "deck": "AWS::Networking",
       "id": "networking-what-s-the-most-missed-detail-about-nacls-and",
+      "level": "intermediate",
       "q": "What's the most-missed detail about NACLs and return traffic?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/nacl-examples.html",
       "tags": [
@@ -336,6 +363,7 @@ STUDY.register(
       "a": "A newly created security group has no inbound rules (all inbound denied) and one allow-all outbound rule. Return traffic for allowed connections is auto-permitted because SGs are stateful. Note: the VPC's default security group differs — it also allows inbound from resources in that same security group.",
       "deck": "AWS::Networking",
       "id": "networking-what-s-the-default-behavior-of-a-security-group-s",
+      "level": "foundational",
       "q": "What's the default behavior of a security group's inbound and outbound rules?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/default-security-group.html",
       "tags": [
@@ -348,6 +376,7 @@ STUDY.register(
       "a": "Routing — there's no public/private checkbox. Public = the route table has 0.0.0.0/0 pointing to an Internet Gateway AND the resource has a public/Elastic IP. Private = no IGW route; outbound goes through a NAT in a public subnet. The subnet object is identical either way.",
       "deck": "AWS::Networking",
       "id": "networking-what-actually-makes-a-subnet-public-vs-private",
+      "level": "intermediate",
       "q": "What actually makes a subnet public vs private?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html",
       "tags": [
@@ -360,6 +389,7 @@ STUDY.register(
       "a": "IGW = bidirectional internet for public-IP resources, attached at the VPC level, HA and free. NAT Gateway = outbound-only for private subnets (blocks inbound), sits in a public subnet with an Elastic IP, and routes through the IGW. Run one NAT per AZ for true HA.",
       "deck": "AWS::Networking",
       "id": "networking-internet-gateway-vs-nat-gateway-what-does-each-do",
+      "level": "intermediate",
       "q": "Internet Gateway vs NAT Gateway — what does each do?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html",
       "tags": [
@@ -372,6 +402,7 @@ STUDY.register(
       "a": "A VPC is regional and spans all AZs in the region; a subnet lives in exactly one AZ. Multi-AZ high availability means spreading subnets across AZs.",
       "deck": "AWS::Networking",
       "id": "networking-a-vpc-and-a-subnet-what-s-the-az-scope-of-each",
+      "level": "foundational",
       "q": "A VPC and a subnet — what's the AZ scope of each?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html",
       "tags": [
@@ -384,6 +415,7 @@ STUDY.register(
       "a": "Peering: 1:1, non-transitive, cheap, but a mesh doesn't scale — N VPCs need N(N-1)/2 links. TGW: hub-and-spoke, transitive, centralized route tables, thousands of attachments. Use peering for a few VPCs; TGW once the topology grows or you need central routing.",
       "deck": "AWS::Networking",
       "id": "networking-vpc-peering-vs-transit-gateway-when-do-you-reach",
+      "level": "advanced",
       "q": "VPC peering vs Transit Gateway — when do you reach for each?",
       "source": "https://docs.aws.amazon.com/vpc/latest/tgw/what-is-transit-gateway.html",
       "tags": [
@@ -396,6 +428,7 @@ STUDY.register(
       "a": "Overlapping CIDRs make routing to the peer ambiguous, so it's disallowed. Edge-to-edge routing (also disallowed) means you can't route THROUGH a peer to reach its IGW, NAT, VPN, or another peer. Peering is strictly between the two VPCs and non-transitive.",
       "deck": "AWS::Networking",
       "id": "networking-why-can-t-peered-vpcs-have-overlapping-cidrs-and",
+      "level": "advanced",
       "q": "Why can't peered VPCs have overlapping CIDRs, and what is edge-to-edge routing?",
       "source": "https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html",
       "tags": [
@@ -408,6 +441,7 @@ STUDY.register(
       "a": "Gateway endpoint: S3 and DynamoDB only, free, added as a route-table target. Interface endpoint (PrivateLink): an ENI with a private IP for most other services, billed hourly + data. Both keep AWS-service traffic off the public internet.",
       "deck": "AWS::Networking",
       "id": "networking-what-are-the-two-vpc-endpoint-types-and-what-does",
+      "level": "foundational",
       "q": "What are the two VPC endpoint types and what does each cover?",
       "source": "https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html",
       "tags": [
@@ -420,6 +454,7 @@ STUDY.register(
       "a": "No. S3 supports BOTH — a gateway endpoint (free, in-region, route-table based) and an interface endpoint (PrivateLink). You need the interface endpoint to reach S3 from on-premises, from peered/cross-region VPCs, or via Transit Gateway.",
       "deck": "AWS::Networking",
       "id": "networking-does-s3-only-support-gateway-endpoints",
+      "level": "intermediate",
       "q": "Does S3 only support gateway endpoints?",
       "source": "https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html",
       "tags": [
@@ -432,6 +467,7 @@ STUDY.register(
       "a": "Service traffic stays on the private AWS network (no IGW/NAT, no public internet exposure), and you can attach endpoint policies to restrict which principals/resources the endpoint can reach.",
       "deck": "AWS::Networking",
       "id": "networking-why-do-security-teams-favor-vpc-endpoints",
+      "level": "intermediate",
       "q": "Why do security teams favor VPC endpoints?",
       "source": "https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html",
       "tags": [
@@ -444,6 +480,7 @@ STUDY.register(
       "a": "16 total minus 5 reserved by AWS (network address, VPC router, DNS = base+2, a future-use address, and the broadcast address) = 11 usable. Matters for IP-hungry containers and Lambda-in-VPC.",
       "deck": "AWS::Networking",
       "id": "networking-how-many-usable-ips-are-in-a-28-subnet-and-why",
+      "level": "intermediate",
       "q": "How many usable IPs are in a /28 subnet and why?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html",
       "tags": [
@@ -456,6 +493,7 @@ STUDY.register(
       "a": "It gains access to private resources like RDS via Hyperplane ENIs (no cold-start penalty since 2019), but it LOSES default internet access — you need a NAT for public calls or VPC endpoints for AWS services. Watch subnet IP capacity too.",
       "deck": "AWS::Networking",
       "id": "networking-what-s-the-tradeoff-of-attaching-a-lambda",
+      "level": "advanced",
       "q": "What's the tradeoff of attaching a Lambda function to a VPC?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html",
       "tags": [
@@ -468,6 +506,7 @@ STUDY.register(
       "a": "Walk the path: route table sends 0.0.0.0/0 to a NAT (not an IGW); the NAT is healthy, in a public subnet with an EIP and an IGW route; the SG allows outbound 443/80; the NACL allows outbound AND return on ephemeral ports. Then check VPC Flow Logs for ACCEPT/REJECT. Usually a missing NAT route or a NACL ephemeral-port gap.",
       "deck": "AWS::Networking",
       "id": "networking-a-private-ec2-instance-can-t-reach-the-internet",
+      "level": "advanced",
       "q": "A private EC2 instance can't reach the internet for updates — how do you troubleshoot?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-troubleshooting.html",
       "tags": [
@@ -480,6 +519,7 @@ STUDY.register(
       "a": "Flow Logs capture IP traffic metadata (accept/reject/all) at the VPC, subnet, or ENI level, sent to CloudWatch or S3. A NAT Gateway doesn't log itself — you capture its traffic by enabling Flow Logs on the NAT gateway's ENI.",
       "deck": "AWS::Networking",
       "id": "networking-what-do-vpc-flow-logs-capture-and-how-do-you-log",
+      "level": "intermediate",
       "q": "What do VPC Flow Logs capture, and how do you log NAT Gateway traffic?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html",
       "tags": [
@@ -492,6 +532,7 @@ STUDY.register(
       "a": "Span at least 2 AZs. Public subnets per AZ for the ALB and NAT; private app subnets per AZ for EC2/EKS behind the ALB; isolated private DB subnets per AZ (a DB subnet group) for RDS Multi-AZ. One NAT per AZ, SG chaining (ALB SG to app SG to DB SG), and S3/DynamoDB gateway endpoints to dodge NAT cost.",
       "deck": "AWS::Networking",
       "id": "networking-design-a-highly-available-three-tier-vpc-what-are",
+      "level": "expert",
       "q": "Design a highly available three-tier VPC — what are the load-bearing pieces?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html",
       "tags": [
@@ -504,6 +545,7 @@ STUDY.register(
       "a": "An ENI is a virtual NIC bound to one subnet/AZ, carrying a private IP, MAC, and security groups; it can be detached and reattached for failover. Instances, RDS, and VPC-attached Lambda all get ENIs.",
       "deck": "AWS::Networking",
       "id": "networking-what-is-an-eni-and-what-uses-one",
+      "level": "foundational",
       "q": "What is an ENI and what uses one?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html",
       "tags": [
@@ -516,6 +558,7 @@ STUDY.register(
       "a": "Longest-prefix match wins. The 'local' route covers the VPC CIDR — it's implicit and can't be removed. Subnets with no explicit association use the VPC's main route table.",
       "deck": "AWS::Networking",
       "id": "networking-in-a-route-table-which-route-wins-and-what-is-the",
+      "level": "intermediate",
       "q": "In a route table, which route wins, and what is the 'local' route?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/route-tables-priority.html",
       "tags": [
@@ -528,6 +571,7 @@ STUDY.register(
       "a": "VPC and subnet CIDRs range from /16 to /28. The primary VPC CIDR can't be resized, but you can add secondary CIDR blocks. Use RFC1918 private ranges (10/8, 172.16/12, 192.168/16).",
       "deck": "AWS::Networking",
       "id": "networking-what-cidr-sizes-can-a-vpc-and-subnet-use-and-can",
+      "level": "intermediate",
       "q": "What CIDR sizes can a VPC and subnet use, and can you resize them?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html",
       "tags": [
@@ -540,6 +584,7 @@ STUDY.register(
       "a": "11 nines (99.999999999%) durability, designed the same across ALL storage classes including One Zone-IA — what One Zone-IA trades is resilience/availability (single AZ), not the durability rating, and losing that one AZ can still destroy the data. Classes trade availability and cost, not the durability number. Durability = probability an object survives over a year.",
       "deck": "AWS::S3",
       "id": "s3-s3-durability-what-s-the-number-and-does-it-vary",
+      "level": "intermediate",
       "q": "S3 durability: what's the number, and does it vary by storage class?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
       "tags": [
@@ -552,6 +597,7 @@ STUDY.register(
       "a": "S3 Standard 99.99%; Standard-IA and Glacier Instant Retrieval ~99.9%; One Zone-IA ~99.5%. Don't conflate availability with durability (11 nines).",
       "deck": "AWS::S3",
       "id": "s3-s3-availability-access-right-now-numbers-by-class",
+      "level": "foundational",
       "q": "S3 availability (access-right-now) numbers by class?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
       "tags": [
@@ -564,6 +610,7 @@ STUDY.register(
       "a": "One Zone-IA. All other classes replicate across 3+ AZs. One Zone-IA is cheaper, but loss of that single AZ can destroy the data despite the 11-nines design within the zone. Don't use it for irreplaceable data.",
       "deck": "AWS::S3",
       "id": "s3-which-s3-storage-class-stores-data-in-a-single-az",
+      "level": "intermediate",
       "q": "Which S3 storage class stores data in a single AZ, and what's the risk?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
       "tags": [
@@ -576,6 +623,7 @@ STUDY.register(
       "a": "Glacier Instant Retrieval = milliseconds. Glacier Flexible Retrieval = Expedited 1-5 min / Standard 3-5 hr / Bulk 5-12 hr. Glacier Deep Archive = cheapest, 12-48 hr retrieval.",
       "deck": "AWS::S3",
       "id": "s3-s3-glacier-retrieval-tiers-and-their-speeds",
+      "level": "foundational",
       "q": "S3 Glacier retrieval tiers and their speeds?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/restoring-objects-retrieval-options.html",
       "tags": [
@@ -588,6 +636,7 @@ STUDY.register(
       "a": "When access patterns are unpredictable. It auto-moves objects between tiers based on access, charges a small per-object monitoring fee, and has no retrieval fees.",
       "deck": "AWS::S3",
       "id": "s3-when-should-you-use-s3-intelligent-tiering",
+      "level": "intermediate",
       "q": "When should you use S3 Intelligent-Tiering?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/intelligent-tiering.html",
       "tags": [
@@ -600,6 +649,7 @@ STUDY.register(
       "a": "Strong read-after-write consistency for ALL operations (PUT, overwrite, DELETE) including LIST, since December 2020. The old 'eventually consistent for overwrites/deletes' answer is now WRONG and signals stale knowledge.",
       "deck": "AWS::S3",
       "id": "s3-what-is-s3-s-current-consistency-model-and-what",
+      "level": "intermediate",
       "q": "What is S3's current consistency model, and what changed?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html",
       "tags": [
@@ -612,6 +662,7 @@ STUDY.register(
       "a": "Max object size 50 TB (raised from 5 TB on Dec 2, 2025). Single PUT max 5 GB. Use Multipart Upload for objects over 100 MB; it's required above 5 GB.",
       "deck": "AWS::S3",
       "id": "s3-s3-object-and-upload-size-limits-max-object",
+      "level": "foundational",
       "q": "S3 object and upload size limits (max object, single PUT, multipart threshold)?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html",
       "tags": [
@@ -624,6 +675,7 @@ STUDY.register(
       "a": "S3 has a flat key-based namespace. 'Folders' are just key prefixes; there's no real directory hierarchy.",
       "deck": "AWS::S3",
       "id": "s3-how-are-folders-represented-in-s3",
+      "level": "foundational",
       "q": "How are 'folders' represented in S3?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-folders.html",
       "tags": [
@@ -636,6 +688,7 @@ STUDY.register(
       "a": "IAM policies (identity-based), bucket policies (resource-based, max 20 KB), ACLs (legacy — disable via Bucket Owner Enforced), and Access Points. Block Public Access sits over all of them as a deny-by-default override.",
       "deck": "AWS::S3",
       "id": "s3-what-are-s3-s-access-control-mechanisms",
+      "level": "intermediate",
       "q": "What are S3's access-control mechanisms?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-overview.html",
       "tags": [
@@ -648,6 +701,7 @@ STUDY.register(
       "a": "BPA is 4 settings that override any policy or ACL granting public access — a deny-by-default safety net. Since April 2023 it's ON by default for new buckets (bucket-level). Account-level BPA is opt-in and must be configured manually.",
       "deck": "AWS::S3",
       "id": "s3-what-is-s3-block-public-access-bpa-and-what-s-its",
+      "level": "intermediate",
       "q": "What is S3 Block Public Access (BPA) and what's its default state?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html",
       "tags": [
@@ -660,6 +714,7 @@ STUDY.register(
       "a": "Block Public Access is enabled (default for new buckets) and overrides the policy. The correct fix is almost never to disable BPA — front the private bucket with CloudFront + Origin Access Control (OAC). Disabling BPA is a junior red flag.",
       "deck": "AWS::S3",
       "id": "s3-a-bucket-policy-grants-public-read-but-the",
+      "level": "advanced",
       "q": "A bucket policy grants public read but the objects aren't publicly accessible. Why, and how do you fix it correctly?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html",
       "tags": [
@@ -672,6 +727,7 @@ STUDY.register(
       "a": "IAM (identity-based) for principals you control / central management. Bucket policy (resource-based, up to 20 KB) for cross-account access, public grants, or bucket-level conditions (require TLS, require a VPC endpoint). ACLs are legacy — disable them. Effective access = union of allows minus any explicit deny.",
       "deck": "AWS::S3",
       "id": "s3-bucket-policy-vs-iam-policy-vs-acl-when-do-you",
+      "level": "intermediate",
       "q": "Bucket policy vs IAM policy vs ACL — when do you use each in S3?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html",
       "tags": [
@@ -684,6 +740,7 @@ STUDY.register(
       "a": "Server-side encryption with S3-managed keys using AES-256. Zero management. It has been the default encryption applied automatically to all new objects (and all buckets) since January 5, 2023.",
       "deck": "AWS::S3",
       "id": "s3-what-is-s3-sse-s3-encryption-and-what-s-its",
+      "level": "foundational",
       "q": "What is S3 SSE-S3 encryption, and what's its default status?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html",
       "tags": [
@@ -696,6 +753,7 @@ STUDY.register(
       "a": "Server-side encryption using AWS KMS keys. Advantage: KMS access is auditable in CloudTrail and you get key policies, rotation, and separation of duties — for compliance use cases. Cost note: KMS request charges and throttling at scale, mitigated by S3 Bucket Keys.",
       "deck": "AWS::S3",
       "id": "s3-what-is-s3-sse-kms-and-what-advantage-does-it",
+      "level": "intermediate",
       "q": "What is S3 SSE-KMS, and what advantage does it give over SSE-S3?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html",
       "tags": [
@@ -708,6 +766,7 @@ STUDY.register(
       "a": "They reduce SSE-KMS request costs by up to 99% by having S3 use a short-lived bucket-level key to generate data keys, instead of calling KMS for every object. Also reduces KMS throttling at scale.",
       "deck": "AWS::S3",
       "id": "s3-what-do-s3-bucket-keys-do",
+      "level": "intermediate",
       "q": "What do S3 Bucket Keys do?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html",
       "tags": [
@@ -720,6 +779,7 @@ STUDY.register(
       "a": "Server-side encryption with customer-provided keys: you supply the encryption key with each request and AWS uses it to encrypt/decrypt but never stores it. You manage the keys entirely.",
       "deck": "AWS::S3",
       "id": "s3-what-is-s3-sse-c-encryption",
+      "level": "foundational",
       "q": "What is S3 SSE-C encryption?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html",
       "tags": [
@@ -732,6 +792,7 @@ STUDY.register(
       "a": "You encrypt data before uploading; AWS only ever stores ciphertext and never sees plaintext. You fully own key management.",
       "deck": "AWS::S3",
       "id": "s3-what-is-client-side-encryption-with-s3",
+      "level": "foundational",
       "q": "What is client-side encryption with S3?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingClientSideEncryption.html",
       "tags": [
@@ -744,6 +805,7 @@ STUDY.register(
       "a": "It embeds a SigV4 signature from the creator's credentials, granting one specific operation (GET or PUT) until expiry — max 7 days. The client needs no AWS credentials. It's effectively a bearer token inheriting the signer's permissions: keep expiries short. It dies immediately if the signer's credentials are revoked/deleted (and sooner if signed with temporary role credentials).",
       "deck": "AWS::S3",
       "id": "s3-how-does-an-s3-presigned-url-work-and-what-are",
+      "level": "advanced",
       "q": "How does an S3 presigned URL work, and what are its security properties?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html",
       "tags": [
@@ -756,6 +818,7 @@ STUDY.register(
       "a": "Preserves every version of an object, including delete markers. Once enabled it can only be suspended, never fully disabled. It's a prerequisite for MFA Delete and for replication.",
       "deck": "AWS::S3",
       "id": "s3-what-does-s3-versioning-do-and-what-are-its",
+      "level": "intermediate",
       "q": "What does S3 Versioning do, and what are its constraints?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html",
       "tags": [
@@ -768,6 +831,7 @@ STUDY.register(
       "a": "SRR = same-region replication (log aggregation, compliance residency). CRR = cross-region (DR, latency). Both require versioning enabled on source AND destination, are asynchronous, and replicate only new objects (use Batch Replication for existing). Can change storage class/owner. RTC (Replication Time Control) gives a 15-minute SLA.",
       "deck": "AWS::S3",
       "id": "s3-s3-replication-srr-vs-crr-and-what-are-the",
+      "level": "intermediate",
       "q": "S3 replication: SRR vs CRR, and what are the prerequisites?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html",
       "tags": [
@@ -780,6 +844,7 @@ STUDY.register(
       "a": "No. S3 static website hosting serves HTTP only. To get HTTPS and a custom domain, front it with CloudFront (plus an ACM cert).",
       "deck": "AWS::S3",
       "id": "s3-can-s3-static-website-hosting-serve-https",
+      "level": "foundational",
       "q": "Can S3 static website hosting serve HTTPS?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html",
       "tags": [
@@ -792,6 +857,7 @@ STUDY.register(
       "a": "Keep the bucket private with BPA on. Put CloudFront in front using Origin Access Control (OAC) so only CloudFront can read the bucket. Use an ACM cert for HTTPS and Route 53 pointing to CloudFront. Never use the public S3 website endpoint — no TLS and it exposes the bucket.",
       "deck": "AWS::S3",
       "id": "s3-how-do-you-serve-a-static-site-over-a-custom",
+      "level": "advanced",
       "q": "How do you serve a static site over a custom domain with HTTPS, securely?",
       "source": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html",
       "tags": [
@@ -804,6 +870,7 @@ STUDY.register(
       "a": "WORM (write-once-read-many) protection: Governance or Compliance retention mode plus legal holds. Historically had to be enabled at bucket creation, but since Nov 20, 2023 it can also be enabled on EXISTING buckets (versioning is required and is enabled with it). Used for compliance and ransomware protection.",
       "deck": "AWS::S3",
       "id": "s3-what-is-s3-object-lock-and-when-must-it-be-enabled",
+      "level": "intermediate",
       "q": "What is S3 Object Lock, and when must it be enabled?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html",
       "tags": [
@@ -816,6 +883,7 @@ STUDY.register(
       "a": "Governance mode: users with s3:BypassGovernanceRetention can alter/delete protected objects. Compliance mode: no one can overwrite or delete a locked version — including the root user — and the retention period can't be shortened. Compliance is the true immutability/ransomware control.",
       "deck": "AWS::S3",
       "id": "s3-s3-object-lock-governance-mode-vs-compliance-mode",
+      "level": "advanced",
       "q": "S3 Object Lock: Governance mode vs Compliance mode?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html",
       "tags": [
@@ -828,6 +896,7 @@ STUDY.register(
       "a": "A legal hold prevents an object version from being overwritten or deleted with no fixed time limit — it stays until explicitly removed (needs s3:PutObjectLegalHold). It's independent of, and stacks on top of, any retention period.",
       "deck": "AWS::S3",
       "id": "s3-what-s-an-s3-legal-hold-and-how-does-it-differ",
+      "level": "intermediate",
       "q": "What's an S3 legal hold, and how does it differ from a retention period?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html",
       "tags": [
@@ -840,6 +909,7 @@ STUDY.register(
       "a": "Land in S3 Standard; at 30 days transition to Standard-IA (or Glacier Instant Retrieval); at ~1 year transition to Glacier Flexible or Deep Archive; expire at 7 years. Apply Object Lock Compliance mode with a 7-year retention for immutability. If access is unpredictable instead, use Intelligent-Tiering.",
       "deck": "AWS::S3",
       "id": "s3-design-a-cost-optimized-lifecycle-for-logs-hot-30",
+      "level": "advanced",
       "q": "Design a cost-optimized lifecycle for logs: hot 30 days, occasional access ~1 year, retain 7 years for compliance.",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html",
       "tags": [
@@ -852,6 +922,7 @@ STUDY.register(
       "a": "Versioning plus MFA Delete; Object Lock (Compliance mode blocks even root); a bucket policy denying Delete except for specific principals; CRR to an isolated/air-gapped account; and CloudTrail S3 data events with GuardDuty/Macie for anomaly detection.",
       "deck": "AWS::S3",
       "id": "s3-how-do-you-protect-an-s3-bucket-against",
+      "level": "expert",
       "q": "How do you protect an S3 bucket against accidental or malicious deletion?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html",
       "tags": [
@@ -864,6 +935,7 @@ STUDY.register(
       "a": "Still wrong for low-latency random BLOCK access (use EBS) and transactional relational data (use a database) — S3's object API is neither a block device nor a database. The old 'no POSIX filesystem' reason is now outdated: Amazon S3 Files (GA April 2026, built on Amazon EFS under the hood) mounts an S3 bucket as a native file system with full POSIX semantics (~1ms for active data), so you get file access without copying data out of S3. Standalone EFS/FSx still fit file workloads that aren't S3-backed.",
       "deck": "AWS::S3",
       "id": "s3-when-is-s3-the-wrong-storage-choice",
+      "level": "expert",
       "q": "When is S3 the WRONG storage choice?",
       "source": "https://aws.amazon.com/about-aws/whats-new/2026/04/amazon-s3-files",
       "tags": [
@@ -876,6 +948,7 @@ STUDY.register(
       "a": "CloudTrail S3 data events (API-level audit), GuardDuty S3 protection (anomalous-access detection), and Macie (sensitive-data discovery, e.g. PHI). Tie access control to detection, not just prevention.",
       "deck": "AWS::S3",
       "id": "s3-which-aws-services-detect-threats-and-sensitive",
+      "level": "intermediate",
       "q": "Which AWS services detect threats and sensitive data in S3?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html",
       "tags": [
@@ -888,6 +961,7 @@ STUDY.register(
       "a": "S3 buckets are region-scoped, but bucket NAMES are globally unique across all of AWS. Two accounts can't share a bucket name even in different regions.",
       "deck": "AWS::S3",
       "id": "s3-gotcha-is-an-s3-bucket-name-region-scoped-or",
+      "level": "foundational",
       "q": "Gotcha: is an S3 bucket name region-scoped or global?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html",
       "tags": [
@@ -900,6 +974,7 @@ STUDY.register(
       "a": "You pay for storage per GB-month (by class), requests, data transfer OUT, and retrieval fees (for IA/Glacier). Data transfer IN is free, and same-region transfer to other AWS services is generally free.",
       "deck": "AWS::S3",
       "id": "s3-s3-pricing-what-s-free-and-what-costs-money",
+      "level": "intermediate",
       "q": "S3 pricing: what's free and what costs money?",
       "source": "https://aws.amazon.com/s3/pricing/",
       "tags": [
@@ -912,6 +987,7 @@ STUDY.register(
       "a": "T = burstable (CPU credits); M = balanced; C = compute-optimized; R/X/z = memory-optimized; I/D = storage-optimized (local NVMe); P/G/Inf/Trn = GPU/ML. Name format is family+generation+attributes.size, e.g. m6gd.large (g = Graviton/ARM, d = local NVMe).",
       "deck": "AWS::EC2",
       "id": "ec2-ec2-instance-families-and-what-each-is-optimized",
+      "level": "foundational",
       "q": "EC2 instance families and what each is optimized for?",
       "source": "https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html",
       "tags": [
@@ -924,6 +1000,7 @@ STUDY.register(
       "a": "Start with the bottleneck: CPU-bound -> C; memory-bound -> R/X; balanced web/app -> M; spiky with low average -> T; local high-IOPS -> I/D; ML -> P/G/Trn/Inf. Consider Graviton (~20% better price/performance) if the workload is portable.",
       "deck": "AWS::EC2",
       "id": "ec2-how-do-you-pick-an-ec2-instance-family-for-a",
+      "level": "intermediate",
       "q": "How do you pick an EC2 instance family for a workload?",
       "source": "https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html",
       "tags": [
@@ -936,6 +1013,7 @@ STUDY.register(
       "a": "On-Demand for unpredictable/short workloads. Reserved Instances or a Compute Savings Plan for steady baseline. Spot for fault-tolerant/interruptible work (~90% off, 2-min reclaim). In practice: blend an RI/SP baseline + On-Demand buffer + Spot for burst.",
       "deck": "AWS::EC2",
       "id": "ec2-ec2-purchasing-models-on-demand-vs-reserved-vs",
+      "level": "intermediate",
       "q": "EC2 purchasing models: On-Demand vs Reserved vs Savings Plans vs Spot — when each?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html",
       "tags": [
@@ -948,6 +1026,7 @@ STUDY.register(
       "a": "A Compute Savings Plan ($/hr commit, 1 or 3 yr) applies regardless of instance family, size, AZ, region, OS, or tenancy, AND spans EC2, Fargate, and Lambda. You can shift workloads freely and keep the discounted rate. More flexible than EC2 Instance SPs or Convertible RIs.",
       "deck": "AWS::EC2",
       "id": "ec2-what-makes-compute-savings-plans-the-most",
+      "level": "intermediate",
       "q": "What makes Compute Savings Plans the most flexible purchasing commitment?",
       "source": "https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html",
       "tags": [
@@ -960,6 +1039,7 @@ STUDY.register(
       "a": "No. Savings Plans and regional RIs are a BILLING construct — a discount, not a capacity guarantee. Only zonal RIs and On-Demand Capacity Reservations actually reserve capacity.",
       "deck": "AWS::EC2",
       "id": "ec2-gotcha-do-savings-plans-or-regional-reserved",
+      "level": "advanced",
       "q": "Gotcha: do Savings Plans or regional Reserved Instances reserve capacity?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/reserved-instances-scope.html",
       "tags": [
@@ -972,6 +1052,7 @@ STUDY.register(
       "a": "Spare capacity at up to ~90% off On-Demand, but AWS can reclaim with only a 2-minute warning. Use only for fault-tolerant, stateless, or batch workloads. Never run stateful work on Spot without checkpointing — Spot is not just 'cheap On-Demand.'",
       "deck": "AWS::EC2",
       "id": "ec2-ec2-spot-instances-discount-interruption-behavior",
+      "level": "intermediate",
       "q": "EC2 Spot Instances: discount, interruption behavior, and appropriate workloads?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html",
       "tags": [
@@ -984,6 +1065,7 @@ STUDY.register(
       "a": "T-instances accrue CPU credits while idle and spend them to burst above baseline. 'Unlimited mode' sustains burst beyond accrued credits for an extra charge.",
       "deck": "AWS::EC2",
       "id": "ec2-how-does-the-ec2-t-family-burstable-model-work",
+      "level": "foundational",
       "q": "How does the EC2 T-family burstable model work?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html",
       "tags": [
@@ -996,6 +1078,7 @@ STUDY.register(
       "a": "An AMI is a template (OS + config + software) used to launch instances. It's region-scoped — you must copy it to another region before launching there. A 'golden AMI' bakes in config for fast, consistent launches.",
       "deck": "AWS::EC2",
       "id": "ec2-what-is-an-ec2-ami-and-what-s-its-scope",
+      "level": "foundational",
       "q": "What is an EC2 AMI and what's its scope?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html",
       "tags": [
@@ -1008,6 +1091,7 @@ STUDY.register(
       "a": "EBS: network-attached, persistent, AZ-scoped, snapshottable to S3, detach/reattach — the default for durable storage. Instance store: ephemeral local physical disk, highest IOPS, but DATA IS LOST on stop/hibernate/terminate/HW failure, no snapshots — scratch/cache only.",
       "deck": "AWS::EC2",
       "id": "ec2-ebs-vs-ec2-instance-store-key-differences",
+      "level": "intermediate",
       "q": "EBS vs EC2 instance store — key differences?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-store-lifetime.html",
       "tags": [
@@ -1020,6 +1104,7 @@ STUDY.register(
       "a": "gp3 (default — IOPS/throughput decoupled from size, baseline 3,000 IOPS + 125 MB/s, cheaper than gp2), gp2 (legacy, IOPS tied to size), io1/io2 (provisioned IOPS; io2 Block Express up to 256k IOPS), st1/sc1 (throughput/cold HDD). Use gp3 by default.",
       "deck": "AWS::EC2",
       "id": "ec2-ebs-volume-types-and-which-is-the-modern-default",
+      "level": "intermediate",
       "q": "EBS volume types and which is the modern default?",
       "source": "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html",
       "tags": [
@@ -1032,6 +1117,7 @@ STUDY.register(
       "a": "No — you can't stop/start an instance with an instance-store root volume (you get UnsupportedOperation). Instance store data is cryptographically erased on stop, hibernate, terminate, or hardware failure. Only EBS-backed instances can be stopped and started.",
       "deck": "AWS::EC2",
       "id": "ec2-gotcha-can-you-stop-an-instance-store-backed-ec2",
+      "level": "advanced",
       "q": "Gotcha: can you stop an instance-store-backed EC2 instance, and is the data safe?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html",
       "tags": [
@@ -1044,6 +1130,7 @@ STUDY.register(
       "a": "Maintains desired/min/max instance count, replaces unhealthy instances, and scales via target-tracking, step, scheduled, or predictive policies. It spans multiple AZs and uses Launch Templates (not legacy Launch Configurations).",
       "deck": "AWS::EC2",
       "id": "ec2-what-does-an-ec2-auto-scaling-group-asg-do",
+      "level": "intermediate",
       "q": "What does an EC2 Auto Scaling Group (ASG) do?",
       "source": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/auto-scaling-groups.html",
       "tags": [
@@ -1056,6 +1143,7 @@ STUDY.register(
       "a": "ALB = Layer 7 (HTTP/HTTPS, host/path routing; targets can be instances, IPs, containers, Lambda). NLB = Layer 4 (TCP/UDP, ultra-low latency, static IP, millions of req/s). GWLB = Layer 3 (third-party appliances). CLB = legacy, avoid.",
       "deck": "AWS::EC2",
       "id": "ec2-elastic-load-balancer-types-and-their-layers",
+      "level": "foundational",
       "q": "Elastic Load Balancer types and their layers?",
       "source": "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html",
       "tags": [
@@ -1068,6 +1156,7 @@ STUDY.register(
       "a": "The ASG maintains instance count across AZs and replaces instances that fail health checks. The ALB distributes traffic only to healthy targets and feeds health status back. Together they form a self-healing, multi-AZ, elastic tier. Prefer ELB health checks over basic EC2 status checks.",
       "deck": "AWS::EC2",
       "id": "ec2-how-do-asg-elb-combine-for-high-availability",
+      "level": "intermediate",
       "q": "How do ASG + ELB combine for high availability?",
       "source": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/auto-scaling-groups.html",
       "tags": [
@@ -1080,6 +1169,7 @@ STUDY.register(
       "a": "Cluster = single AZ, lowest latency (HPC), but correlated-failure risk. Spread = distinct hardware, max 7 instances per AZ, for critical HA. Partition = separate racks, for large rack-aware distributed systems. Tradeoff is latency vs blast-radius isolation.",
       "deck": "AWS::EC2",
       "id": "ec2-ec2-placement-groups-the-three-strategies-and",
+      "level": "advanced",
       "q": "EC2 placement groups: the three strategies and their tradeoffs?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html",
       "tags": [
@@ -1092,6 +1182,7 @@ STUDY.register(
       "a": "Cluster placement group — it packs instances into a single AZ on close hardware, creating correlated-failure risk. That's a classic wrong answer for HA. Use Spread (or Partition) for high availability.",
       "deck": "AWS::EC2",
       "id": "ec2-gotcha-which-placement-group-should-you-not-use",
+      "level": "advanced",
       "q": "Gotcha: which placement group should you NOT use for a high-availability requirement?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html",
       "tags": [
@@ -1104,6 +1195,7 @@ STUDY.register(
       "a": "A cloud-init script that runs once at first boot as root (~16 KB, base64-encoded). Never put secrets in it — it's readable from instance metadata. Pull secrets at boot from Secrets Manager / SSM Parameter Store via the instance role; bake heavy config into a golden AMI.",
       "deck": "AWS::EC2",
       "id": "ec2-what-is-ec2-user-data-and-what-must-you-not-put",
+      "level": "intermediate",
       "q": "What is EC2 user data, and what must you NOT put in it?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html",
       "tags": [
@@ -1116,6 +1208,7 @@ STUDY.register(
       "a": "A link-local endpoint at 169.254.169.254 that returns instance facts AND the temporary IAM role credentials. Because it hands out credentials, it's a prime SSRF target — which is why IMDSv2 enforcement matters.",
       "deck": "AWS::EC2",
       "id": "ec2-what-is-the-ec2-instance-metadata-service-imds",
+      "level": "intermediate",
       "q": "What is the EC2 Instance Metadata Service (IMDS) and why does it matter for security?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html",
       "tags": [
@@ -1128,6 +1221,7 @@ STUDY.register(
       "a": "IMDSv1 is simple request/response (no token), so an SSRF or misconfigured reverse proxy can exfiltrate the instance's IAM credentials — this was the Capital One 2019 breach vector. IMDSv2 is session-oriented: a PUT obtains a token, then GETs must carry it as a header, defeating typical SSRF. Enforce it with HttpTokens=required.",
       "deck": "AWS::EC2",
       "id": "ec2-imdsv1-vs-imdsv2-what-s-the-difference-and-why",
+      "level": "advanced",
       "q": "IMDSv1 vs IMDSv2 — what's the difference and why does v2 matter?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html",
       "tags": [
@@ -1140,6 +1234,7 @@ STUDY.register(
       "a": "Default hop limit is 1 (correct for non-containerized instances). For containerized workloads (ECS/EKS pods), AWS recommends a hop limit of 2 — the first hop from container to host consumes a TTL of 1, so with 1 the container can't fetch the token. Set HttpPutResponseHopLimit=2 for containers.",
       "deck": "AWS::EC2",
       "id": "ec2-what-is-the-correct-imdsv2-hop-limit-for-plain",
+      "level": "advanced",
       "q": "What is the correct IMDSv2 hop limit for plain instances vs containers?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html",
       "tags": [
@@ -1152,6 +1247,7 @@ STUDY.register(
       "a": "IMDSv2 being AVAILABLE is not the same as it being ENFORCED. Saying you use IMDSv2 must mean HttpTokens=required so IMDSv1 is disabled. If v1 is still optional, an attacker just uses v1.",
       "deck": "AWS::EC2",
       "id": "ec2-gotcha-what-does-we-use-imdsv2-actually-have-to",
+      "level": "advanced",
       "q": "Gotcha: what does 'we use IMDSv2' actually have to mean?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html",
       "tags": [
@@ -1164,6 +1260,7 @@ STUDY.register(
       "a": "Stop (EBS-backed only): compute billing pauses, EBS still bills, instance-store data lost, public IP changes on restart (unless EIP), private IP kept. Terminate: instance deleted; root EBS deleted if delete-on-termination (the default). Hibernate: saves RAM to EBS. Reboot: same host, keeps all IPs and data.",
       "deck": "AWS::EC2",
       "id": "ec2-ec2-lifecycle-stop-vs-terminate-vs-hibernate-vs",
+      "level": "intermediate",
       "q": "EC2 lifecycle: stop vs terminate vs hibernate vs reboot — what happens to data and IPs?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html",
       "tags": [
@@ -1176,6 +1273,7 @@ STUDY.register(
       "a": "The public IP changes on restart unless you've attached an Elastic IP. The private IP persists. This trips people up when they hardcode the public IP.",
       "deck": "AWS::EC2",
       "id": "ec2-gotcha-what-happens-to-an-ebs-backed-instance-s",
+      "level": "intermediate",
       "q": "Gotcha: what happens to an EBS-backed instance's public IP when you stop and start it?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html",
       "tags": [
@@ -1188,6 +1286,7 @@ STUDY.register(
       "a": "Yes — both AMIs and EBS snapshots are region-scoped. You must copy them to another region before you can launch from them there.",
       "deck": "AWS::EC2",
       "id": "ec2-gotcha-are-amis-and-ebs-snapshots-region-scoped",
+      "level": "foundational",
       "q": "Gotcha: are AMIs and EBS snapshots region-scoped?",
       "source": "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-copy-snapshot.html",
       "tags": [
@@ -1200,6 +1299,7 @@ STUDY.register(
       "a": "Attach an IAM role via an instance profile — never bake in access keys. The instance gets auto-rotated temporary credentials from IMDS. Scope the role to the exact bucket/prefix (least privilege), enforce IMDSv2, and add an S3 gateway endpoint to keep traffic off the public internet.",
       "deck": "AWS::EC2",
       "id": "ec2-how-do-you-give-an-ec2-instance-access-to-s3",
+      "level": "intermediate",
       "q": "How do you give an EC2 instance access to S3 securely?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html",
       "tags": [
@@ -1212,6 +1312,7 @@ STUDY.register(
       "a": "Prefer managed services (Lambda, Fargate, RDS) unless you genuinely need OS-level control, specific licensing/BYOL, specialized hardware, or long-running persistent workloads. Reaching for EC2 by default is a junior tell — EC2 is 'pets,' managed compute is 'cattle.'",
       "deck": "AWS::EC2",
       "id": "ec2-when-should-you-not-use-ec2",
+      "level": "advanced",
       "q": "When should you NOT use EC2?",
       "source": "https://docs.aws.amazon.com/decision-guides/latest/compute-on-aws-how-to-choose/choosing-aws-compute-service.html",
       "tags": [
@@ -1224,6 +1325,7 @@ STUDY.register(
       "a": "Lambda runs your code in stateless, ephemeral environments AWS provisions, scales, and patches for you. You pay per request ($0.20 per 1M) plus GB-seconds (memory x duration, billed per 1 ms). No idle charge — except provisioned concurrency, which bills hourly whether or not it's invoked.",
       "deck": "AWS::Lambda",
       "id": "lambda-what-is-aws-lambda-in-one-line-and-what-is-its",
+      "level": "foundational",
       "q": "What is AWS Lambda in one line, and what is its cost model?",
       "source": "https://aws.amazon.com/lambda/pricing/",
       "tags": [
@@ -1236,6 +1338,7 @@ STUDY.register(
       "a": "Memory is the only performance dial: 128 MB to 10,240 MB (10 GB). CPU scales linearly with memory — about 1 vCPU at ~1,769 MB, up to 6 vCPU at 10 GB. There is no separate CPU setting.",
       "deck": "AWS::Lambda",
       "id": "lambda-in-aws-lambda-how-do-you-control-cpu-and-what-is",
+      "level": "foundational",
       "q": "In AWS Lambda, how do you control CPU, and what is the memory range?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-memory.html",
       "tags": [
@@ -1248,6 +1351,7 @@ STUDY.register(
       "a": "Yes. Because CPU scales with memory, for CPU-bound work more memory can finish faster and cut total cost (e.g. double memory, halve duration). Use Lambda Power Tuning to find the sweet spot. So more memory is not always more expensive.",
       "deck": "AWS::Lambda",
       "id": "lambda-in-aws-lambda-can-allocating-more-memory-ever",
+      "level": "advanced",
       "q": "In AWS Lambda, can allocating more memory ever lower total cost?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-memory.html",
       "tags": [
@@ -1260,6 +1364,7 @@ STUDY.register(
       "a": "Maximum timeout is 15 minutes (900 seconds). Default is just 3 seconds — a favorite interview trap.",
       "deck": "AWS::Lambda",
       "id": "lambda-what-is-the-maximum-and-default-timeout-for-an",
+      "level": "foundational",
       "q": "What is the maximum and default timeout for an AWS Lambda function?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-timeout.html",
       "tags": [
@@ -1272,6 +1377,7 @@ STUDY.register(
       "a": "Deployment package: 50 MB zipped / 250 MB unzipped (layers count toward the 250 MB). Container image: up to 10 GB. Max 5 layers. Ephemeral /tmp storage: 512 MB default, configurable up to 10 GB, and persists only within a warm environment.",
       "deck": "AWS::Lambda",
       "id": "lambda-what-are-aws-lambda-s-deployment-package-and-tmp",
+      "level": "foundational",
       "q": "What are AWS Lambda's deployment package and /tmp storage limits?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html",
       "tags": [
@@ -1284,6 +1390,7 @@ STUDY.register(
       "a": "Default is 1,000 concurrent executions per region (a soft limit you can raise). Each function then scales independently at up to 1,000 new execution environments every 10 seconds, up to your account limit. Exceeding it returns a 429 throttle.",
       "deck": "AWS::Lambda",
       "id": "lambda-what-is-the-default-account-concurrency-limit-in",
+      "level": "intermediate",
       "q": "What is the default account concurrency limit in AWS Lambda, and how does it burst?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html",
       "tags": [
@@ -1296,6 +1403,7 @@ STUDY.register(
       "a": "Reserved concurrency guarantees AND caps a function's slice of the account pool (free); set it to 0 to disable a function. It does NOT keep environments warm. Provisioned concurrency pre-initializes always-warm environments to eliminate cold starts (paid 24/7). They are orthogonal: provisioned must fit within reserved. Trap: only provisioned (or SnapStart) keeps functions warm — reserved does not.",
       "deck": "AWS::Lambda",
       "id": "lambda-in-aws-lambda-what-is-the-difference-between",
+      "level": "advanced",
       "q": "In AWS Lambda, what is the difference between reserved and provisioned concurrency?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html",
       "tags": [
@@ -1308,6 +1416,7 @@ STUDY.register(
       "a": "A cold start happens when no warm environment exists: Lambda downloads the code/image, bootstraps the runtime, and runs init before the first invoke. Code outside the handler runs once per environment — put expensive setup (clients, connections) there so warm invokes reuse it.",
       "deck": "AWS::Lambda",
       "id": "lambda-what-is-a-cold-start-in-aws-lambda-and-what-runs",
+      "level": "intermediate",
       "q": "What is a cold start in AWS Lambda, and what runs only once per environment?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html",
       "tags": [
@@ -1320,6 +1429,7 @@ STUDY.register(
       "a": "Sequence by cost: (1) optimize init — smaller package, lazy deps, setup outside the handler (free, always); (2) SnapStart (free for Java, paid for Python/.NET); (3) provisioned concurrency (paid, for predictable latency-critical functions only). Juniors jump straight to provisioned.",
       "deck": "AWS::Lambda",
       "id": "lambda-how-do-you-mitigate-aws-lambda-cold-starts-in",
+      "level": "advanced",
       "q": "How do you mitigate AWS Lambda cold starts, in order of cost?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html",
       "tags": [
@@ -1332,6 +1442,7 @@ STUDY.register(
       "a": "SnapStart takes a Firecracker snapshot of the initialized environment and restores it, cutting cold starts to as low as sub-second. No extra cost for Java; Python and .NET incur snapshot caching + restoration charges. Supported on Java (11/17/21), Python (3.12+), and .NET (8+). Not supported for Node.js, Ruby, OS-only runtimes, or container images. Cannot be combined with provisioned concurrency.",
       "deck": "AWS::Lambda",
       "id": "lambda-what-is-aws-lambda-snapstart-and-which-runtimes",
+      "level": "intermediate",
       "q": "What is AWS Lambda SnapStart, and which runtimes support it?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html",
       "tags": [
@@ -1344,6 +1455,7 @@ STUDY.register(
       "a": "Execution role = the role Lambda assumes to make outbound AWS API calls — what the code can DO (e.g. read an S3 bucket). Resource-based policy = who/what can INVOKE the function — inbound (e.g. API Gateway, S3, another account). Two different policies; swapping them is a classic mistake.",
       "deck": "AWS::Lambda",
       "id": "lambda-in-aws-lambda-what-is-the-difference-between-the",
+      "level": "intermediate",
       "q": "In AWS Lambda, what is the difference between the execution role and the resource-based policy?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html",
       "tags": [
@@ -1356,6 +1468,7 @@ STUDY.register(
       "a": "Push: the source invokes Lambda directly — synchronous (API Gateway, ALB; caller owns retries) or asynchronous (S3, SNS, EventBridge; Lambda queues it). Poll: an event source mapping has Lambda poll and batch records from SQS, Kinesis, DynamoDB Streams, or MSK/Kafka.",
       "deck": "AWS::Lambda",
       "id": "lambda-in-aws-lambda-what-distinguishes-push-event",
+      "level": "intermediate",
       "q": "In AWS Lambda, what distinguishes push event sources from poll event sources?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-services.html",
       "tags": [
@@ -1368,6 +1481,7 @@ STUDY.register(
       "a": "Synchronous: caller waits, caller owns retries (no automatic retry). Asynchronous: queued, Lambda retries twice (3 attempts total) then sends to a DLQ or destination. Stream/poll: processes batches with per-shard ordering; a failed batch retries and blocks the shard until you set bisect-on-error, max-retry, and an on-failure destination.",
       "deck": "AWS::Lambda",
       "id": "lambda-what-are-aws-lambda-s-three-invocation-types-and",
+      "level": "intermediate",
       "q": "What are AWS Lambda's three invocation types and who owns retries for each?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html",
       "tags": [
@@ -1380,6 +1494,7 @@ STUDY.register(
       "a": "Lambda retries a failed async invocation twice (3 attempts total), with growing wait intervals. After retries are exhausted the event goes to a Dead Letter Queue (SQS/SNS) or to Destinations. Destinations work for both success and failure and include richer payload context; DLQs capture only failures.",
       "deck": "AWS::Lambda",
       "id": "lambda-how-does-aws-lambda-handle-errors-for",
+      "level": "intermediate",
       "q": "How does AWS Lambda handle errors for asynchronous invocations?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html",
       "tags": [
@@ -1392,6 +1507,7 @@ STUDY.register(
       "a": "When runtime exceeds 15 minutes; for predictable sub-millisecond latency; for persistent connections or in-memory state; for constant high steady volume (Fargate/ECS/EC2 are cheaper per hour); for chatty DB connection storms (use RDS Proxy); or for GPUs / >10 GB needs. Lambda wins on spiky, event-driven, low-to-medium volume.",
       "deck": "AWS::Lambda",
       "id": "lambda-when-is-serverless-aws-lambda-the-wrong-choice",
+      "level": "advanced",
       "q": "When is serverless (AWS Lambda) the WRONG choice?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
       "tags": [
@@ -1404,6 +1520,7 @@ STUDY.register(
       "a": "Pre-2019, Lambda created an ENI per cold start (10+ seconds of latency). Now it uses shared Hyperplane ENIs created at function create/update, so there is no per-invoke penalty. Remaining tradeoffs: no default internet access (needs a NAT Gateway, or VPC endpoints for AWS services), and subnet IP exhaustion to plan for.",
       "deck": "AWS::Lambda",
       "id": "lambda-what-changed-about-running-aws-lambda-inside-a",
+      "level": "advanced",
       "q": "What changed about running AWS Lambda inside a VPC, and what are the remaining tradeoffs?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html",
       "tags": [
@@ -1416,6 +1533,7 @@ STUDY.register(
       "a": "/tmp is the only writable part of the filesystem (512 MB to 10 GB) and persists only within a warm environment. Because warm environments are reused, data left in /tmp can leak across invocations — a security concern. It is gone on a cold start, so it is never durable. Durable state belongs in S3, EFS, or a database.",
       "deck": "AWS::Lambda",
       "id": "lambda-what-is-the-security-risk-of-aws-lambda-s-tmp",
+      "level": "advanced",
       "q": "What is the security risk of AWS Lambda's /tmp directory?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html",
       "tags": [
@@ -1428,6 +1546,7 @@ STUDY.register(
       "a": "Concurrency = requests/second x average duration (seconds). Example: 100 req/s x 0.5 s = 50 concurrent executions. If concurrency exceeds the limit, requests are throttled with a 429.",
       "deck": "AWS::Lambda",
       "id": "lambda-in-aws-lambda-how-do-you-compute-required",
+      "level": "intermediate",
       "q": "In AWS Lambda, how do you compute required concurrency from traffic?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html",
       "tags": [
@@ -1440,6 +1559,7 @@ STUDY.register(
       "a": "A layer is shared libraries mounted at /opt (max 5, counts toward the 250 MB unzipped limit) — good for sharing common dependencies. A container image (up to 10 GB) is for large dependencies, ML models, custom binaries, Docker-based tooling, or full runtime control.",
       "deck": "AWS::Lambda",
       "id": "lambda-in-aws-lambda-when-would-you-use-layers-versus-a",
+      "level": "intermediate",
       "q": "In AWS Lambda, when would you use layers versus a container image?",
       "source": "https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html",
       "tags": [
@@ -1452,6 +1572,7 @@ STUDY.register(
       "a": "Give the execution role least privilege (exact resource ARNs, not wildcards). Use a tight resource-based policy to control who can invoke it. Pull secrets via the Parameters and Secrets Lambda Extension (or Secrets Manager/SSM), never plaintext environment variables. Be aware /tmp can leak data across warm invocations.",
       "deck": "AWS::Lambda",
       "id": "lambda-what-security-practices-apply-to-an-aws-lambda",
+      "level": "intermediate",
       "q": "What security practices apply to an AWS Lambda function's permissions and secrets?",
       "source": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets_lambda.html",
       "tags": [
@@ -1464,6 +1585,7 @@ STUDY.register(
       "a": "ECS is AWS's proprietary managed container orchestrator. It runs Docker containers as tasks and services across clusters, on either self-managed EC2 instances or serverless Fargate.",
       "deck": "AWS::ECS",
       "id": "ecs-what-is-amazon-ecs-in-one-line",
+      "level": "foundational",
       "q": "What is Amazon ECS in one line?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html",
       "tags": [
@@ -1476,6 +1598,7 @@ STUDY.register(
       "a": "Cluster contains Services; a Service keeps N copies of a Task running; a Task is one or more Containers launched from a task definition; the Container is the running image. The Task is the atomic unit of deployment.",
       "deck": "AWS::ECS",
       "id": "ecs-what-is-the-amazon-ecs-object-hierarchy-and-what",
+      "level": "foundational",
       "q": "What is the Amazon ECS object hierarchy, and what is the atomic unit of deployment?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html",
       "tags": [
@@ -1488,6 +1611,7 @@ STUDY.register(
       "a": "A JSON blueprint for a task: container images, CPU/memory, ports, environment variables, log config, network mode, and the two IAM roles (execution role and task role). It is immutable and versioned — each change creates a new revision.",
       "deck": "AWS::ECS",
       "id": "ecs-what-is-an-amazon-ecs-task-definition",
+      "level": "foundational",
       "q": "What is an Amazon ECS task definition?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html",
       "tags": [
@@ -1500,6 +1624,7 @@ STUDY.register(
       "a": "Task EXECUTION role = used by the ECS agent / Fargate to pull images from ECR, write logs, and fetch secrets — platform plumbing that acts AROUND the container. Task ROLE = the IAM identity the app code inside the container uses for runtime AWS calls (S3, DynamoDB). The task role is the IRSA equivalent for ECS. Reversing them is a classic fail.",
       "deck": "AWS::ECS",
       "id": "ecs-in-amazon-ecs-what-is-the-difference-between-the",
+      "level": "intermediate",
       "q": "In Amazon ECS, what is the difference between the task execution role and the task role?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html",
       "tags": [
@@ -1512,6 +1637,7 @@ STUDY.register(
       "a": "Fargate: serverless, billed per vCPU/GB-second, no instances to manage — best for bursty load, small teams, faster operations. EC2: you own, patch, and scale the instances — cheaper at steady high utilization, and required for GPUs, special instance types, host control, and bin-packing. Common pattern: Fargate front-ends + EC2 for steady capacity, FARGATE_SPOT for fault-tolerant work.",
       "deck": "AWS::ECS",
       "id": "ecs-what-are-the-two-amazon-ecs-launch-types-and-when",
+      "level": "intermediate",
       "q": "What are the two Amazon ECS launch types and when do you pick each?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html",
       "tags": [
@@ -1524,6 +1650,7 @@ STUDY.register(
       "a": "Capacity providers abstract the launch type so services don't hardcode it: FARGATE, FARGATE_SPOT, and EC2 Auto Scaling Group providers. For Fargate you blend FARGATE and FARGATE_SPOT with weight and base. For EC2, an ASG provider with managed scaling lets ECS add/remove instances automatically to keep room for pending tasks.",
       "deck": "AWS::ECS",
       "id": "ecs-what-are-amazon-ecs-capacity-providers",
+      "level": "intermediate",
       "q": "What are Amazon ECS capacity providers?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/asg-capacity-providers.html",
       "tags": [
@@ -1536,6 +1663,7 @@ STUDY.register(
       "a": "Modes are awsvpc, bridge (Docker, EC2 only), host, and none. awsvpc gives each task its own ENI, private IP, and security group — enabling task-level security groups, VPC flow logs, and no port conflicts. It is mandatory for Fargate and the security win is per-task isolation; bridge is EC2-only with weaker, coarser isolation.",
       "deck": "AWS::ECS",
       "id": "ecs-what-are-amazon-ecs-network-modes-and-why-prefer",
+      "level": "advanced",
       "q": "What are Amazon ECS network modes, and why prefer awsvpc?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-task-networking.html",
       "tags": [
@@ -1548,6 +1676,7 @@ STUDY.register(
       "a": "ECS is the simplest path to run containers on AWS: deep native integration, no Kubernetes learning curve, and no control-plane fee. EKS buys Kubernetes portability, ecosystem, and reuse of existing K8s skills, at higher complexity. Senior take: ECS has lower TCO and is faster on AWS; EKS pays a complexity cost for portability.",
       "deck": "AWS::ECS",
       "id": "ecs-why-choose-amazon-ecs-over-eks",
+      "level": "advanced",
       "q": "Why choose Amazon ECS over EKS?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html",
       "tags": [
@@ -1560,6 +1689,7 @@ STUDY.register(
       "a": "ECS itself is free — you pay only for the compute (EC2 instance hours or Fargate per-second vCPU + memory). FARGATE_SPOT is up to ~70% off. EKS, by contrast, charges a per-cluster control-plane fee of about $0.10/hr (~$73/month) on top of compute.",
       "deck": "AWS::ECS",
       "id": "ecs-how-is-amazon-ecs-priced-and-how-does-that",
+      "level": "intermediate",
       "q": "How is Amazon ECS priced, and how does that compare to EKS?",
       "source": "https://aws.amazon.com/ecs/pricing/",
       "tags": [
@@ -1572,6 +1702,7 @@ STUDY.register(
       "a": "Attach the service to an ALB target group; ECS auto-registers and deregisters healthy targets — the task ENI IP in awsvpc mode, or instance:dynamic-port in bridge mode. A rolling deploy launches new-revision tasks up to maximumPercent, waits for ALB health checks, then drains old tasks (connection draining, respecting minimumHealthyPercent).",
       "deck": "AWS::ECS",
       "id": "ecs-how-does-an-amazon-ecs-service-integrate-with-an",
+      "level": "intermediate",
       "q": "How does an Amazon ECS service integrate with an ALB, and what happens during a rolling deploy?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html",
       "tags": [
@@ -1584,6 +1715,7 @@ STUDY.register(
       "a": "Rolling update (tuned by minimumHealthyPercent / maximumPercent), and blue/green with alarm-based rollback. Blue/green was historically done via AWS CodeDeploy (two target groups, ELB-fronted only); ECS now also offers a native blue/green strategy that additionally supports Service Connect. Native blue/green is the safer modern path.",
       "deck": "AWS::ECS",
       "id": "ecs-what-deployment-strategies-does-amazon-ecs-support",
+      "level": "intermediate",
       "q": "What deployment strategies does Amazon ECS support?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-type-ecs.html",
       "tags": [
@@ -1596,6 +1728,7 @@ STUDY.register(
       "a": "Cloud Map: DNS-based (A/SRV records in a private zone, TTL-bound). Service Connect: a managed sidecar proxy giving logical names, client-side load balancing, retries, and telemetry — a mesh-lite without App Mesh, backed by Cloud Map as the registry. Public/client traffic still typically comes in through an ALB.",
       "deck": "AWS::ECS",
       "id": "ecs-what-service-discovery-options-does-amazon-ecs",
+      "level": "intermediate",
       "q": "What service discovery options does Amazon ECS offer?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/bestpracticesguide/networking-connecting-services.html",
       "tags": [
@@ -1608,6 +1741,7 @@ STUDY.register(
       "a": "Service Auto Scaling adjusts the task count (via Application Auto Scaling target tracking). Cluster/instance scaling adjusts the underlying EC2 capacity (via capacity providers). They are independent — for the EC2 launch type you need both: scaling tasks doesn't add hosts, and scaling hosts doesn't add tasks.",
       "deck": "AWS::ECS",
       "id": "ecs-in-amazon-ecs-why-are-there-two-separate-scaling",
+      "level": "advanced",
       "q": "In Amazon ECS, why are there two separate scaling planes?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-auto-scaling.html",
       "tags": [
@@ -1620,6 +1754,7 @@ STUDY.register(
       "a": "Pull secrets at task start via the task definition secrets block from Secrets Manager or SSM (the execution role reads them — no plaintext env vars or baked-in images). Use a narrow task role per service, awsvpc with tight security groups, private subnets with VPC endpoints for ECR and CloudWatch, ECR image scanning, ECS Exec (SSM) instead of SSH, and CloudTrail for audit.",
       "deck": "AWS::ECS",
       "id": "ecs-how-do-you-inject-secrets-and-apply-least",
+      "level": "intermediate",
       "q": "How do you inject secrets and apply least privilege in Amazon ECS?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html",
       "tags": [
@@ -1632,6 +1767,7 @@ STUDY.register(
       "a": "ECS Exec opens an interactive shell into a running container over AWS Systems Manager (SSM) — no SSH or open inbound ports needed. Access is controlled by the task role plus the service's enableExecuteCommand flag.",
       "deck": "AWS::ECS",
       "id": "ecs-what-is-amazon-ecs-exec",
+      "level": "foundational",
       "q": "What is Amazon ECS Exec?",
       "source": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html",
       "tags": [
@@ -1644,6 +1780,7 @@ STUDY.register(
       "a": "AWS manages the control plane (API server, etcd, scheduler, controller-manager), HA across 3 AZs, patched and scaled. You manage the data plane (nodes/Fargate), workloads, pod networking, CNI/add-on versions, RBAC, and version upgrades. Mnemonic: AWS keeps Kubernetes running; you keep your apps running on it.",
       "deck": "AWS::EKS",
       "id": "eks-in-eks-what-does-aws-manage-vs-what-do-you-manage",
+      "level": "intermediate",
       "q": "In EKS, what does AWS manage vs. what do you manage?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/eks-architecture.html",
       "tags": [
@@ -1656,6 +1793,7 @@ STUDY.register(
       "a": "The Kubernetes API server, etcd, the scheduler, and the controller-manager — run highly available across 3 AZs, patched and scaled by AWS. You never SSH to or touch the masters.",
       "deck": "AWS::EKS",
       "id": "eks-what-exactly-is-in-the-eks-control-plane-that-aws",
+      "level": "foundational",
       "q": "What exactly is in the EKS control plane that AWS runs for you?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/eks-architecture.html",
       "tags": [
@@ -1668,6 +1806,7 @@ STUDY.register(
       "a": "Flat ~$0.10/hr (~$73/mo) per cluster for the control plane during standard support (first ~14 months of a K8s minor version), PLUS data-plane compute. After standard support, extended support jumps to ~$0.60/hr (~$438/mo) — roughly 6x.",
       "deck": "AWS::EKS",
       "id": "eks-what-does-an-eks-cluster-cost-and-how-does",
+      "level": "intermediate",
       "q": "What does an EKS cluster cost, and how does support tier affect it?",
       "source": "https://aws.amazon.com/eks/pricing/",
       "tags": [
@@ -1680,6 +1819,7 @@ STUDY.register(
       "a": "1) Self-managed EC2 nodes, 2) Managed Node Groups, 3) Fargate (serverless pods), 4) EKS Auto Mode (AWS manages nodes via Karpenter).",
       "deck": "AWS::EKS",
       "id": "eks-what-are-the-four-data-plane-worker-capacity",
+      "level": "foundational",
       "q": "What are the four data-plane (worker capacity) options for EKS?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/eks-compute.html",
       "tags": [
@@ -1692,6 +1832,7 @@ STUDY.register(
       "a": "Maps a Kubernetes ServiceAccount to an IAM role via the cluster's OIDC provider. Steps: enable the cluster OIDC provider, annotate the SA with the role ARN, and set the role's trust policy to trust that OIDC scoped to the namespace/SA. EKS projects a signed JWT into the pod; the SDK calls sts:AssumeRoleWithWebIdentity to get short-lived, per-workload credentials — no long-term keys.",
       "deck": "AWS::EKS",
       "id": "eks-what-is-irsa-iam-roles-for-service-accounts-and",
+      "level": "advanced",
       "q": "What is IRSA (IAM Roles for Service Accounts) and how does a pod get credentials with it?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html",
       "tags": [
@@ -1704,6 +1845,7 @@ STUDY.register(
       "a": "A newer workload-identity model that uses an on-cluster Pod Identity Agent plus an association API (CreatePodIdentityAssociation) instead of a per-cluster OIDC trust policy. The IAM role's trust policy trusts the principal pods.eks.amazonaws.com — no OIDC provider, no per-SA annotation, no trust-policy editing per cluster. One role can be reused across many clusters.",
       "deck": "AWS::EKS",
       "id": "eks-what-is-eks-pod-identity-and-how-does-it-differ",
+      "level": "advanced",
       "q": "What is EKS Pod Identity and how does it differ mechanically from IRSA?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html",
       "tags": [
@@ -1716,6 +1858,7 @@ STUDY.register(
       "a": "Pod Identity for new, multi-cluster fleets: it kills OIDC trust-policy sprawl (reuse one role across clusters, no annotation/trust-policy editing) and adds session tags for ABAC. IRSA is fine for existing single-cluster setups. Caveat: the Pod Identity Agent runs as a DaemonSet needing EC2/Karpenter nodes — Fargate pods can't use Pod Identity and must still use IRSA.",
       "deck": "AWS::EKS",
       "id": "eks-irsa-vs-eks-pod-identity-when-would-you-pick-the",
+      "level": "advanced",
       "q": "IRSA vs. EKS Pod Identity — when would you pick the newer one?",
       "source": "https://docs.aws.amazon.com/eks/latest/best-practices/identity-and-access-management.html",
       "tags": [
@@ -1728,6 +1871,7 @@ STUDY.register(
       "a": "The aws-auth ConfigMap (IAM->K8s mapping) has no API validation, so one malformed edit can lock every admin out of the cluster. Access Entries / Access Policies are a first-class EKS API: validated, auditable, revertible, and can't lock you out. The ConfigMap is now officially deprecated; API mode (access entries only) is AWS-recommended.",
       "deck": "AWS::EKS",
       "id": "eks-eks-cluster-auth-aws-auth-configmap-vs-access",
+      "level": "advanced",
       "q": "EKS cluster auth: aws-auth ConfigMap vs. Access Entries — why have Access Entries replaced the ConfigMap?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/grant-k8s-access.html",
       "tags": [
@@ -1740,6 +1884,7 @@ STUDY.register(
       "a": "Every pod gets a real, routable VPC IP from a secondary IP/ENI on the node — first-class VPC citizens, securable with security groups, no overlay network. Gotcha: IP exhaustion / pod-density limits, because pods consume real subnet IPs capped by the instance's ENI/IP limits. Mitigate with prefix delegation (each prefix = a /28 of 16 IPs) and right-sized subnets.",
       "deck": "AWS::EKS",
       "id": "eks-how-does-the-vpc-cni-assign-pod-networking-in-eks",
+      "level": "advanced",
       "q": "How does the VPC CNI assign pod networking in EKS, and what's the main gotcha?",
       "source": "https://docs.aws.amazon.com/eks/latest/best-practices/vpc-cni.html",
       "tags": [
@@ -1752,6 +1897,7 @@ STUDY.register(
       "a": "It hands pods actual VPC IP addresses (from ENIs) rather than encapsulating traffic in an overlay. Consequence: pods are routable and SG-securable, but they consume real subnet IPs — which is exactly why IP exhaustion happens at high pod density.",
       "deck": "AWS::EKS",
       "id": "eks-why-is-the-eks-vpc-cni-not-an-overlay-network-and",
+      "level": "intermediate",
       "q": "Why is the EKS VPC CNI NOT an overlay network, and what's the consequence?",
       "source": "https://docs.aws.amazon.com/eks/latest/best-practices/vpc-cni.html",
       "tags": [
@@ -1764,6 +1910,7 @@ STUDY.register(
       "a": "Cluster Autoscaler scales pre-defined ASG node groups — homogeneous, ASG-bound, slower/coarser. Karpenter is groupless: it watches unschedulable pods and provisions right-sized instances directly via the EC2 Fleet API in seconds, picks the cheapest fit (including Spot), and consolidates workloads. Karpenter is now the default approach and the engine behind EKS Auto Mode.",
       "deck": "AWS::EKS",
       "id": "eks-cluster-autoscaler-vs-karpenter-for-eks-node",
+      "level": "advanced",
       "q": "Cluster Autoscaler vs. Karpenter for EKS node autoscaling?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html",
       "tags": [
@@ -1776,6 +1923,7 @@ STUDY.register(
       "a": "Each pod runs in its own Firecracker micro-VM. No DaemonSets, no privileged containers, no GPUs, fixed CPU/memory combinations, and it's pricier at steady high utilization. (Also: Fargate pods must use IRSA, not Pod Identity.)",
       "deck": "AWS::EKS",
       "id": "eks-what-are-the-key-limitations-of-running-pods-on",
+      "level": "intermediate",
       "q": "What are the key limitations of running pods on Fargate in EKS?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/fargate.html",
       "tags": [
@@ -1788,6 +1936,7 @@ STUDY.register(
       "a": "VPC CNI (assigns pod IPs from the VPC), CoreDNS (in-cluster service discovery/DNS), and kube-proxy (Service routing / iptables rules).",
       "deck": "AWS::EKS",
       "id": "eks-what-are-the-three-eks-managed-add-ons-and-what",
+      "level": "foundational",
       "q": "What are the three EKS managed add-ons and what does each do?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html",
       "tags": [
@@ -1800,6 +1949,7 @@ STUDY.register(
       "a": "AWS IAM authenticates WHO (kubectl/authenticator generates a pre-signed STS token). EKS maps the IAM principal to a Kubernetes identity (Access Entries or aws-auth). Kubernetes RBAC authorizes WHAT (Roles/ClusterRoles + bindings). Mnemonic: IAM = who, RBAC = what, EKS = the bridge.",
       "deck": "AWS::EKS",
       "id": "eks-trace-authentication-vs-authorization-end-to-end",
+      "level": "advanced",
       "q": "Trace authentication vs. authorization end-to-end for a kubectl user in EKS.",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/cluster-auth.html",
       "tags": [
@@ -1812,6 +1962,7 @@ STUDY.register(
       "a": "Envelope encryption of ALL Kubernetes API data (secrets, ConfigMaps, etc.) is default-on for EKS 1.28+ since March 5, 2025, via AWS KMS (KMS provider v2). AWS owns the key by default; you can supply your own KMS key. It's not opt-in anymore — it's automatic at no extra charge.",
       "deck": "AWS::EKS",
       "id": "eks-how-are-kubernetes-secrets-api-data-encrypted-at",
+      "level": "intermediate",
       "q": "How are Kubernetes secrets / API data encrypted at rest in modern EKS?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/envelope-encryption.html",
       "tags": [
@@ -1824,6 +1975,7 @@ STUDY.register(
       "a": "It provisions an ALB for Kubernetes Ingress resources and an NLB for Service type LoadBalancer. In IP-target mode it routes straight to pod IPs (made possible by the VPC CNI giving pods real VPC addresses), skipping the node-port hop.",
       "deck": "AWS::EKS",
       "id": "eks-how-does-the-aws-load-balancer-controller-expose",
+      "level": "intermediate",
       "q": "How does the AWS Load Balancer Controller expose EKS workloads?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html",
       "tags": [
@@ -1836,6 +1988,7 @@ STUDY.register(
       "a": "Pick EKS for Kubernetes portability, the CNCF ecosystem, multi-cloud, or existing K8s skills. EKS is overkill for a handful of containers, one simple app, or a small team with no K8s skills — you still pay ~$73/mo/cluster plus the upgrade/CNI/RBAC/on-call burden. App Runner, ECS Fargate, or Lambda deliver the same with far less surface.",
       "deck": "AWS::EKS",
       "id": "eks-why-pick-eks-over-ecs-and-when-is-eks-the-wrong",
+      "level": "advanced",
       "q": "Why pick EKS over ECS, and when is EKS the wrong call?",
       "source": "https://docs.aws.amazon.com/decision-guides/latest/containers-on-aws-how-to-choose/choosing-aws-container-service.html",
       "tags": [
@@ -1848,6 +2001,7 @@ STUDY.register(
       "a": "Order: control plane first (one minor at a time, irreversible) -> data plane (roll/drain nodes gracefully) -> add-ons (VPC CNI, CoreDNS, kube-proxy). Prep: check for deprecated/removed APIs, validate in non-prod, ensure PodDisruptionBudgets allow node rotation, and stay within standard support.",
       "deck": "AWS::EKS",
       "id": "eks-what-is-the-correct-order-for-a-safe-eks",
+      "level": "advanced",
       "q": "What is the correct order for a safe EKS Kubernetes version upgrade, and the prep steps?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html",
       "tags": [
@@ -1860,6 +2014,7 @@ STUDY.register(
       "a": "The node instance role is shared by every pod scheduled on that node, so any pod inherits those permissions. Use per-workload identity (IRSA or Pod Identity) so each app gets only its own scoped role instead of the broad shared node role.",
       "deck": "AWS::EKS",
       "id": "eks-why-is-granting-an-app-permissions-via-the-node",
+      "level": "advanced",
       "q": "Why is granting an app permissions via the node instance role a least-privilege violation in EKS?",
       "source": "https://docs.aws.amazon.com/eks/latest/best-practices/identity-and-access-management.html",
       "tags": [
@@ -1872,6 +2027,7 @@ STUDY.register(
       "a": "Per-workload IAM via IRSA/Pod Identity (never the node role); Kubernetes RBAC with Access Entries; network policies; private subnets with the VPC CNI; ECR image scanning plus signed images; KMS envelope encryption for secrets; and Karpenter for right-sized cost-efficient compute.",
       "deck": "AWS::EKS",
       "id": "eks-how-would-you-secure-an-eks-cluster-running-ai",
+      "level": "expert",
       "q": "How would you secure an EKS cluster running AI inference workloads (PHI context)?",
       "source": "https://docs.aws.amazon.com/eks/latest/best-practices/security.html",
       "tags": [
@@ -1884,6 +2040,7 @@ STUDY.register(
       "a": "Seven: Db2, PostgreSQL, MySQL, MariaDB, Oracle, SQL Server, and Aurora (AWS's MySQL/PostgreSQL-compatible engine with a different storage architecture and billing model).",
       "deck": "AWS::RDS",
       "id": "rds-which-database-engines-does-amazon-rds-support",
+      "level": "foundational",
       "q": "Which database engines does Amazon RDS support?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstance.html",
       "tags": [
@@ -1896,6 +2053,7 @@ STUDY.register(
       "a": "Multi-AZ is HIGH AVAILABILITY, not scaling. A synchronous standby in another AZ serves NO traffic; on failure RDS auto-fails-over by flipping the endpoint DNS CNAME (~60-120s for a Multi-AZ instance). It does NOT add read throughput — the standby is invisible to your app.",
       "deck": "AWS::RDS",
       "id": "rds-what-does-rds-multi-az-give-you-and-what-does-it",
+      "level": "intermediate",
       "q": "What does RDS Multi-AZ give you — and what does it NOT do?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html",
       "tags": [
@@ -1908,6 +2066,7 @@ STUDY.register(
       "a": "Read replicas are READ SCALING, not HA. They're asynchronous and independently readable (up to 15 for MySQL/MariaDB/PostgreSQL/SQL Server and for Aurora; up to 5 recommended for Oracle). A single replica is NOT automatic failover — promotion is manual.",
       "deck": "AWS::RDS",
       "id": "rds-what-do-rds-read-replicas-give-you-and-what-do",
+      "level": "intermediate",
       "q": "What do RDS read replicas give you — and what do they NOT do?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html",
       "tags": [
@@ -1920,6 +2079,7 @@ STUDY.register(
       "a": "No — they're orthogonal axes and you commonly run both: a Multi-AZ primary for HA plus read replicas for read scaling/reporting. Multi-AZ adds no read throughput; replicas add no automatic failover.",
       "deck": "AWS::RDS",
       "id": "rds-multi-az-vs-read-replicas-are-they-mutually",
+      "level": "intermediate",
       "q": "Multi-AZ vs. read replicas — are they mutually exclusive?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html",
       "tags": [
@@ -1932,6 +2092,7 @@ STUDY.register(
       "a": "A newer deployment: 1 writer + 2 readable standbys across 3 AZs with semi-synchronous replication. It fails over faster (~35s vs. 60-120s) AND the standbys are readable — so it blurs the usual HA-vs-scaling line by offering both.",
       "deck": "AWS::RDS",
       "id": "rds-what-is-an-rds-multi-az-db-cluster-and-how-does",
+      "level": "advanced",
       "q": "What is an RDS Multi-AZ DB cluster and how does it differ from a Multi-AZ instance?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html",
       "tags": [
@@ -1944,6 +2105,7 @@ STUDY.register(
       "a": "RDS detects the failure (AZ/instance/storage problem, or a reboot-with-failover), promotes the synchronous standby, and flips the endpoint DNS CNAME — same hostname, new IP. ~60-120s for a Multi-AZ instance. Apps should use a short DNS TTL plus connection retries; RDS Proxy reduces perceived failover time.",
       "deck": "AWS::RDS",
       "id": "rds-walk-through-what-happens-during-an-rds-multi-az",
+      "level": "advanced",
       "q": "Walk through what happens during an RDS Multi-AZ failover.",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html",
       "tags": [
@@ -1956,6 +2118,7 @@ STUDY.register(
       "a": "Automated backups: daily snapshot + continuous ~5-min transaction logs enabling point-in-time recovery, retention 0-35 days, and they're DELETED when you delete the instance. Manual snapshots: user-triggered, retained until you explicitly delete them, survive instance deletion, and can be copied cross-region or shared cross-account. Use manual snapshots for long-term/DR retention.",
       "deck": "AWS::RDS",
       "id": "rds-rds-automated-backups-vs-manual-snapshots-key",
+      "level": "intermediate",
       "q": "RDS automated backups vs. manual snapshots — key differences?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html",
       "tags": [
@@ -1968,6 +2131,7 @@ STUDY.register(
       "a": "RDS continuously ships transaction logs to S3 alongside daily snapshots. To recover, it restores the nearest snapshot then replays logs up to your target time (within ~5 min of current). It ALWAYS restores to a NEW instance, never in place — so the runbook must handle endpoint/DNS cutover.",
       "deck": "AWS::RDS",
       "id": "rds-how-does-point-in-time-recovery-pitr-work-in-rds",
+      "level": "advanced",
       "q": "How does point-in-time recovery (PITR) work in RDS, and what's the restore behavior?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html",
       "tags": [
@@ -1980,6 +2144,7 @@ STUDY.register(
       "a": "No. Encryption at rest (KMS, AES-256) must be enabled at creation, and you can't toggle it on a live instance or change the key afterward. Workaround: snapshot -> copy the snapshot with KMS encryption -> restore as a new encrypted instance -> cut over.",
       "deck": "AWS::RDS",
       "id": "rds-can-you-encrypt-an-existing-unencrypted-rds",
+      "level": "intermediate",
       "q": "Can you encrypt an existing unencrypted RDS instance in place?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html",
       "tags": [
@@ -1992,6 +2157,7 @@ STUDY.register(
       "a": "An encrypted RDS instance encrypts the DB, its backups, snapshots, and read replicas; a cross-region encrypted replica needs a KMS key in the destination region. Note: new Aurora clusters created on/after Feb 18, 2026 are encrypted at rest by default (AES-256), so the snapshot-copy-restore workaround now mainly applies to standard RDS and older unencrypted clusters.",
       "deck": "AWS::RDS",
       "id": "rds-what-does-rds-encryption-at-rest-cover-and-what",
+      "level": "intermediate",
       "q": "What does RDS encryption at rest cover, and what changed for Aurora recently?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Overview.Encryption.html",
       "tags": [
@@ -2004,6 +2170,7 @@ STUDY.register(
       "a": "SSL/TLS using AWS-provided certificate bundles. Enforce it with the engine parameter rds.force_ssl (PostgreSQL/SQL Server) or the equivalent require-SSL setting so unencrypted connections are rejected.",
       "deck": "AWS::RDS",
       "id": "rds-how-is-rds-traffic-encrypted-in-transit-and-how",
+      "level": "intermediate",
       "q": "How is RDS traffic encrypted in transit and how do you enforce it?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html",
       "tags": [
@@ -2016,6 +2183,7 @@ STUDY.register(
       "a": "Parameter groups = engine configuration values (e.g. max_connections, timezone), applied dynamically or pending-reboot. Option groups = engine add-on features (e.g. Oracle TDE, SQL Server audit). Gotcha: a static parameter change shows pending-reboot until you reboot, and some options need a reboot or are irreversible (TDE) — plan a maintenance window.",
       "deck": "AWS::RDS",
       "id": "rds-rds-parameter-groups-vs-option-groups",
+      "level": "intermediate",
       "q": "RDS parameter groups vs. option groups?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html",
       "tags": [
@@ -2028,6 +2196,7 @@ STUDY.register(
       "a": "It's a managed connection pooler: it pools and multiplexes connections so you don't exhaust max_connections (critical for Lambda/serverless connection storms), cuts failover time by up to ~66% (bypasses DNS caching), and integrates Secrets Manager + IAM auth. Best for serverless, spiky high-concurrency, or many short-lived connections.",
       "deck": "AWS::RDS",
       "id": "rds-what-problem-does-rds-proxy-solve-and-when-should",
+      "level": "advanced",
       "q": "What problem does RDS Proxy solve, and when should you use it?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html",
       "tags": [
@@ -2040,6 +2209,7 @@ STUDY.register(
       "a": "Generates a short-lived (15-minute) auth token instead of a stored password, for MariaDB/MySQL/PostgreSQL (and Aurora). The app gets credentials via IAM with no DB password in code. Constraint: it's capped around <200 new connections/sec — not for high connection-rate workloads; use connection pooling or RDS Proxy there.",
       "deck": "AWS::RDS",
       "id": "rds-how-does-rds-iam-database-authentication-work-and",
+      "level": "advanced",
       "q": "How does RDS IAM database authentication work, and what's its main constraint?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html",
       "tags": [
@@ -2052,6 +2222,7 @@ STUDY.register(
       "a": "Aurora uses a distributed, self-healing storage layer that auto-grows to 256 TiB (128 TiB on older engine versions) and keeps 6 copies of data across 3 AZs. Read replicas share that same storage volume rather than replicating logically — which is why replica lag is sub-second.",
       "deck": "AWS::RDS",
       "id": "rds-what-makes-aurora-s-storage-architecture",
+      "level": "advanced",
       "q": "What makes Aurora's storage architecture different from standard RDS?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.StorageReliability.html",
       "tags": [
@@ -2064,6 +2235,7 @@ STUDY.register(
       "a": "Aurora for higher throughput (~5x MySQL, ~3x PostgreSQL), 6-copies/3-AZ self-healing storage, sub-second replica lag, faster failover, storage to 256 TiB (128 TiB on older versions), and cheap read scaling. Standard RDS for engines Aurora doesn't offer (Oracle, SQL Server, MariaDB), strict cost control at small scale, or exact upstream version parity.",
       "deck": "AWS::RDS",
       "id": "rds-when-choose-aurora-over-standard-rds-and-when",
+      "level": "advanced",
       "q": "When choose Aurora over standard RDS, and when standard RDS?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.html",
       "tags": [
@@ -2076,6 +2248,7 @@ STUDY.register(
       "a": "In a DB Subnet Group spanning private subnets across at least 2 AZs. It's not serverless — except Aurora Serverless v2, which scales capacity in 0.5-ACU increments.",
       "deck": "AWS::RDS",
       "id": "rds-where-does-rds-run-in-your-network-and-is-it",
+      "level": "intermediate",
       "q": "Where does RDS run in your network, and is it serverless?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html",
       "tags": [
@@ -2088,6 +2261,7 @@ STUDY.register(
       "a": "DynamoDB for single-digit-millisecond latency at massive scale, key-based access patterns, elastic horizontal write scaling, and serverless pay-per-request. RDS for ACID transactions over complex relational schemas, joins, and ad-hoc SQL. Decide by access pattern. Key limit: RDS write path scales vertically (one primary) — that's the write ceiling.",
       "deck": "AWS::RDS",
       "id": "rds-when-would-you-reach-for-dynamodb-instead-of-rds",
+      "level": "expert",
       "q": "When would you reach for DynamoDB instead of RDS?",
       "source": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html",
       "tags": [
@@ -2100,6 +2274,7 @@ STUDY.register(
       "a": "Replication is asynchronous and apply is often single-threaded, so heavy primary writes, long replica queries/locks, or an undersized replica cause lag. Check the ReplicaLag metric and replica CPU/IO; look for big transactions or DDL. Fixes: scale up the replica, reduce write bursts, offload reporting, or move to Aurora (shared storage, sub-second lag). For read-after-write needs, route those reads to the primary.",
       "deck": "AWS::RDS",
       "id": "rds-a-read-replica-is-lagging-how-do-you-diagnose-and",
+      "level": "advanced",
       "q": "A read replica is lagging — how do you diagnose and fix it?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.Monitoring.html",
       "tags": [
@@ -2112,6 +2287,7 @@ STUDY.register(
       "a": "Because it's a fundamentally different architecture: a shared, distributed storage layer holding 6 copies across 3 AZs that all replicas read from — not logical row-by-row replication. That shared storage is what gives sub-second replica lag and fast failover, which standard RDS replication can't match.",
       "deck": "AWS::RDS",
       "id": "rds-why-isn-t-aurora-just-rds-with-more-read-replicas",
+      "level": "advanced",
       "q": "Why isn't Aurora just 'RDS with more read replicas'?",
       "source": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.StorageReliability.html",
       "tags": [
@@ -2124,6 +2300,7 @@ STUDY.register(
       "a": "Customer-managed CMK: you control the key policy, rotation (configurable), grants, and cross-account sharing, and usage is audited in CloudTrail — use for PHI and anything sensitive. AWS-managed (aws/service): AWS controls the policy and rotates it annually and non-configurably, no cross-account — convenient but no granular control. AWS-owned: invisible, shared across accounts, zero visibility. For PHI, always customer-managed.",
       "deck": "Security::KMS",
       "id": "kms-customer-managed-cmk-vs-aws-managed-vs-aws-owned",
+      "level": "intermediate",
       "q": "Customer-managed CMK vs AWS-managed vs AWS-owned key — when do you use each?",
       "source": "https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html",
       "tags": [
@@ -2136,6 +2313,7 @@ STUDY.register(
       "a": "A KMS key has a resource-based key policy that is its root of trust. Using the key requires BOTH the key policy to allow it (directly, or by delegating to IAM via the root-account statement) AND the principal's IAM policy to allow it. If the key policy doesn't grant or delegate, IAM is irrelevant and the call is denied. Classic trap: 'I gave the role kms:Decrypt in IAM but it fails' — the key policy doesn't trust that role.",
       "deck": "Security::KMS",
       "id": "kms-why-isn-t-an-iam-policy-alone-enough-to-use-a-kms",
+      "level": "advanced",
       "q": "Why isn't an IAM policy alone enough to use a KMS key?",
       "source": "https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html",
       "tags": [
@@ -2148,6 +2326,7 @@ STUDY.register(
       "a": "You don't encrypt large data with the CMK directly. KMS generates a data key (DEK) and returns it both plaintext and encrypted-under-the-CMK. Encrypt your data locally with the plaintext DEK, discard the plaintext DEK, and store the encrypted DEK next to the ciphertext. To decrypt: send the encrypted DEK to KMS, get the plaintext DEK back, decrypt locally. Only small key material crosses the API; the CMK never leaves KMS. This is how SSE-KMS works.",
       "deck": "Security::KMS",
       "id": "kms-explain-envelope-encryption",
+      "level": "intermediate",
       "q": "Explain envelope encryption.",
       "source": "https://docs.aws.amazon.com/kms/latest/developerguide/data-keys.html",
       "tags": [
@@ -2160,6 +2339,7 @@ STUDY.register(
       "a": "Non-secret key/value pairs bound into the ciphertext as additional authenticated data (AAD). Decryption fails unless the exact same context is supplied. Use it to scope grants (e.g. 'this DEK only for tenant=X') and to enrich CloudTrail. It authenticates the values, it doesn't encrypt them.",
       "deck": "Security::KMS",
       "id": "kms-what-is-a-kms-encryption-context",
+      "level": "intermediate",
       "q": "What is a KMS encryption context?",
       "source": "https://docs.aws.amazon.com/kms/latest/developerguide/encrypt_context.html",
       "tags": [
@@ -2172,6 +2352,7 @@ STUDY.register(
       "a": "Server-side encryption where each object is encrypted with a data key derived from a CMK. Every GET/PUT calls KMS, which adds cost and a throttling risk at high request volume.",
       "deck": "Security::KMS",
       "id": "kms-what-is-sse-kms-on-s3",
+      "level": "intermediate",
       "q": "What is SSE-KMS on S3?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html",
       "tags": [
@@ -2184,6 +2365,7 @@ STUDY.register(
       "a": "An optimization for SSE-KMS: S3 obtains a short-lived bucket-level key from the CMK, then generates per-object data keys locally instead of calling KMS for every object. This cuts KMS API calls (and cost/throttling) drastically. Turn it on for high-throughput buckets.",
       "deck": "Security::KMS",
       "id": "kms-what-is-an-s3-bucket-key-and-when-do-you-enable-it",
+      "level": "intermediate",
       "q": "What is an S3 Bucket Key and when do you enable it?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html",
       "tags": [
@@ -2196,6 +2378,7 @@ STUDY.register(
       "a": "It's two-sided: (1) your CMK key policy must allow the external principal the kms actions, and (2) the external account must grant its own principal IAM permission to use the key. Optionally add a scoped grant for temporary delegation. Cross-account KMS access works only with customer-managed keys.",
       "deck": "Security::KMS",
       "id": "kms-how-do-you-give-another-account-decrypt-access-to",
+      "level": "advanced",
       "q": "How do you give another account decrypt access to your CMK?",
       "source": "https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-modifying-external-accounts.html",
       "tags": [
@@ -2208,6 +2391,7 @@ STUDY.register(
       "a": "Key policy is durable and broad. A grant is programmatic, temporary, fine-grained delegation — often to an AWS service acting on your behalf, or scoped by encryption context. It can be independently retired or revoked without editing the key policy.",
       "deck": "Security::KMS",
       "id": "kms-kms-grant-vs-key-policy-when-do-you-use-a-grant",
+      "level": "intermediate",
       "q": "KMS grant vs key policy — when do you use a grant?",
       "source": "https://docs.aws.amazon.com/kms/latest/developerguide/grants.html",
       "tags": [
@@ -2220,6 +2404,7 @@ STUDY.register(
       "a": "Both rotate the backing key material while keeping the same key ID/ARN; old material is retained to decrypt old ciphertext, transparent to apps. Automatic rotation is now configurable (since Apr 2024) via RotationPeriodInDays, roughly 90 to 2560 days, default 365. On-demand rotation (RotateKeyOnDemand) immediately rotates the same key's material with no new CMK. You only need a brand-new CMK if you want to change the key ID itself.",
       "deck": "Security::KMS",
       "id": "kms-kms-automatic-vs-on-demand-rotation-what-actually",
+      "level": "intermediate",
       "q": "KMS automatic vs on-demand rotation — what actually rotates, and when do you need a new CMK?",
       "source": "https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html",
       "tags": [
@@ -2232,6 +2417,7 @@ STUDY.register(
       "a": "The API audit log — records who did what, when, and from where across the account. Management events by default; data events (S3/Lambda object-level) are opt-in.",
       "deck": "Security::Detection",
       "id": "detection-one-line-what-is-aws-cloudtrail",
+      "level": "foundational",
       "q": "One line: what is AWS CloudTrail?",
       "source": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html",
       "tags": [
@@ -2244,6 +2430,7 @@ STUDY.register(
       "a": "Resource configuration history plus compliance rules — tracks the state of each resource over time and continuously evaluates it against rules, with optional auto-remediation.",
       "deck": "Security::Detection",
       "id": "detection-one-line-what-is-aws-config",
+      "level": "foundational",
       "q": "One line: what is AWS Config?",
       "source": "https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html",
       "tags": [
@@ -2256,6 +2443,7 @@ STUDY.register(
       "a": "Managed threat detection using ML and threat intelligence. Its foundational sources, on by default, are CloudTrail management events, VPC Flow Logs, and DNS logs. EKS, S3 data events, RDS login activity, Lambda, and Runtime Monitoring are separate protection plans you enable.",
       "deck": "Security::Detection",
       "id": "detection-one-line-what-is-amazon-guardduty-and-what-does",
+      "level": "intermediate",
       "q": "One line: what is Amazon GuardDuty, and what does it analyze by default?",
       "source": "https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html",
       "tags": [
@@ -2268,6 +2456,7 @@ STUDY.register(
       "a": "Aggregates and normalizes findings from GuardDuty, Inspector, Macie, and third-party tools into one view, and runs posture/compliance standards (CIS, FSBP) — the CSPM pane of glass.",
       "deck": "Security::Detection",
       "id": "detection-one-line-what-is-aws-security-hub",
+      "level": "foundational",
       "q": "One line: what is AWS Security Hub?",
       "source": "https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html",
       "tags": [
@@ -2280,6 +2469,7 @@ STUDY.register(
       "a": "Continuous vulnerability/CVE scanning of EC2, ECR container images, and Lambda — and it also performs network-reachability analysis to flag unintended exposure paths.",
       "deck": "Security::Detection",
       "id": "detection-one-line-what-is-amazon-inspector",
+      "level": "foundational",
       "q": "One line: what is Amazon Inspector?",
       "source": "https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html",
       "tags": [
@@ -2292,6 +2482,7 @@ STUDY.register(
       "a": "ML-based discovery and classification of sensitive data (PII/PHI) in S3, flagging buckets that are public, unencrypted, or shared.",
       "deck": "Security::Detection",
       "id": "detection-one-line-what-is-amazon-macie",
+      "level": "foundational",
       "q": "One line: what is Amazon Macie?",
       "source": "https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html",
       "tags": [
@@ -2304,6 +2495,7 @@ STUDY.register(
       "a": "Graph-based investigation of security findings — links entities and activity over time to help you scope and root-cause an incident.",
       "deck": "Security::Detection",
       "id": "detection-one-line-what-is-amazon-detective",
+      "level": "foundational",
       "q": "One line: what is Amazon Detective?",
       "source": "https://docs.aws.amazon.com/detective/latest/userguide/what-is-detective.html",
       "tags": [
@@ -2316,6 +2508,7 @@ STUDY.register(
       "a": "Finds resources shared externally, and validates/least-privileges IAM policies (policy validation and generation from CloudTrail usage).",
       "deck": "Security::Detection",
       "id": "detection-one-line-what-is-iam-access-analyzer",
+      "level": "foundational",
       "q": "One line: what is IAM Access Analyzer?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html",
       "tags": [
@@ -2328,6 +2521,7 @@ STUDY.register(
       "a": "Triage the finding: role, API, source IP/ASN, account. Add context: is this expected for the role/location? Pull CloudTrail for the full session and how the creds were obtained. Contain: revoke the session (deny tokens issued before now), disable created keys, quarantine resources, snapshot for forensics. Scope: persistence (new IAM artifacts, policy changes), lateral movement, data accessed. Eradicate and rotate, restore least-privilege, write it up, then hunt the initial vector (leaked key, SSRF on metadata).",
       "deck": "Security::Detection",
       "id": "detection-guardduty-fires-on-anomalous-api-calls-from-a",
+      "level": "advanced",
       "q": "GuardDuty fires on anomalous API calls from a role at 2 AM — walk me through it.",
       "source": "https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings.html",
       "tags": [
@@ -2340,6 +2534,7 @@ STUDY.register(
       "a": "GuardDuty generates threat findings — it's a detector answering 'is something malicious happening?' Security Hub aggregates and normalizes findings from GuardDuty, Inspector, Macie, and third parties into one view and runs posture/compliance standards — it answers 'what's my overall posture, in one pane?' Run both.",
       "deck": "Security::Detection",
       "id": "detection-guardduty-vs-security-hub-don-t-they-overlap",
+      "level": "intermediate",
       "q": "GuardDuty vs Security Hub — don't they overlap?",
       "source": "https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html",
       "tags": [
@@ -2352,6 +2547,7 @@ STUDY.register(
       "a": "Org-wide CloudTrail to a centralized, locked-down log-archive account (S3 with Object Lock). Delegate GuardDuty, Security Hub, Config, Macie, and Inspector to a dedicated security account so members auto-enroll and findings aggregate. SCPs prevent members from disabling them. This is the Control Tower / Landing Zone baseline.",
       "deck": "Security::Detection",
       "id": "detection-how-do-you-do-logging-detection-across-a-whole",
+      "level": "advanced",
       "q": "How do you do logging/detection across a whole AWS Organization?",
       "source": "https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html",
       "tags": [
@@ -2364,6 +2560,7 @@ STUDY.register(
       "a": "The metadata endpoint (169.254.169.254) returns the instance role's credentials. With IMDSv1, any SSRF or compromised app can simply GET them (the Capital One breach). IMDSv2 requires a session token obtained via PUT, with a TTL and a hop limit, which SSRF can't perform; the hop limit also blocks containers and proxies. Enforce IMDSv2-only with hop limit 1 (use 2 for containerized workloads).",
       "deck": "Security::Detection",
       "id": "detection-what-s-the-ec2-instance-metadata-risk-and-how",
+      "level": "advanced",
       "q": "What's the EC2 instance metadata risk, and how does IMDSv2 fix it?",
       "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html",
       "tags": [
@@ -2376,6 +2573,7 @@ STUDY.register(
       "a": "GuardDuty S3 protection (anomalous, Tor, or unusual-geo access), CloudTrail S3 data events for object-level GET/LIST, VPC Flow Logs for egress volume, and Macie to know which buckets even hold PHI. Preventive layer: Block Public Access, bucket policy restricting to VPC endpoints, and SCPs denying public ACLs.",
       "deck": "Security::Detection",
       "id": "detection-how-would-you-detect-data-exfiltration-from-s3",
+      "level": "advanced",
       "q": "How would you detect data exfiltration from S3?",
       "source": "https://docs.aws.amazon.com/guardduty/latest/ug/s3-protection.html",
       "tags": [
@@ -2388,6 +2586,7 @@ STUDY.register(
       "a": "CloudTrail records the API event ('PutBucketPolicy was called'). Config records the resulting resource state and history ('the policy is now X, here's the change timeline, it's currently non-compliant with rule Y'), with continuous compliance evaluation and auto-remediation. Use together: CloudTrail for who/when, Config for what-state/compliant.",
       "deck": "Security::Detection",
       "id": "detection-what-does-aws-config-give-you-that-cloudtrail",
+      "level": "intermediate",
       "q": "What does AWS Config give you that CloudTrail doesn't?",
       "source": "https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html",
       "tags": [
@@ -2400,6 +2599,7 @@ STUDY.register(
       "a": "CSPM: control-plane misconfiguration and compliance (Security Hub, Config, Prowler). CWPP: protects running workloads at runtime (GuardDuty Runtime Monitoring, Falcon Cloud Security). CNAPP: the converged platform — CSPM plus CWPP plus IaC plus identity (Wiz, Prisma Cloud, Falcon Cloud Security).",
       "deck": "Security::Detection",
       "id": "detection-cspm-vs-cwpp-vs-cnapp",
+      "level": "intermediate",
       "q": "CSPM vs CWPP vs CNAPP?",
       "source": "https://docs.aws.amazon.com/guardduty/latest/ug/runtime-monitoring.html",
       "tags": [
@@ -2412,6 +2612,7 @@ STUDY.register(
       "a": "Attach an inline policy to the role denying all actions where aws:TokenIssueTime is before now — that's what the console 'revoke active sessions' button does. It instantly invalidates existing sessions while still letting new legitimate AssumeRole calls mint fresh tokens. Then tighten the trust policy and find the leak.",
       "deck": "Security::Detection",
       "id": "detection-a-role-s-temporary-sts-credentials-leaked-how-do",
+      "level": "advanced",
       "q": "A role's temporary STS credentials leaked — how do you kill them, given you can't delete a token?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_revoke-sessions.html",
       "tags": [
@@ -2424,6 +2625,7 @@ STUDY.register(
       "a": "ML and pattern matching that discovers and classifies sensitive data (PII/PHI, credentials) in S3 and flags public, unencrypted, or shared buckets. It answers 'where is our regulated data and is any of it exposed?' — foundational for HIPAA scoping and breach-risk assessment.",
       "deck": "Security::Detection",
       "id": "detection-what-is-macie-and-why-does-it-matter-at-a",
+      "level": "intermediate",
       "q": "What is Macie, and why does it matter for protecting PHI/PII in S3?",
       "source": "https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html",
       "tags": [
@@ -2436,6 +2638,7 @@ STUDY.register(
       "a": "Start at implicit deny. Gather all applicable policies: SCPs, RCPs, resource-based, identity-based, permission boundaries, session policies. Any explicit Deny anywhere wins — denied. Otherwise you need an explicit Allow that survives every guardrail. Within a single account, a resource-based-policy Allow alone can suffice, with no identity-based Allow — except KMS key policies and IAM role trust policies, which always require their own grant. Cross-account always needs both the resource and the identity side to allow. Net: explicit deny beats allow, allow beats the default deny.",
       "deck": "Security::IAM",
       "id": "iam-walk-through-aws-iam-policy-evaluation-logic-end",
+      "level": "advanced",
       "q": "Walk through AWS IAM policy evaluation logic, end to end.",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html",
       "tags": [
@@ -2448,6 +2651,7 @@ STUDY.register(
       "a": "All cap maximum permissions; none grant. SCP: Organizations level, applies to whole accounts/OUs, the identity-side guardrail. RCP (Resource Control Policy): the resource-side Organizations guardrail — caps what any principal can do to resources in those accounts. Permission boundary: on an individual user or role. Use SCPs/RCPs for org blast-radius control; use boundaries to safely delegate IAM creation ('can create roles, but never exceeding this boundary').",
       "deck": "Security::IAM",
       "id": "iam-permission-boundary-vs-scp-and-where-do-rcps-fit",
+      "level": "advanced",
       "q": "Permission boundary vs SCP (and where do RCPs fit)?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html",
       "tags": [
@@ -2460,6 +2664,7 @@ STUDY.register(
       "a": "iam:CreatePolicyVersion / SetDefaultPolicyVersion; iam:AttachUserPolicy / PutUserPolicy (attach admin to self); iam:PassRole plus a compute service (Lambda/EC2/Glue) to run a privileged role; iam:CreateAccessKey for another user; sts:AssumeRole on an over-trusting role; updating a privileged Lambda's code. Cloudsplaining and Access Analyzer flag these.",
       "deck": "Security::IAM",
       "id": "iam-name-iam-privilege-escalation-paths-a-least",
+      "level": "advanced",
       "q": "Name IAM privilege-escalation paths a least-privilege review should catch.",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html",
       "tags": [
@@ -2472,6 +2677,7 @@ STUDY.register(
       "a": "A privileged service is tricked into acting on an attacker's behalf — classic in cross-account trust. Mitigate with aws:SourceArn / aws:SourceAccount conditions so the service only acts for the expected resource/account, and sts:ExternalId for third-party cross-account roles.",
       "deck": "Security::IAM",
       "id": "iam-what-s-the-confused-deputy-problem-and-how-does",
+      "level": "advanced",
       "q": "What's the confused-deputy problem and how does AWS mitigate it?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html",
       "tags": [
@@ -2484,6 +2690,7 @@ STUDY.register(
       "a": "A dedicated role, no long-term keys, trust locked to the exact workload (IRSA or instance profile). S3 scoped to the bucket ARN plus prefix, not s3:*. KMS scoped to the key ARN for Encrypt/Decrypt/GenerateDataKey — and the key policy itself must trust the role. RDS via IAM DB auth to a specific db-user, or a scoped Secrets Manager secret. Add conditions like aws:SourceVpce and encryption context. Verify with Access Analyzer and prune using CloudTrail.",
       "deck": "Security::IAM",
       "id": "iam-design-least-privilege-iam-for-a-service-needing",
+      "level": "expert",
       "q": "Design least-privilege IAM for a service needing S3 + KMS + RDS.",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html",
       "tags": [
@@ -2496,6 +2703,7 @@ STUDY.register(
       "a": "Roles vend short-lived, auto-rotated STS credentials — nothing long-lived to leak. Users have static keys that get hardcoded, committed, and never rotated. Humans go through Identity Center (SSO) into roles; workloads use instance profile, IRSA, or Pod Identity. The goal is zero long-term credentials.",
       "deck": "Security::IAM",
       "id": "iam-why-roles-over-users-for-workloads",
+      "level": "intermediate",
       "q": "Why roles over users for workloads?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
       "tags": [
@@ -2508,6 +2716,7 @@ STUDY.register(
       "a": "Security group: stateful, attached to an ENI/instance, allow-only, return traffic auto-allowed, can reference other SGs. NACL: stateless, on the subnet, ordered allow and deny rules, must explicitly allow ephemeral return ports. SGs are your primary, identity-aware micro-segmentation; NACLs are a coarse subnet guardrail (e.g. block a bad CIDR). Defense in depth uses both.",
       "deck": "Security::Network",
       "id": "network-security-group-vs-nacl-and-which-is-your-primary",
+      "level": "intermediate",
       "q": "Security group vs NACL — and which is your primary control?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html",
       "tags": [
@@ -2520,6 +2729,7 @@ STUDY.register(
       "a": "VPC endpoints. Gateway endpoints (S3 and DynamoDB only) are a route-table entry and are free; note S3 also supports interface endpoints if you need PrivateLink-style access. Interface endpoints (PrivateLink — KMS, Secrets Manager, most services) are a private-IP ENI in your subnet; KMS is interface-only. Add endpoint policies and a bucket condition like aws:SourceVpce. PHI traffic stays private and auditable, with no IGW or NAT.",
       "deck": "Security::Network",
       "id": "network-how-do-you-keep-traffic-to-s3-and-kms-off-the",
+      "level": "intermediate",
       "q": "How do you keep traffic to S3 and KMS off the public internet?",
       "source": "https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html",
       "tags": [
@@ -2532,6 +2742,7 @@ STUDY.register(
       "a": "WAF: L7 filtering on CloudFront/ALB/API Gateway — SQLi, XSS, rate-limiting, geo. Shield: DDoS protection (Standard is free; Advanced adds L3/4 and L7 coverage, cost protection, and access to the Shield Response Team, formerly the DDoS Response Team). Network Firewall: stateful VPC IDS/IPS plus egress domain allow-lists (Suricata-based). Web exposure goes to WAF, volumetric attacks to Shield, VPC egress/inspection to Network Firewall.",
       "deck": "Security::Network",
       "id": "network-waf-vs-shield-vs-network-firewall",
+      "level": "intermediate",
       "q": "WAF vs Shield vs Network Firewall?",
       "source": "https://docs.aws.amazon.com/network-firewall/latest/developerguide/what-is-aws-network-firewall.html",
       "tags": [
@@ -2544,6 +2755,7 @@ STUDY.register(
       "a": "Private subnets with no IGW; outbound via NAT, or better via VPC endpoints so nothing touches the internet. Note a NAT Gateway does not log traffic itself — per-flow egress logging comes from VPC Flow Logs. Add a Network Firewall or proxy with domain allow-lists, and GuardDuty on top of Flow Logs for anomalous egress. SCPs block open egress paths. Egress is the exfiltration choke point.",
       "deck": "Security::Network",
       "id": "network-how-do-you-control-and-monitor-egress",
+      "level": "advanced",
       "q": "How do you control and monitor egress?",
       "source": "https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html",
       "tags": [
@@ -2556,6 +2768,7 @@ STUDY.register(
       "a": "Block Public Access (account + bucket). Bucket policy: deny non-TLS (aws:SecureTransport=false) AND require TLS 1.2+ (s3:TlsVersion); deny non-VPC-endpoint (aws:SourceVpce); restrict to specific roles. Explicitly configure SSE-KMS with a customer-managed CMK (default is only SSE-S3) + Bucket Key on. Versioning + Object Lock for tamper/ransomware. CloudTrail data events on. Macie scanning. Cross-region replication for DR. Scope BOTH least-priv IAM and the KMS key policy to the accessing roles.",
       "deck": "Security::DataPHI",
       "id": "dataphi-a-bucket-holds-phi-lock-it-down-end-to-end-on-aws",
+      "level": "advanced",
       "q": "A bucket holds PHI — lock it down end to end on AWS.",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html",
       "tags": [
@@ -2568,6 +2781,7 @@ STUDY.register(
       "a": "Encrypt at rest on S3/EBS/RDS/EFS/DynamoDB. Gotcha: S3 default encryption is SSE-S3 (aws/s3 key), NOT SSE-KMS — a customer-managed CMK must be explicitly configured. For PHI you want a CMK (control + CloudTrail auditability + key policy), so set SSE-KMS with your CMK deliberately; don't assume the default already gives you one.",
       "deck": "Security::DataPHI",
       "id": "dataphi-encryption-at-rest-for-regulated-data-on-aws-what",
+      "level": "intermediate",
       "q": "Encryption at rest for regulated data on AWS — what's the baseline, and the S3 default gotcha?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/specifying-kms-encryption.html",
       "tags": [
@@ -2580,6 +2794,7 @@ STUDY.register(
       "a": "TLS everywhere: TLS to S3/RDS, mTLS/mesh internally where feasible. On S3, a bucket-policy deny on aws:SecureTransport=false blocks plaintext HTTP but does NOT pin a TLS version — add the s3:TlsVersion condition to require TLS 1.2+. For HIPAA, in-transit encryption is effectively required.",
       "deck": "Security::DataPHI",
       "id": "dataphi-encryption-in-transit-for-regulated-data-on-aws",
+      "level": "intermediate",
       "q": "Encryption in transit for regulated data on AWS — what enforces it, and what does aws:SecureTransport miss?",
       "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/amazon-s3-policy-keys.html",
       "tags": [
@@ -2592,6 +2807,7 @@ STUDY.register(
       "a": "Amazon Macie — automated ML discovery/classification of PII/PHI plus bucket-exposure findings. Run recurring jobs, feed results to Security Hub, build your data inventory / HIPAA risk assessment. You can't protect or scope a breach for data you can't locate.",
       "deck": "Security::DataPHI",
       "id": "dataphi-how-do-you-discover-where-regulated-data-lives",
+      "level": "intermediate",
       "q": "How do you discover where regulated data lives across hundreds of S3 buckets?",
       "source": "https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html",
       "tags": [
@@ -2604,6 +2820,7 @@ STUDY.register(
       "a": "IAM Roles for Service Accounts: enable the cluster OIDC provider, annotate the ServiceAccount with the role ARN, and the role's trust policy trusts that OIDC provider scoped to namespace + SA. EKS projects a signed token; the SDK calls AssumeRoleWithWebIdentity -> short-lived per-workload creds. No node-wide creds, no secrets.",
       "deck": "Security::Containers",
       "id": "containers-on-eks-how-do-pods-get-aws-credentials-securely",
+      "level": "intermediate",
       "q": "On EKS, how do pods get AWS credentials securely with IRSA (no static keys)?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html",
       "tags": [
@@ -2616,6 +2833,7 @@ STUDY.register(
       "a": "Pod Identity uses NO OIDC provider and NO ServiceAccount role-ARN annotation. You install the EKS Pod Identity Agent and create a Pod Identity Association mapping a SA to a role. The role's trust policy trusts pods.eks.amazonaws.com with sts:AssumeRole + sts:TagSession. Creds are delivered via the container credentials endpoint at 169.254.170.23. Simpler to manage across clusters than IRSA's per-cluster OIDC trust.",
       "deck": "Security::Containers",
       "id": "containers-on-eks-how-does-pod-identity-differ-from-irsa-for",
+      "level": "advanced",
       "q": "On EKS, how does Pod Identity differ from IRSA for giving pods AWS credentials?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html",
       "tags": [
@@ -2628,6 +2846,7 @@ STUDY.register(
       "a": "Hop-limit is AMI-dependent, so don't rely on it: legacy Amazon Linux 2 node groups defaulted the hop limit to 2 (a VPC-CNI pod could reach 169.254.169.254), while Amazon Linux 2023 — now the default EKS AMI — defaults it to 1. IMDSv2 alone doesn't stop a hop-1 pod either. Real fix: (1) block 169.254.169.254/32 at the pod via CNI config / NetworkPolicy, AND (2) use IRSA or Pod Identity so pods have their own scoped creds and the node role is minimal.",
       "deck": "Security::Containers",
       "id": "containers-stop-a-compromised-pod-on-eks-from-reaching-the",
+      "level": "advanced",
       "q": "Stop a compromised pod on EKS from reaching the node role via instance metadata — what actually works?",
       "source": "https://docs.aws.amazon.com/eks/latest/best-practices/identity-and-access-management.html",
       "tags": [
@@ -2640,6 +2859,7 @@ STUDY.register(
       "a": "RBAC = API-level authz: which subjects do which verbs on which K8s resources (control-plane least privilege). Network Policies = pod-to-pod traffic control: default-deny, allow only required flows (data-plane microsegmentation). RBAC stops unauthorized API actions; Network Policies stop lateral movement. Different planes, both required.",
       "deck": "Security::Containers",
       "id": "containers-rbac-vs-network-policies-on-kubernetes-why-both",
+      "level": "intermediate",
       "q": "RBAC vs Network Policies on Kubernetes — why both?",
       "source": "https://kubernetes.io/docs/reference/access-authn-authz/rbac/",
       "tags": [
@@ -2652,6 +2872,7 @@ STUDY.register(
       "a": "Three levels enforced by Pod Security Admission per namespace (via labels): Privileged (unrestricted), Baseline (block known escalations), Restricted (hardened). Restricted requires: runAsNonRoot, allowPrivilegeEscalation:false, drop ALL capabilities (only NET_BIND_SERVICE may be re-added), seccomp RuntimeDefault or Localhost, and restricted volume types. NOTE: Restricted does NOT require a read-only root filesystem. Successor to PodSecurityPolicy (PSP deprecated in 1.21, removed in 1.25).",
       "deck": "Security::Containers",
       "id": "containers-what-are-kubernetes-pod-security-standards-and",
+      "level": "advanced",
       "q": "What are Kubernetes Pod Security Standards, and what does the Restricted profile actually require?",
       "source": "https://kubernetes.io/docs/concepts/security/pod-security-standards/",
       "tags": [
@@ -2664,6 +2885,7 @@ STUDY.register(
       "a": "Scan images for CVEs (ECR / Inspector / Trivy), fail the build on criticals. Sign images (Cosign / Notation) and admission-control to run only signed images from your registry (Kyverno / OPA Gatekeeper). Minimal or distroless bases, no baked secrets, pin digests not tags, block public registries. Generate an SBOM for provenance.",
       "deck": "Security::Containers",
       "id": "containers-how-do-you-secure-the-container-supply-chain-into",
+      "level": "intermediate",
       "q": "How do you secure the container supply chain into EKS?",
       "source": "https://docs.aws.amazon.com/eks/latest/best-practices/image-security.html",
       "tags": [
@@ -2676,6 +2898,7 @@ STUDY.register(
       "a": "Don't rely on native Secrets alone. EKS now envelope-encrypts ALL Kubernetes API data by DEFAULT on clusters running 1.28+ (since Mar 2025, KMS provider v2, AWS-owned key) — you opt in only to bring your OWN CMK; it's not an enable-it step. Better still: pull from Secrets Manager / SSM at runtime via External Secrets Operator or the Secrets Store CSI driver, scoped by IRSA. Tight RBAC on Secret objects; no secrets in env/manifests/images.",
       "deck": "Security::Containers",
       "id": "containers-handling-secrets-in-kubernetes-on-eks-native",
+      "level": "advanced",
       "q": "Handling secrets in Kubernetes on EKS (native Secrets are only base64) — what's the current etcd-encryption default?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/envelope-encryption.html",
       "tags": [
@@ -2688,6 +2911,7 @@ STUDY.register(
       "a": "AWS secures the control plane (API server, etcd). You secure: the data plane (node patching/hardening unless Fargate), workloads (RBAC, pod security, network policies, image hygiene), IAM-to-RBAC mapping (Access Entries / aws-auth), secrets, and network exposure (LB/ingress, SGs). Managed nodes / Fargate shift some node duty, never the workload-security duty.",
       "deck": "Security::Containers",
       "id": "containers-what-s-the-eks-shared-responsibility-split",
+      "level": "intermediate",
       "q": "What's the EKS shared-responsibility split?",
       "source": "https://docs.aws.amazon.com/eks/latest/userguide/shared-responsibility.html",
       "tags": [
@@ -2700,6 +2924,7 @@ STUDY.register(
       "a": "Shared responsibility. AWS signs a BAA, offers HIPAA-eligible services, and secures the infrastructure. You: use only eligible services for PHI, encrypt at rest + in transit, enforce access controls + audit logging, and configure everything correctly. AWS being eligible does NOT make your deployment compliant — your architecture and controls do.",
       "deck": "Security::HIPAA",
       "id": "hipaa-how-does-hipaa-work-on-aws-aws-s-part-vs-yours",
+      "level": "intermediate",
       "q": "How does HIPAA work on AWS — AWS's part vs yours?",
       "source": "https://aws.amazon.com/compliance/hipaa-compliance/",
       "tags": [
@@ -2712,6 +2937,7 @@ STUDY.register(
       "a": "Business Associate Agreement — the contract that establishes AWS as a business associate and binds it to safeguard PHI. It only covers HIPAA-eligible services, so PHI may only live in those. Putting PHI in a non-eligible service falls outside the BAA = non-compliant. That constrains your architecture to the eligible-services list.",
       "deck": "Security::HIPAA",
       "id": "hipaa-what-is-a-baa-and-why-does-it-gate-service-choice",
+      "level": "intermediate",
       "q": "What is a BAA and why does it gate service choice on AWS?",
       "source": "https://aws.amazon.com/compliance/hipaa-eligible-services-reference/",
       "tags": [
@@ -2724,6 +2950,7 @@ STUDY.register(
       "a": "Administrative (policies, workforce access mgmt -> Identity Center, access reviews, Access Analyzer). Physical (facility/device controls -> AWS data-center controls, mostly AWS's responsibility). Technical (access control, audit, integrity, transmission security -> IAM least-privilege, CloudTrail/Config, KMS, TLS, Object Lock).",
       "deck": "Security::HIPAA",
       "id": "hipaa-name-the-three-hipaa-security-rule-safeguard",
+      "level": "intermediate",
       "q": "Name the three HIPAA Security Rule safeguard categories with one AWS mapping each.",
       "source": "https://aws.amazon.com/compliance/hipaa-compliance/",
       "tags": [
@@ -2736,6 +2963,7 @@ STUDY.register(
       "a": "The Breach Notification Rule requires reporting loss/exposure of UNSECURED PHI (to individuals, HHS, sometimes media). PHI encrypted to HHS/NIST standards is 'secured,' so exposure isn't a reportable breach — that's the safe harbor. KMS encryption materially reduces breach liability, not just risk. (Note: encryption is currently 'addressable,' but HHS issued a 2025 PROPOSED rule to make it mandatory — not yet in effect as of June 2026.)",
       "deck": "Security::HIPAA",
       "id": "hipaa-why-is-encrypting-phi-so-valuable-for-breach",
+      "level": "advanced",
       "q": "Why is encrypting PHI so valuable for breach notification under HIPAA?",
       "source": "https://www.hhs.gov/hipaa/for-professionals/breach-notification/index.html",
       "tags": [
@@ -2749,6 +2977,7 @@ STUDY.register(
       "a": "Comprehensive, tamper-resistant logging of PHI access: CloudTrail + S3 data events, Config, and an immutable central log archive with Object Lock. Retention nuance: the firm 6-year HIPAA requirement is for DOCUMENTATION of policies/procedures under section 164.316 — it is NOT an audit-log retention mandate. Log retention is driven by policy / best practice, not a fixed HIPAA log-retention number.",
       "deck": "Security::HIPAA",
       "id": "hipaa-audit-logging-expectations-for-phi-on-aws-and-the",
+      "level": "advanced",
       "q": "Audit-logging expectations for PHI on AWS — and the 6-year retention nuance?",
       "source": "https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html",
       "tags": [
@@ -2762,6 +2991,7 @@ STUDY.register(
       "a": "Blast-radius isolation (dev can't reach prod PHI), PHI/non-PHI separation, per-environment SCP guardrails, centralized security tooling + immutable logging in dedicated security/log-archive accounts, and cleaner audit boundaries. Control Tower / Landing Zone — table stakes for a regulated healthcare platform.",
       "deck": "Security::HIPAA",
       "id": "hipaa-why-does-multi-account-architecture-matter-for-a",
+      "level": "advanced",
       "q": "Why does multi-account architecture matter for a healthcare platform?",
       "source": "https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/benefits-of-using-multiple-aws-accounts.html",
       "tags": [
@@ -2774,6 +3004,7 @@ STUDY.register(
       "a": "Software Bill of Materials — a full inventory of components and dependencies. FDA premarket guidance requires it so third-party-component vulnerabilities can be tracked and patched across the device lifecycle. Generate it in CI (Syft / Trivy), keep it current, and map it to CVE feeds.",
       "deck": "Security::FDA",
       "id": "fda-what-s-an-sbom-and-why-does-the-fda-care",
+      "level": "intermediate",
       "q": "What's an SBOM and why does the FDA care?",
       "source": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/cybersecurity-medical-devices-quality-system-considerations-and-content-premarket-submissions",
       "tags": [
@@ -2787,6 +3018,7 @@ STUDY.register(
       "a": "Tighter traceability: every change reviewed and auditable, validated/tested with records, segregation of duties, signed artifacts + SBOMs, controlled promotion to the regulated environment, and documented rollback. Move fast WITH provenance — automated gates (policy-as-code, scans) replace manual bureaucracy while producing the audit trail.",
       "deck": "Security::FDA",
       "id": "fda-how-do-hipaa-fda-change-ci-cd-and-change",
+      "level": "expert",
       "q": "How do HIPAA + FDA change CI/CD and change management for a SaMD?",
       "source": "https://www.fda.gov/medical-devices/digital-health-center-excellence/software-medical-device-samd",
       "tags": [
@@ -2800,6 +3032,7 @@ STUDY.register(
       "a": "Shift-left IaC scanning on Terraform: Checkov, Trivy (which absorbed tfsec), Terrascan — catch public S3, open SGs, unencrypted volumes, broad IAM; fail on highs. Policy-as-code (OPA/Conftest/Sentinel) for guardrails. Plus secret scanning (gitleaks/trufflehog), SAST (Semgrep/CodeQL), SCA, and container scanning (Trivy/Grype). Post-deploy, CSPM (Config/Security Hub) catches config DRIFT — note that's posture detection, not runtime workload protection (that's GuardDuty/Falco).",
       "deck": "Security::DevSecOps",
       "id": "devsecops-how-do-you-catch-insecure-infrastructure-before",
+      "level": "advanced",
       "q": "How do you catch insecure infrastructure BEFORE deploy?",
       "source": "https://owasp.org/www-project-devsecops-guideline/",
       "tags": [
@@ -2812,6 +3045,7 @@ STUDY.register(
       "a": "Security/compliance rules encoded as machine-evaluated policy (OPA/Rego, Sentinel, Kyverno) instead of wiki docs. It gates IaC at plan time, Kubernetes at admission, and the org via SCPs. Consistent, version-controlled, automated guardrails with an audit trail — essential in a regulated shop.",
       "deck": "Security::DevSecOps",
       "id": "devsecops-what-is-policy-as-code-and-where-does-it-sit-in",
+      "level": "intermediate",
       "q": "What is 'policy as code' and where does it sit in the stack?",
       "source": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html",
       "tags": [
@@ -2824,6 +3058,7 @@ STUDY.register(
       "a": "From a secrets manager at runtime: Secrets Manager / SSM / Vault, accessed via a scoped role (IRSA/OIDC for CI). CI uses short-lived OIDC-federated roles (e.g., GitHub Actions -> AWS, no static keys). Secret-scan pre-commit and in CI. Auto-rotate. Nothing sensitive in env files, repos, or images.",
       "deck": "Security::DevSecOps",
       "id": "devsecops-where-do-secrets-come-from-in-a-secure-pipeline",
+      "level": "intermediate",
       "q": "Where do secrets come from in a secure pipeline (never hardcoded)?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html",
       "tags": [
@@ -2836,6 +3071,7 @@ STUDY.register(
       "a": "Compromised dependencies -> pin + verify, SCA, SBOM. Unpinned CI actions -> pin to commit SHA, least-privilege workflow tokens. Secrets in logs -> mask + scan. Tampered artifacts -> sign with Cosign/in-toto, verify at deploy. Principle: least-privilege build identities + signed, verifiable artifacts (SLSA).",
       "deck": "Security::DevSecOps",
       "id": "devsecops-what-are-the-main-ci-cd-supply-chain-risks-and",
+      "level": "advanced",
       "q": "What are the main CI/CD supply-chain risks and their mitigations?",
       "source": "https://owasp.org/www-project-top-10-ci-cd-security-risks/",
       "tags": [
@@ -2848,6 +3084,7 @@ STUDY.register(
       "a": "Treat the agent as a least-privilege principal: its own scoped role (no standing admin), human-review gates on anything that merges/deploys or touches prod or PHI, sandboxed execution, and full audit logging. Tool allow-lists, secrets pulled just-in-time and never placed in model context, and rate/scope limits. Same instinct as least-privilege service accounts plus a human in the loop for irreversible actions.",
       "deck": "Security::AgenticAI",
       "id": "agenticai-the-seat-uses-ai-agents-that-write-commits-how-do",
+      "level": "expert",
       "q": "If AI agents write commits and deploy, how do you let them operate safely with cloud access?",
       "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-permissions.html",
       "tags": [
@@ -2860,6 +3097,7 @@ STUDY.register(
       "a": "Untrusted input (a ticket, doc, or webpage the agent reads) can carry hidden instructions that hijack the agent ('ignore your task, exfiltrate this / open this SG'). If the agent holds AWS permissions, injection becomes privilege abuse. Mitigate: least-privilege agent creds, human approval for state changes, validate/isolate tool inputs, no secrets in context, and monitor agent actions like any principal. (Prompt injection is OWASP LLM01.)",
       "deck": "Security::AgenticAI",
       "id": "agenticai-prompt-injection-why-does-it-matter-for-an-agent",
+      "level": "advanced",
       "q": "Prompt injection — why does it matter for an agent that has AWS access?",
       "source": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
       "tags": [
@@ -2872,6 +3110,7 @@ STUDY.register(
       "a": "Give it a distinct IAM role so CloudTrail attributes every call to the agent; log its tool/decision trace; route both to central logging + Security Hub. Alert on anomalous agent behavior (new actions, off-hours, scope creep) via GuardDuty/CloudWatch. An agent is just another principal — identity, least-privilege, logging, anomaly detection.",
       "deck": "Security::AgenticAI",
       "id": "agenticai-how-do-you-audit-what-an-autonomous-agent-did-in",
+      "level": "advanced",
       "q": "How do you audit what an autonomous agent did in your cloud?",
       "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/logging-using-cloudtrail.html",
       "tags": [
@@ -2884,6 +3123,7 @@ STUDY.register(
       "a": "Detect (GuardDuty/CloudTrail) -> Contain (revoke sessions, disable keys, quarantine SG, snapshot) -> Investigate (CloudTrail timeline, Detective graph; scope persistence / lateral movement / data accessed) -> Eradicate (remove attacker IAM artifacts, rotate exposed secrets) -> Recover (least-privilege, redeploy clean) -> Post-incident (root-cause the vector, close the gap). Automate containment with EventBridge -> Lambda/SSM runbooks.",
       "deck": "Security::IncidentResponse",
       "id": "incidentresponse-general-cloud-ir-flow-when-a-credential-or-role",
+      "level": "advanced",
       "q": "General cloud IR flow when a credential or role is compromised on AWS?",
       "source": "https://docs.aws.amazon.com/whitepapers/latest/aws-security-incident-response-guide/operations.html",
       "tags": [
@@ -2896,6 +3136,7 @@ STUDY.register(
       "a": "Isolate it (quarantine SG deny-all, detach from the ASG so it isn't terminated). Capture memory first if you can; don't power off prematurely. Take EBS snapshots for disk forensics. Copy CloudTrail / Flow / OS logs to a forensics account. Analyze the snapshot in isolation. Preserve before you remediate.",
       "deck": "Security::IncidentResponse",
       "id": "incidentresponse-how-do-you-do-forensics-on-an-ec2-instance",
+      "level": "advanced",
       "q": "How do you do forensics on an EC2 instance without destroying evidence?",
       "source": "https://docs.aws.amazon.com/guardduty/latest/ug/compromised-ec2.html",
       "tags": [
@@ -2908,6 +3149,7 @@ STUDY.register(
       "a": "CloudTrail for that key's activity (which calls, IPs/geo, when it started). Deactivate the key — don't delete it, preserve for investigation. Check for persistence (new users/roles/keys, policy changes), then rotate. Find the leak source (git? logs? compromised host?) and add detection (Access Analyzer, secret scanning).",
       "deck": "Security::IncidentResponse",
       "id": "incidentresponse-first-things-you-check-if-you-suspect-leaked-aws",
+      "level": "intermediate",
       "q": "First things you check if you suspect leaked AWS access keys?",
       "source": "https://docs.aws.amazon.com/guardduty/latest/ug/compromised-creds.html",
       "tags": [
@@ -2915,6 +3157,240 @@ STUDY.register(
         "security"
       ],
       "verified": "2026-06-17"
+    },
+    {
+      "a": "Amazon Simple Queue Service (SQS) is a fully managed, durable, hosted message queue that lets producers send messages and consumers receive them independently. It decouples distributed system components so a slow or failed consumer doesn't block producers, absorbs load spikes (buffering), and lets each side scale on its own.",
+      "deck": "AWS::Messaging",
+      "id": "sqs-what-is-and-decoupling",
+      "level": "foundational",
+      "q": "What is Amazon SQS and what problem does a message queue solve?",
+      "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "messaging",
+        "decoupling"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "Standard queues give nearly unlimited throughput with at-least-once delivery and best-effort ordering (duplicates and reordering possible). FIFO queues give strict first-in-first-out ordering within a message group and exactly-once processing (no duplicates), at lower throughput. Choose Standard for max throughput, FIFO when order and no-duplicates matter.",
+      "deck": "AWS::Messaging",
+      "id": "sqs-standard-vs-fifo",
+      "level": "foundational",
+      "q": "What are the differences between SQS Standard and FIFO queues?",
+      "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-types.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "fifo",
+        "standard"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "Amazon SNS is a fully managed pub/sub service: publishers send a message once to a topic and SNS pushes a copy to every subscriber (SQS, Lambda, HTTP/S, email, SMS, etc.). Unlike a queue (pull-based, one message consumed by one consumer), SNS is push-based one-to-many fan-out. It supports application-to-application (A2A) and application-to-person (A2P) messaging.",
+      "deck": "AWS::Messaging",
+      "id": "sns-what-is-pubsub-vs-queue",
+      "level": "foundational",
+      "q": "What is Amazon SNS, and how does pub/sub differ from a queue?",
+      "source": "https://docs.aws.amazon.com/sns/latest/dg/welcome.html",
+      "tags": [
+        "aws",
+        "sns",
+        "pubsub",
+        "topic"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "A DLQ is a separate queue that a source queue targets for messages that fail to be processed successfully after a configured number of receive attempts (maxReceiveCount). It isolates poison/unconsumable messages so they stop circulating and can be inspected for debugging. The DLQ must be the same type (standard/FIFO) and in the same account and Region as its source queue.",
+      "deck": "AWS::Messaging",
+      "id": "sqs-what-is-a-dlq",
+      "level": "foundational",
+      "q": "What is a dead-letter queue (DLQ) in SQS?",
+      "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "dlq",
+        "error-handling"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "When a consumer receives a message it stays in the queue but is hidden from other consumers for the visibility timeout. Default 30 seconds, minimum 0, maximum 12 hours. Too short: the message reappears before processing finishes, so another consumer picks it up and you get duplicate processing. Too long: a failed/crashed consumer's message stays hidden, delaying retry.",
+      "deck": "AWS::Messaging",
+      "id": "sqs-visibility-timeout-defaults-and-tradeoffs",
+      "level": "intermediate",
+      "q": "What is the SQS visibility timeout (default, min, max) and what breaks if it's set too short or too long?",
+      "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "visibility-timeout"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "Short polling (default, WaitTimeSeconds=0) samples a subset of SQS servers and returns immediately, so it can return empty even when messages exist. Long polling (WaitTimeSeconds 1-20) queries all servers and waits until a message is available or the wait time expires, cutting empty responses and request cost. Maximum long-poll wait is 20 seconds. Prefer long polling.",
+      "deck": "AWS::Messaging",
+      "id": "sqs-short-vs-long-polling",
+      "level": "intermediate",
+      "q": "What is the difference between SQS short polling and long polling?",
+      "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "polling",
+        "long-polling"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "Subscribe multiple SQS queues to one SNS topic; one message published to the topic is replicated and delivered to every subscribed queue, letting independent consumers process the same event in parallel and durably (queued even if a consumer is offline). The SQS queue's access policy must allow the SNS topic to call sqs:SendMessage on it.",
+      "deck": "AWS::Messaging",
+      "id": "sns-sqs-fanout",
+      "level": "intermediate",
+      "q": "How does SNS-to-SQS fan-out work, and what permission is required?",
+      "source": "https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html",
+      "tags": [
+        "aws",
+        "sns",
+        "sqs",
+        "fanout"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "Max message size is 1 MiB (1,048,576 bytes) — note this superseded the older 256 KB limit. Retention defaults to 4 days, configurable from 60 seconds to 14 days. For larger payloads, use the Amazon SQS Extended Client Library, which stores the body in Amazon S3 and puts only a reference (pointer) in the SQS message, supporting payloads up to 2 GB.",
+      "deck": "AWS::Messaging",
+      "id": "sqs-message-size-retention-large-payloads",
+      "level": "intermediate",
+      "q": "What are the SQS limits for message size and retention, and how do you handle payloads larger than the limit?",
+      "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "limits",
+        "s3",
+        "extended-client"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "Use SQS to buffer/decouple work for a (usually single) consumer to pull; use SNS for low-latency push fan-out of one message to many subscribers. Use EventBridge when you need a routing event bus: content-based filtering with event patterns, many sources to many targets, transformation, schema registry, and built-in integrations with AWS services and SaaS partners. EventBridge trades raw throughput/latency for rich routing.",
+      "deck": "AWS::Messaging",
+      "id": "eventbridge-vs-sns-sqs-when-each",
+      "level": "intermediate",
+      "q": "When would you choose EventBridge over SNS or SQS?",
+      "source": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html",
+      "tags": [
+        "aws",
+        "eventbridge",
+        "sns",
+        "sqs"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "MessageGroupId defines an ordered subset: messages in the same group are delivered strictly in order, while different groups process in parallel. MessageDeduplicationId (or content-based dedup, a SHA-256 hash of the body) drops duplicate sends within a 5-minute deduplication interval, so retries don't enqueue duplicates. Together they give ordered, exactly-once delivery.",
+      "deck": "AWS::Messaging",
+      "id": "sqs-fifo-exactly-once-ordering-mechanics",
+      "level": "advanced",
+      "q": "In an SQS FIFO queue, how do MessageGroupId and MessageDeduplicationId achieve ordering and exactly-once, and what is the dedup interval?",
+      "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "fifo",
+        "deduplication",
+        "ordering"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "A redrive policy on the source queue sets maxReceiveCount: once a message has been received that many times without being deleted (because it keeps failing), SQS moves it to the DLQ, so a poison-pill message stops blocking the queue and looping forever. After fixing the consumer, use DLQ redrive to move messages back to the source (or another) queue for reprocessing. Set the DLQ's retention longer than the source queue's.",
+      "deck": "AWS::Messaging",
+      "id": "sqs-dlq-redrive-poison-pill",
+      "level": "advanced",
+      "q": "How does the SQS redrive policy (maxReceiveCount) handle a poison-pill message, and how do you get messages back out of a DLQ?",
+      "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "dlq",
+        "redrive",
+        "poison-pill"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "Access: use least-privilege IAM and a queue access policy; never grant a wildcard Principal (\"*\") that makes the queue publicly accessible. Encryption: SSE is on by default for new queues (SSE-SQS managed keys); use SSE-KMS for customer-managed keys, and enforce TLS in transit (e.g. an aws:SecureTransport deny). Network: use VPC interface endpoints (PrivateLink) with a queue policy restricting access to specific VPCs/endpoints to keep traffic off the public internet. Grant cross-account access explicitly in the queue policy.",
+      "deck": "AWS::Messaging",
+      "id": "sqs-securing-a-queue",
+      "level": "advanced",
+      "q": "What controls secure an SQS queue (access, encryption, network)?",
+      "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-security-best-practices.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "security",
+        "kms",
+        "iam",
+        "vpc-endpoint"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "Lambda polls the queue and invokes the function synchronously with a batch of messages (default 10); on success it deletes them. By default any error makes the whole batch visible again, causing reprocessing, so make the function idempotent. Enable ReportBatchItemFailures and return a batchItemFailures list of failed messageIds so only those reappear. Lambda auto-scales pollers/concurrency with queue depth (and provisioned mode allows dedicated pollers).",
+      "deck": "AWS::Messaging",
+      "id": "lambda-sqs-event-source-mapping",
+      "level": "advanced",
+      "q": "How does a Lambda + SQS event source mapping work, including batch size, partial batch failures, and scaling?",
+      "source": "https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "lambda",
+        "event-source-mapping",
+        "batch"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "Pattern: source -> SNS or EventBridge -> SQS FIFO subscriber -> consumer. Ordering/idempotency: FIFO with MessageGroupId per entity preserves order; MessageDeduplicationId (5-minute window) plus an idempotency key persisted by the consumer guards against at-least-once duplicates and replays. Reliability: DLQ with maxReceiveCount for poison pills; visibility timeout >= processing time, extended via heartbeat for long work. Security/PHI: SSE-KMS with customer-managed keys on every queue/topic, enforce TLS (aws:SecureTransport), least-privilege queue/topic policies, VPC endpoints (PrivateLink) so traffic never traverses the internet, and CloudWatch/CloudTrail for audit. Failure modes to design for: duplicate delivery, out-of-order across groups, oversized PHI payloads (store in encrypted S3, pass a reference), and silent DLQ growth (alarm on it).",
+      "deck": "AWS::Messaging",
+      "id": "messaging-idempotent-ordered-secure-pipeline-phi",
+      "level": "expert",
+      "q": "Design an idempotent, ordered, and secure event pipeline for a regulated (e.g. PHI) workload over SNS/SQS/EventBridge: key failure modes and controls.",
+      "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-security-best-practices.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "sns",
+        "eventbridge",
+        "security",
+        "fifo",
+        "phi"
+      ],
+      "verified": "2026-06-18"
+    },
+    {
+      "a": "A queue is wrong when multiple independent consumers must each read the same records, or you need replay/retention of an ordered log, or high-fan-in real-time analytics over a continuous feed — that's Kinesis Data Streams (records persist, are replayable, and many applications consume the same stream by shard). SQS, by contrast, is point-to-consumer: a received-and-deleted message is gone and is normally processed by one consumer. A queue is also wrong when the caller needs an immediate result or strict request/response semantics — use a synchronous API/Lambda invoke instead of async decoupling.",
+      "deck": "AWS::Messaging",
+      "id": "queue-vs-stream-when-queue-is-wrong",
+      "level": "expert",
+      "q": "When is an SQS queue the wrong choice versus Kinesis streaming or a synchronous call?",
+      "source": "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
+      "tags": [
+        "aws",
+        "sqs",
+        "kinesis",
+        "streaming",
+        "architecture"
+      ],
+      "verified": "2026-06-18"
     }
   ],
   "module": "cards",

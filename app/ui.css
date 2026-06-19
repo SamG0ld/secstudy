@@ -174,6 +174,20 @@ main {
 .verified.aging { color: var(--warn); }
 .verified.stale { color: var(--stale); }
 .verified.unverified { color: var(--warn); font-weight: 600; }
+.level-badge {
+  text-transform: capitalize;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel2);
+  color: var(--muted);
+}
+.lvl-foundational { color: var(--acc); border-color: var(--acc); }
+.lvl-intermediate { color: var(--acc2); border-color: var(--acc2); }
+.lvl-advanced { color: var(--warn); border-color: var(--warn); }
+.lvl-expert { color: var(--stale); border-color: var(--stale); }
 .prov .btn.small { margin-left: auto; }
 .hint { color: var(--muted); font-size: 12px; margin-top: 14px; }
 
