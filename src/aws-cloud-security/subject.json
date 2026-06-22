@@ -1,0 +1,6 @@
+{
+  "slug": "aws-cloud-security",
+  "title": "AWS Cloud Security",
+  "blurb": "Cloud security and AWS service fundamentals for security-engineering interviews — IAM, networking, data protection, detection, and compliance.",
+  "order": 1
+}

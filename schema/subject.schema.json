@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://secstudy.local/schema/subject.schema.json",
+  "title": "Subject",
+  "description": "Display metadata for a study domain (one per `src/<subject>/subject.json`).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "title"],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "description": "URL/path slug, matches the src/ directory name.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 1
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "blurb": { "type": "string", "description": "Short subject description shown in the UI / detail drawer." },
+    "order": { "type": "integer", "description": "Sort order among subjects.", "minimum": 0 }
+  }
+}

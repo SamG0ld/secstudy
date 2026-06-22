@@ -1,0 +1,25 @@
+{
+  "hosts": [
+    "docs.aws.amazon.com",
+    "aws.amazon.com",
+    "kubernetes.io",
+    "owasp.org",
+    "genai.owasp.org",
+    "csrc.nist.gov",
+    "nvd.nist.gov",
+    "hhs.gov",
+    "www.hhs.gov",
+    "fda.gov",
+    "www.fda.gov",
+    "simonwillison.net"
+  ],
+  "email_regex": "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
+  "company_regexes": [],
+  "comp_regexes": [],
+  "public_docs": [
+    "README.public.md",
+    "THREAT-MODEL.md",
+    "DESIGN.md",
+    "DESIGN-difficulty-levels.md"
+  ]
+}

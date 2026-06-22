@@ -1,0 +1,29 @@
+[
+  {
+    "id": "iam-explicit-deny",
+    "deck": "AWS::IAM",
+    "tags": ["aws", "iam"],
+    "q": "What wins in IAM policy evaluation?",
+    "a": "Explicit deny beats everything; otherwise you need an explicit allow.",
+    "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html",
+    "verified": "2026-06-17"
+  },
+  {
+    "id": "s3-block-public-access",
+    "deck": "AWS::S3",
+    "tags": ["aws", "s3"],
+    "q": "What prevents accidental public S3 buckets?",
+    "a": "S3 Block Public Access, at the account and bucket level.",
+    "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html",
+    "verified": "2026-06-17"
+  },
+  {
+    "id": "kms-envelope-encryption",
+    "deck": "Security::KMS",
+    "tags": ["kms", "security"],
+    "q": "What is envelope encryption?",
+    "a": "Encrypt data with a data key, then encrypt that data key with a KMS key.",
+    "source": "https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html",
+    "verified": "2026-06-17"
+  }
+]

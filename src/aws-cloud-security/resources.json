@@ -1,0 +1,154 @@
+[
+  {
+    "id": "iam-core-concepts",
+    "title": "AWS IAM Core Concepts You NEED to Know",
+    "url": "https://www.youtube.com/watch?v=_ZCTvmaPgao",
+    "note": "High-level IAM vocabulary — users, roles, policies, trust. The foundation everything else builds on. Channel: Be A Better Dev.",
+    "verified": "2026-06-17",
+    "tags": ["aws", "overview", "iam"]
+  },
+  {
+    "id": "vpc-what-is-quickly-explained",
+    "title": "AWS Networking: What is a VPC? - The Amazon Virtual Private Cloud, quickly explained",
+    "url": "https://www.youtube.com/watch?v=NGCASCv1Y2w",
+    "note": "Concise VPC concept overview — subnets, route tables, IGW/NAT — in plain terms. Channel: Dennis Traub (AWS Developer Advocate).",
+    "verified": "2026-06-17",
+    "tags": ["aws", "overview", "networking", "vpc"]
+  },
+  {
+    "id": "vpc-intro-console-tutorial",
+    "title": "Introduction to Amazon VPC (with Console Tutorial)",
+    "url": "https://www.youtube.com/watch?v=3FumWkHSusY",
+    "note": "VPC overview with a console walk-through; backup to the quick explainer for those who want to see it built. Channel: Be A Better Dev.",
+    "verified": "2026-06-17",
+    "tags": ["aws", "overview", "networking", "vpc"]
+  },
+  {
+    "id": "s3-overview-beginners",
+    "title": "AWS S3 Tutorial for Beginners 2023 | AWS S3 Overview | Cloud Computing",
+    "url": "https://www.youtube.com/watch?v=HAuvciBEIMQ",
+    "note": "S3 overview — buckets, storage classes, and the access-control model. Channel: KodeKloud.",
+    "verified": "2026-06-17",
+    "tags": ["aws", "overview", "s3"]
+  },
+  {
+    "id": "ec2-for-humans",
+    "title": "EC2 for Humans | Amazon Web Services BASICS",
+    "url": "https://www.youtube.com/watch?v=lZMkgOMYYIg",
+    "note": "The what/why of EC2 instances at a conceptual level. Channel: Academind.",
+    "verified": "2026-06-17",
+    "tags": ["aws", "overview", "ec2"]
+  },
+  {
+    "id": "lambda-in-30-minutes",
+    "title": "AWS Lambda in 30 Minutes | Beginner Friendly | 3 Practical Examples included!",
+    "url": "https://www.youtube.com/watch?v=9-8eBPwYk4Q",
+    "note": "Serverless model and when to reach for Lambda, with practical examples. Channel: Prof. Ryan Ahmed.",
+    "verified": "2026-06-17",
+    "tags": ["aws", "overview", "lambda"]
+  },
+  {
+    "id": "containers-on-aws-overview",
+    "title": "Containers on AWS Overview: ECS | EKS | Fargate | ECR",
+    "url": "https://www.youtube.com/watch?v=AYAh6YDXuho",
+    "note": "The best single conceptual overview of how ECS, EKS, Fargate, and ECR relate. Watch before the per-service container videos. Channel: TechWorld with Nana.",
+    "verified": "2026-06-17",
+    "tags": ["aws", "overview", "containers", "ecs", "eks"]
+  },
+  {
+    "id": "ecs-overview",
+    "title": "An Overview of AWS Elastic Container Service (ECS)",
+    "url": "https://www.youtube.com/watch?v=I9VAMGEjW-Q",
+    "note": "ECS concepts overview — clusters, services, tasks, launch types. Channel: Be A Better Dev.",
+    "verified": "2026-06-17",
+    "tags": ["aws", "overview", "ecs"]
+  },
+  {
+    "id": "eks-explained",
+    "title": "Amazon EKS Explained | Amazon Web Services",
+    "url": "https://www.youtube.com/watch?v=fSpsC_M9iWc",
+    "note": "~5-minute EKS overview — the control-plane / data-plane split. Channel: Amazon Web Services (official).",
+    "verified": "2026-06-17",
+    "tags": ["aws", "overview", "eks"]
+  },
+  {
+    "id": "rds-overview",
+    "title": "AWS RDS Overview | AWS Tutorial For Beginners",
+    "url": "https://www.youtube.com/watch?v=cDpE72R5jTk",
+    "note": "RDS overview — engines, Multi-AZ vs read replicas. Channel: Besant Technologies.",
+    "verified": "2026-06-17",
+    "tags": ["aws", "overview", "rds"]
+  },
+  {
+    "id": "kms-masterclass",
+    "title": "AWS KMS Masterclass: KMS Key Types, Key Policy, Encryption Context, Key Alias, S3 Bucket Key",
+    "url": "https://www.youtube.com/watch?v=8ailVnVPigk",
+    "note": "KMS in depth incl. the key-policy gotcha and S3 Bucket Key. The most on-point KMS video for this round. Channel: knowledgeindia - LearnCloud.",
+    "verified": "2026-06-16",
+    "tags": ["aws", "security", "kms", "encryption"]
+  },
+  {
+    "id": "envelope-encryption-explained",
+    "title": "AWS Envelope Encryption Explained | Data Encryption Keys (DEK) & KMS",
+    "url": "https://www.youtube.com/watch?v=OPCzAwY3Wj4",
+    "note": "Short envelope-encryption / DEK concept refresher. Channel: CloudWolf.",
+    "verified": "2026-06-16",
+    "tags": ["aws", "security", "kms", "encryption"]
+  },
+  {
+    "id": "security-logging-mock-interview",
+    "title": "AWS Cyber Security Logging Mock Interview | CloudTrail, GuardDuty, CloudWatch Explained",
+    "url": "https://www.youtube.com/watch?v=EuJtZNdAKfY",
+    "note": "Interview-format drill of the detection/logging stack. Channel: Expert Mock Interviews.",
+    "verified": "2026-06-16",
+    "tags": ["aws", "security", "detection", "interview"]
+  },
+  {
+    "id": "guardduty-vs-security-hub",
+    "title": "AWS Guard Duty vs Security Hub | Amazon SIEM CSPM CWPP XDR",
+    "url": "https://www.youtube.com/watch?v=nGqvK0PpoLc",
+    "note": "Clears up the GuardDuty vs Security Hub overlap and the SIEM/CSPM/CWPP/XDR vocabulary. Channel: WissenX Akademie.",
+    "verified": "2026-06-16",
+    "tags": ["aws", "security", "detection"]
+  },
+  {
+    "id": "guardduty-ai-workloads",
+    "title": "Using Amazon GuardDuty to continuously monitor and secure your AWS AI workloads",
+    "url": "https://www.youtube.com/watch?v=OTIbLAzVYyQ",
+    "note": "Directly relevant to a healthcare-AI imaging platform. Channel: Amazon Web Services (official).",
+    "verified": "2026-06-16",
+    "tags": ["aws", "security", "detection", "ai"]
+  },
+  {
+    "id": "iam-policy-evaluation",
+    "title": "AWS Security - IAM | Policy Evaluation for AWS IAM and Resource Policy",
+    "url": "https://www.youtube.com/watch?v=FSfjpaxULro",
+    "note": "Drills explicit-deny > allow > implicit-deny and the single-account union nuance — highest-yield IAM concept. Channel: Cloud Security Masterclass.",
+    "verified": "2026-06-16",
+    "tags": ["aws", "security", "iam"]
+  },
+  {
+    "id": "kubernetes-security-best-practices",
+    "title": "Kubernetes Security Best Practices you need to know",
+    "url": "https://www.youtube.com/watch?v=oBf5lrmquYI",
+    "note": "K8s cluster hardening fundamentals (RBAC, network policies, pod security). Channel: TechWorld with Nana.",
+    "verified": "2026-06-16",
+    "tags": ["aws", "security", "eks", "kubernetes"]
+  },
+  {
+    "id": "securing-amazon-eks-clusters",
+    "title": "Back to Basics: Patterns for Securing Amazon EKS Clusters",
+    "url": "https://www.youtube.com/watch?v=cgOPYzoX0Ig",
+    "note": "EKS-specific security patterns. Channel: Amazon Web Services (official).",
+    "verified": "2026-06-16",
+    "tags": ["aws", "security", "eks"]
+  },
+  {
+    "id": "hipaa-aws-architecture",
+    "title": "Achieving Healthcare Data Security: AWS HIPAA Compliant Architecture Explained",
+    "url": "https://www.youtube.com/watch?v=cB7q7Q6Ox_s",
+    "note": "HIPAA-on-AWS architecture overview — shared responsibility, eligible services, encryption/audit. Channel: TechVariable.",
+    "verified": "2026-06-16",
+    "tags": ["aws", "security", "hipaa", "compliance"]
+  }
+]

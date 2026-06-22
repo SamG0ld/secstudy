@@ -1,0 +1,22 @@
+# build output
+dist/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# local-only / private — must NEVER be committed to the PUBLIC repo
+.env
+.env.*
+*.local.json
+config/local.json
+*.private.json
+**/cards.private.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

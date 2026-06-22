@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://secstudy.local/schema/card.schema.json",
+  "title": "Card",
+  "description": "A study card in a subject's `cards` module. Every PUBLISHED card must carry a primary-source citation (`source`) and a last-verified date (`verified`). Local `--draft` builds may omit those two while sourcing is in flight; the publish gate (`build.py --check`) requires them.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "deck", "q", "a", "source", "verified"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable, unique-within-subject slug. Used as the localStorage/state key — renaming it resets that card's progress, so it must never change once published.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "deck": {
+      "type": "string",
+      "description": "In-module grouping: `Category` or `Category::Subdeck` (e.g. \"AWS::IAM\").",
+      "pattern": "^[^:]+(::[^:]+)*$",
+      "minLength": 1
+    },
+    "tags": {
+      "type": "array",
+      "description": "Optional lowercase keyword tags for filter/search.",
+      "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+      "uniqueItems": true
+    },
+    "level": {
+      "type": "string",
+      "description": "Optional difficulty, by the COGNITIVE DEMAND of the answer (not topic obscurity): foundational (vocabulary / what-is recall) | intermediate (applied / how-to / day-to-day, the 'home turf' tier) | advanced (in-domain judgment, tradeoffs, 'what's wrong with this') | expert (cross-domain synthesis, novel application under uncertainty). Editorial judgment, NOT provenance-gated — an agent may propose it, a human approves it, no citation required.",
+      "enum": ["foundational", "intermediate", "advanced", "expert"]
+    },
+    "q": {
+      "type": "string",
+      "description": "Question / front of the card.",
+      "minLength": 1
+    },
+    "a": {
+      "type": "string",
+      "description": "Answer / back of the card. May contain newlines.",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "description": "REQUIRED (for publish) authoritative primary-doc URL. Must be https://. Host is checked against the allowlist in config/gate.json.",
+      "pattern": "^https://",
+      "format": "uri"
+    },
+    "verified": {
+      "type": "string",
+      "description": "REQUIRED (for publish) ISO date (YYYY-MM-DD) the answer was last fact-checked against `source`. Set by a human, never by an agent.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "format": "date"
+    },
+    "unverified": {
+      "type": "boolean",
+      "description": "Optional. When true, `source` is a confident citation that could NOT be independently fetch-checked (e.g. the host blocks automated access). The app shows an 'unverified' badge instead of a verified date, and `verified` then records when the citation was added rather than a fact-check date."
+    },
+    "refs": {
+      "type": "array",
+      "description": "Optional extra proof links shown in the detail drawer.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "url"],
+        "properties": {
+          "label": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "pattern": "^https://", "format": "uri" }
+        }
+      }
+    }
+  }
+}

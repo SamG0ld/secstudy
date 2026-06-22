@@ -16,7 +16,7 @@ knowledge base**: every card links to an authoritative primary source and carrie
   disguised as verified.
 - **Secure by design** — strict CSP, XSS-safe DOM rendering (no `innerHTML` with content), no
   telemetry, no external runtime requests. See [THREAT-MODEL.md](./THREAT-MODEL.md).
-- **AWS cloud security** ships first (241 cards: IAM, networking, S3, EC2, Lambda, ECS/EKS, RDS, KMS,
+- **AWS cloud security** ships first (289 cards: IAM, networking, S3, EC2, Lambda, ECS/EKS, RDS, KMS,
   detection, HIPAA/FDA/PHI, DevSecOps, agentic-AI, incident response).
 
 ## Using it
