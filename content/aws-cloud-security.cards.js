@@ -45,7 +45,7 @@ STUDY.register(
       "a": "Resource-based policies and role trust policies HAVE a Principal (they name who). Identity-based policies have NO Principal — the identity they're attached to is the principal.",
       "deck": "AWS::IAM",
       "id": "iam-which-iam-policy-types-have-a-principal-element",
-      "level": "foundational",
+      "level": "intermediate",
       "q": "Which IAM policy types have a Principal element and which don't?",
       "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html",
       "tags": [
@@ -1143,7 +1143,7 @@ STUDY.register(
       "a": "ALB = Layer 7 (HTTP/HTTPS, host/path routing; targets can be instances, IPs, containers, Lambda). NLB = Layer 4 (TCP/UDP, ultra-low latency, static IP, millions of req/s). GWLB = Layer 3 (third-party appliances). CLB = legacy, avoid.",
       "deck": "AWS::EC2",
       "id": "ec2-elastic-load-balancer-types-and-their-layers",
-      "level": "foundational",
+      "level": "intermediate",
       "q": "Elastic Load Balancer types and their layers?",
       "source": "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html",
       "tags": [
@@ -3490,7 +3490,7 @@ STUDY.register(
       "a": "Use Bedrock when you want to consume pre-built foundation models via API to build generative-AI apps with no model infrastructure to manage. Use SageMaker AI when you need to build, train, fine-tune, and host your own ML/foundation models with control over the training and deployment infrastructure.",
       "deck": "AWS::AI",
       "id": "bedrock-vs-sagemaker-when-to-use-each",
-      "level": "foundational",
+      "level": "intermediate",
       "q": "Bedrock vs SageMaker AI: when do you reach for each?",
       "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html",
       "tags": [
@@ -4015,6 +4015,202 @@ STUDY.register(
         "security"
       ],
       "verified": "2026-06-21"
+    },
+    {
+      "a": "Elastic Compute Cloud — AWS's service for on-demand, resizable virtual servers (instances) in the cloud. You pick an instance type (a CPU/memory/network/storage profile) and launch; a security group acts as a virtual firewall at the instance/ENI level. It's the core IaaS compute building block.",
+      "deck": "AWS::EC2",
+      "id": "ec2-what-is-ec2",
+      "level": "foundational",
+      "q": "What does EC2 stand for, and what is it?",
+      "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html",
+      "tags": [
+        "aws",
+        "ec2",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "Elastic Block Store — network-attached block-storage volumes you attach to an EC2 instance and use like a hard drive. A volume lives in one Availability Zone (replicated across servers within that AZ); snapshots are point-in-time backups stored in S3. It survives instance stop/start, unlike instance store.",
+      "deck": "AWS::EC2",
+      "id": "ec2-what-is-ebs",
+      "level": "foundational",
+      "q": "What does EBS stand for, and what is it?",
+      "source": "https://docs.aws.amazon.com/ebs/latest/userguide/what-is-ebs.html",
+      "tags": [
+        "aws",
+        "ec2",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "Auto Scaling Group — a set of EC2 instances managed as one unit. You set minimum, maximum, and desired capacity; the ASG launches or terminates instances to match, runs health checks, replaces unhealthy ones, and can spread instances across Availability Zones for resilience.",
+      "deck": "AWS::EC2",
+      "id": "ec2-what-is-asg",
+      "level": "foundational",
+      "q": "What does ASG stand for, and what is it?",
+      "source": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/auto-scaling-groups.html",
+      "tags": [
+        "aws",
+        "ec2",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "A Layer 7 (HTTP/HTTPS/gRPC) load balancer that routes by content — URL path, host, or headers. It's the default choice for web apps, microservices, and container services. One of the Elastic Load Balancing types.",
+      "deck": "AWS::EC2",
+      "id": "ec2-what-is-alb",
+      "level": "foundational",
+      "q": "What is an ALB (Application Load Balancer)?",
+      "source": "https://aws.amazon.com/elasticloadbalancing/features/",
+      "tags": [
+        "aws",
+        "ec2",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "A Layer 4 (TCP/UDP/TLS) load balancer built for extreme performance — very high throughput, ultra-low latency, and a static/Elastic IP per AZ. Use it for non-HTTP traffic or when you need a fixed IP. An Elastic Load Balancing type.",
+      "deck": "AWS::EC2",
+      "id": "ec2-what-is-nlb",
+      "level": "foundational",
+      "q": "What is an NLB (Network Load Balancer)?",
+      "source": "https://aws.amazon.com/elasticloadbalancing/features/",
+      "tags": [
+        "aws",
+        "ec2",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "A Layer 3 gateway (with L4 load balancing) that transparently inserts third-party virtual appliances — firewalls, IDS/IPS, deep packet inspection — inline in your traffic path, using the GENEVE protocol to tunnel packets to the appliance fleet. An Elastic Load Balancing type.",
+      "deck": "AWS::EC2",
+      "id": "ec2-what-is-gwlb",
+      "level": "foundational",
+      "q": "What is a GWLB (Gateway Load Balancer)?",
+      "source": "https://aws.amazon.com/elasticloadbalancing/features/",
+      "tags": [
+        "aws",
+        "ec2",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "The legacy, previous-generation Elastic Load Balancer (Layer 4/7). AWS keeps it only for older EC2-Classic deployments; for anything new use an ALB (L7) or NLB (L4) instead.",
+      "deck": "AWS::EC2",
+      "id": "ec2-what-is-clb",
+      "level": "foundational",
+      "q": "What is a CLB (Classic Load Balancer)?",
+      "source": "https://aws.amazon.com/elasticloadbalancing/features/",
+      "tags": [
+        "aws",
+        "ec2",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "Simple Storage Service — AWS's object storage. Data is stored as objects (data plus metadata, addressed by a key) inside buckets, not as files on a disk. Buckets and objects are private by default and offer strong read-after-write consistency. Built for massive scale and durability.",
+      "deck": "AWS::S3",
+      "id": "s3-what-is-s3",
+      "level": "foundational",
+      "q": "What does S3 stand for, and what is it?",
+      "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html",
+      "tags": [
+        "aws",
+        "s3",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "Elastic Kubernetes Service — AWS's managed Kubernetes. AWS runs the Kubernetes control plane for you; you run workloads on worker nodes (EC2 or Fargate). It's upstream-conformant Kubernetes and uses both Kubernetes RBAC and AWS IAM for access control.",
+      "deck": "AWS::EKS",
+      "id": "eks-what-is-eks",
+      "level": "foundational",
+      "q": "What does EKS stand for, and what is it?",
+      "source": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html",
+      "tags": [
+        "aws",
+        "eks",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "Elastic Container Registry — AWS's managed container image registry. It stores Docker/OCI images in private (or public) repositories, controls access with IAM resource-based permissions, and can scan images for vulnerabilities. It's where ECS and EKS pull images from.",
+      "deck": "AWS::ECS",
+      "id": "ecs-what-is-ecr",
+      "level": "foundational",
+      "q": "What does ECR stand for, and what is it?",
+      "source": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html",
+      "tags": [
+        "aws",
+        "ecs",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "Security Token Service — the AWS service that issues temporary, limited-privilege credentials (an access key, secret key, and session token that auto-expire in minutes to hours). It underpins IAM roles and identity federation: AssumeRole returns STS credentials. Global service, default endpoint sts.amazonaws.com.",
+      "deck": "AWS::IAM",
+      "id": "iam-what-is-sts",
+      "level": "foundational",
+      "q": "What does STS stand for, and what is it?",
+      "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html",
+      "tags": [
+        "aws",
+        "iam",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "Network ACL (Access Control List) — an optional, subnet-level firewall that allows or denies traffic with numbered rules (evaluated lowest-first). Key gotcha: it's STATELESS — return traffic isn't auto-allowed, so you must permit it explicitly. Contrast security groups, which are stateful and operate at the instance/ENI level.",
+      "deck": "AWS::Networking",
+      "id": "networking-what-is-nacl",
+      "level": "foundational",
+      "q": "What does NACL stand for, and what is it?",
+      "source": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html",
+      "tags": [
+        "aws",
+        "networking",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "Internet Gateway — a highly available VPC component that connects your VPC to the internet. It's the route-table target for internet-bound traffic and does one-to-one NAT for IPv4. A subnet with a route to an IGW (and a public IP) is a 'public subnet.'",
+      "deck": "AWS::Networking",
+      "id": "networking-what-is-igw",
+      "level": "foundational",
+      "q": "What does IGW stand for, and what is it?",
+      "source": "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html",
+      "tags": [
+        "aws",
+        "networking",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
+    },
+    {
+      "a": "A managed Network Address Translation service that lets resources in a private subnet make OUTBOUND connections to the internet (for updates, APIs) while blocking unsolicited INBOUND connections. Connections must start inside the VPC; a public NAT gateway sits in a public subnet with an Elastic IP and routes out via the internet gateway.",
+      "deck": "AWS::Networking",
+      "id": "networking-what-is-nat-gateway",
+      "level": "foundational",
+      "q": "What is a NAT Gateway?",
+      "source": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html",
+      "tags": [
+        "aws",
+        "networking",
+        "acronym"
+      ],
+      "verified": "2026-06-22"
     }
   ],
   "module": "cards",
