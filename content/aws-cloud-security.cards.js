@@ -2050,6 +2050,71 @@ STUDY.register(
       "verified": "2026-06-17"
     },
     {
+      "a": "Amazon RDS (Relational Database Service) is a managed web service for setting up, operating, and scaling a relational database in the AWS Cloud. AWS handles the undifferentiated operations work — provisioning, OS and database-engine patching, automated backups, and automatic failure detection and recovery — so you focus on schema, queries, and data. You choose the engine, instance class, and storage; AWS runs the rest.",
+      "deck": "AWS::RDS",
+      "id": "rds-what-is-amazon-rds-and-what-does-it-manage",
+      "level": "foundational",
+      "q": "What is Amazon RDS, and what does it manage for you?",
+      "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html",
+      "tags": [
+        "aws",
+        "rds"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
+      "a": "With RDS (managed), AWS owns OS install/patching, DB-engine install/patching, backups, high availability, and scaling; you own schema design, query tuning, and application optimization. On EC2 (self-managed), AWS owns only the hardware, server maintenance, and power/network/cooling — you do the OS, DB engine, patching, backups, and HA yourself. RDS trades some control for far less operational burden; pick EC2 when you need OS/engine access RDS doesn't allow.",
+      "deck": "AWS::RDS",
+      "id": "rds-vs-running-a-database-on-ec2",
+      "level": "foundational",
+      "q": "RDS vs. running your own database on an EC2 instance — who manages what?",
+      "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html",
+      "tags": [
+        "aws",
+        "rds"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
+      "a": "The basic building block of RDS: an isolated database environment in the AWS Cloud that can hold one or more user-created databases, reached with standard SQL clients. RDS gives no direct host/OS shell access (except RDS Custom). Each instance has a DB instance identifier (unique per account per Region) that forms its endpoint DNS name, e.g. mydb.abc123.us-east-1.rds.amazonaws.com.",
+      "deck": "AWS::RDS",
+      "id": "rds-what-is-a-db-instance",
+      "level": "foundational",
+      "q": "What is an RDS DB instance?",
+      "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstance.html",
+      "tags": [
+        "aws",
+        "rds"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
+      "a": "It determines the compute and memory capacity of the DB instance, written as type + size — e.g. db.r6g.2xlarge is the db.r6g memory-optimized type at 2xlarge size. The four type families are general purpose (db.m), memory optimized (db.r/x/z), compute optimized (db.c), and burstable (db.t). You scale vertically by modifying the instance to a different class.",
+      "deck": "AWS::RDS",
+      "id": "rds-what-does-the-db-instance-class-control",
+      "level": "foundational",
+      "q": "What does an RDS DB instance class control?",
+      "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html",
+      "tags": [
+        "aws",
+        "rds"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
+      "a": "RDS storage is Amazon EBS, in three types: General Purpose SSD (gp2/gp3) — cost-effective, broad and dev/test workloads; Provisioned IOPS SSD (io1/io2 Block Express) — low-latency, high-throughput production/OLTP, up to 256,000 IOPS; and Magnetic (standard) — legacy, kept only for backward compatibility. Default to gp3; reach for io2 Block Express when you need sustained high IOPS or sub-millisecond latency. Magnetic is deprecated (forced migration to gp3 begins April 2026) — don't pick it.",
+      "deck": "AWS::RDS",
+      "id": "rds-storage-types",
+      "level": "foundational",
+      "q": "What storage types can an RDS DB instance use, and which should you choose?",
+      "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html",
+      "tags": [
+        "aws",
+        "rds"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
       "a": "Multi-AZ is HIGH AVAILABILITY, not scaling. A synchronous standby in another AZ serves NO traffic; on failure RDS auto-fails-over by flipping the endpoint DNS CNAME (~60-120s for a Multi-AZ instance). It does NOT add read throughput — the standby is invisible to your app.",
       "deck": "AWS::RDS",
       "id": "rds-what-does-rds-multi-az-give-you-and-what-does-it",
@@ -3859,6 +3924,97 @@ STUDY.register(
         "security"
       ],
       "verified": "2026-06-19"
+    },
+    {
+      "a": "An agent wraps a foundation model with the ability to plan and act: it breaks a request into steps, calls tools/APIs to act on real systems, and queries data sources to inform itself, looping until the task is done. A plain LLM call just returns text. The security jump is that an agent can DO things — call your APIs, touch your data — so its permissions, not just its words, are the risk surface.",
+      "deck": "Security::AgenticAI",
+      "id": "agenticai-what-is-an-ai-agent",
+      "level": "foundational",
+      "q": "What is an AI agent (agentic AI), and how does it differ from a plain LLM call?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html",
+      "tags": [
+        "agenticai",
+        "security"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
+      "a": "An action group is the set of actions an agent is allowed to perform — the APIs/functions it can call to touch your systems. It's the boundary because everything the agent actually does to the outside world passes through a tool. Each tool should carry its own least-privilege credential and validate its inputs: the model decides what to call, but code (not the model) should enforce what's permitted.",
+      "deck": "Security::AgenticAI",
+      "id": "agenticai-what-is-an-action-group-tool",
+      "level": "foundational",
+      "q": "In an agent, what is a 'tool' (action group), and why is it a security boundary?",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html",
+      "tags": [
+        "agenticai",
+        "security"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
+      "a": "When an agent can take damaging actions because it has too much capability for its job. Three root causes: excessive functionality (tools it doesn't need), excessive permissions (tools with more downstream access than required), and excessive autonomy (high-impact actions with no human check). Mitigate with minimal tools, least-privilege permissions, acting as the end user rather than a privileged service account, and human approval for high-impact actions.",
+      "deck": "Security::AgenticAI",
+      "id": "agenticai-what-is-excessive-agency",
+      "level": "foundational",
+      "q": "What is 'excessive agency' (OWASP LLM06)?",
+      "source": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+      "tags": [
+        "agenticai",
+        "security"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
+      "a": "Failing to validate or sanitize an LLM's output before passing it downstream. Because model output is untrusted input to the next system, unescaped output can cause XSS/CSRF in a browser, SQL injection in a database, or SSRF/path-traversal/RCE on a backend — e.g. feeding model output straight into exec/eval or a shell. Treat model output like any untrusted user input: encode and validate it for its destination context.",
+      "deck": "Security::AgenticAI",
+      "id": "agenticai-what-is-improper-output-handling",
+      "level": "foundational",
+      "q": "What is 'improper output handling' (OWASP LLM05)?",
+      "source": "https://genai.owasp.org/llmrisk/llm052025-improper-output-handling/",
+      "tags": [
+        "agenticai",
+        "security"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
+      "a": "A gate that makes a human approve an action before the agent takes it. It's the canonical mitigation for excessive agency (LLM06) and prompt injection (LLM01): require approval for high-impact or irreversible actions — anything that deploys, deletes, touches prod or PHI, or moves money or data — while letting low-risk, read-only steps run automatically. It caps the blast radius when the model is wrong or hijacked.",
+      "deck": "Security::AgenticAI",
+      "id": "agenticai-what-is-human-in-the-loop",
+      "level": "foundational",
+      "q": "What is human-in-the-loop (HITL) control for an agent, and when do you require it?",
+      "source": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+      "tags": [
+        "agenticai",
+        "security"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
+      "a": "No single fix — layer controls: constrain the model's role in the system prompt; define output formats and validate them with deterministic code; filter inputs and outputs; enforce least privilege (the app holds its own API tokens, privileged functions live in code, not handed to the model); require human approval for privileged operations; segregate and clearly mark untrusted external content; and run adversarial testing. OWASP notes there's no fool-proof prevention because models are stochastic, so defense-in-depth is essential.",
+      "deck": "Security::AgenticAI",
+      "id": "agenticai-defend-against-prompt-injection",
+      "level": "intermediate",
+      "q": "How do you defend against prompt injection in depth (OWASP LLM01)?",
+      "source": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+      "tags": [
+        "agenticai",
+        "security"
+      ],
+      "verified": "2026-06-21"
+    },
+    {
+      "a": "Give each tool its own scoped credential instead of one broad agent role; execute actions under the end user's identity and permissions rather than a privileged service account; keep privileged logic in code the model can only invoke, not rewrite; pull secrets just-in-time and never into model context; and rate-limit sensitive operations. Then a prompt injection that hijacks the model still can't exceed what that specific tool is allowed to do.",
+      "deck": "Security::AgenticAI",
+      "id": "agenticai-least-privilege-tool-scoping",
+      "level": "intermediate",
+      "q": "How do you scope an agent's privileges so a hijacked model can't escalate?",
+      "source": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+      "tags": [
+        "agenticai",
+        "security"
+      ],
+      "verified": "2026-06-21"
     }
   ],
   "module": "cards",
